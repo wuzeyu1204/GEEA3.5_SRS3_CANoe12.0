@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="IL" comment="" interface="">
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Klemme15" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Klemme30" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+    </namespace>
+    <namespace name="IL_CAN1" comment="" interface="">
+      <namespace name="NODES" comment="" interface="">
+        <namespace name="N_VectorSimulationNode" comment="" interface="">
+          <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="EnableNode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+        </namespace>
+      </namespace>
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="enable_AllNodes" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+    </namespace>
+    <namespace name="NM_CAN1" comment="" interface="">
+      <namespace name="NODES" comment="" interface="">
+        <namespace name="N_VectorSimulationNode" comment="" interface="">
+          <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DeactivateNM" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        </namespace>
+      </namespace>
+      <namespace name="StateControl" comment="" interface="">
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="ActiveNodes" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DeactivateNM" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="NmPduTxEnable" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+      </namespace>
+    </namespace>
+  </namespace>
+</systemvariables>

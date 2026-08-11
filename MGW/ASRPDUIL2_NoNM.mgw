@@ -1,0 +1,85 @@
+; Model Generation Wizard configuration file
+
+[General]
+AppPath=C:\Program Files\Vector CANoe 12.0\Exec32
+MGW_Version=3.4.2.2
+
+[OEM]
+oem=Vector
+oemMode=3
+DLL=C:\Program Files\Vector CANoe 12.0\Exec32\ModelGeneration\ModelGeneratorVectorDLL.dll
+GenIniIdx=1
+doGenMode=321
+
+[Package]
+OEM_NAME=Vector modeling (new)
+PkgVersion=3.3.1.0
+PkgVersionInfo=
+IniFileFormatVersion=3
+
+[CANoe]
+CNVersion=12.0.75
+CNIsX64=True
+FullCANoePath=C:\Program Files\Vector CANoe 12.0\Exec64\CANoe64.exe
+userfolder=C:\Users\Public\Documents\Vector\CANoe\12.0 (x64)
+settingsfolder=C:\ProgramData\Vector\CANoe\12.0 (x64)
+
+[Files]
+db=C:\00_WDJR_WORK\05_PlatformBase\GEEA3.5_SRS3_CANoe12.0\DBC\ARXML\SDB325300_SRS3_AR-4.2.2_251215_UnFlattened.arxml
+cluster=ZCUD_CAN1
+
+[GenerationParams]
+mode=create
+out=C:\00_WDJR_WORK\05_PlatformBase\GEEA3.5_SRS3_CANoe12.0\Generated\CAN1_RBS
+activeNodes1=VectorSimulationNode
+InactiveNodes1=SRS3
+
+[PanelModes]
+Modern=1
+Node Panels=0
+No Panels=1
+Simple Main Panel=0
+PRBS Mode=0
+
+[ModelVariant]
+NM=NONE
+
+[ExtendedParameters]
+createCFG=1
+doCleanup=1
+doCopyDLLs=0
+useSysVarNameVersion0=0
+
+[ExtendedBusParameters_0]
+doGenILAssign1=1
+doGenILDisturbances1=0
+doGenILSimpleEventControl1=1
+doCopyDB1=1
+doPreventNMVars1=1
+useNodeNameInMessageName1=1
+doForceAsrPDU2Model1=1
+doInhibitCANPDUModel1=0
+doRenameBusAndDbAliasForDbEcuExtract1=1
+doRenameBusAndDbAliasForDbNetworkDesc1=0
+doPreventGatewayNodes1=0
+doPreventRenameDbAlias1=0
+
+[GenScriptParameters]
+ConfTemplate=VectorIL_CAN2.tcn
+ConfFrTemplate=VectorIL_FlexRay.tcn
+ConfEthTemplate=VectorIL_Ethernet_Template.tcn
+CAPLTemplateKL15=VectorIL_Template_KL15.can
+CAPLTemplateKL30=VectorIL_Template_KL30.can
+PanelIni=panelwizVectorIL.ini
+DatabaseTemplate=Vector_IL_Basic Template.dbc
+EnvVarNameClamp15=Klemme15
+EnvVarNameClamp30=Klemme30
+PanelTemplate=Vector_MainPanel.cnp
+EnvVarNameStartManner=StartWithoutSending
+NMControlTemplate=Vector_NM_Control.cnp
+
+[GenCommand]
+Exe=C:\Program Files\Vector CANoe 12.0\Exec32\ModelGenerator.exe
+Args="oem=Vector" "oemMode=3" "DLL=C:\Program Files\Vector CANoe 12.0\Exec32\ModelGeneration\ModelGeneratorVectorDLL.dll" "GUI=0" "doGenMode=321" "db=C:\00_WDJR_WORK\05_PlatformBase\GEEA3.5_SRS3_CANoe12.0\DBC\ARXML\SDB325300_SRS3_AR-4.2.2_251215_UnFlattened.arxml" "cluster=ZCUD_CAN1" "out=C:\00_WDJR_WORK\05_PlatformBase\GEEA3.5_SRS3_CANoe12.0\Generated\CAN1_RBS" "userfolder=C:\Users\Public\Documents\Vector\CANoe\12.0 (x64)" "settingsfolder=C:\ProgramData\Vector\CANoe\12.0 (x64)" "FullCANoePath=C:\Program Files\Vector CANoe 12.0\Exec64\CANoe64.exe" "mode=create" "GenIniIdx=1" "NM=NONE" "ConfTemplate=VectorIL_CAN2.tcn" "ConfFrTemplate=VectorIL_FlexRay.tcn" "ConfEthTemplate=VectorIL_Ethernet_Template.tcn" "CAPLTemplateKL15=VectorIL_Template_KL15.can" "CAPLTemplateKL30=VectorIL_Template_KL30.can" "PanelIni=panelwizVectorIL.ini" "DatabaseTemplate=Vector_IL_Basic Template.dbc" "EnvVarNameClamp15=Klemme15" "EnvVarNameClamp30=Klemme30" "PanelTemplate=Vector_MainPanel.cnp" "EnvVarNameStartManner=StartWithoutSending" "NMControlTemplate=Vector_NM_Control.cnp" "createCFG=1" "doCleanup=1" "doCopyDLLs=0" "useSysVarNameVersion0=0" "doGenILAssign1=1" "doGenILDisturbances1=0" "doGenILSimpleEventControl1=1" "doCopyDB1=1" "doPreventNMVars1=1" "useNodeNameInMessageName1=1" "doForceAsrPDU2Model1=1" "doInhibitCANPDUModel1=0" "doRenameBusAndDbAliasForDbEcuExtract1=1" "doRenameBusAndDbAliasForDbNetworkDesc1=0" "doPreventGatewayNodes1=0" "doPreventRenameDbAlias1=0" "activeNodes1=VectorSimulationNode" 
+
+; EOF
