@@ -1,0 +1,1413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sysvardefinition SYSTEM "systemvariables.dtd">
+<systemvariables version="1">
+  <namespace name="">
+    <namespace name="IL">
+      <variable name="Klemme15" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Klemme30" type="int" startValue="1" readOnly="false" valueSequence="false" />
+    </namespace>
+    <namespace name="NM_CAN1">
+      <namespace name="NODES">
+        <namespace name="N_VectorSimulationNode">
+          <variable name="DeactivateNM" type="int" startValue="0" readOnly="false" valueSequence="false" />
+        </namespace>
+      </namespace>
+      <namespace name="StateControl">
+        <variable name="ActiveNodes" type="int" startValue="0" readOnly="false" valueSequence="false" />
+        <variable name="DeactivateNM" type="int" startValue="0" readOnly="false" valueSequence="false" />
+        <variable name="NmPduTxEnable" type="int" startValue="1" readOnly="false" valueSequence="false" />
+      </namespace>
+    </namespace>
+    <namespace name="IL_CAN1">
+      <namespace name="NODES">
+        <namespace name="N_VectorSimulationNode">
+          <variable name="EnableNode" type="int" startValue="1" readOnly="false" valueSequence="false" />
+          <namespace name="PDUS">
+            <namespace name="ETCZCUDCAN1DevSignalPdu01">
+              <namespace name="SIGNALS">
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup6">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup4">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup7">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup3">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup8">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup5">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="RmlZcudCAN1SignalIPdu01">
+              <namespace name="SIGNALS">
+                <namespace name="isStsForRtrctrRvsbLe">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isActvnStsOfRtrctrRvsbLe">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isStsForRtrctrRvsbLe_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isActvnStsOfRtrctrRvsbLe_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="RmrZcudCAN1SignalIPdu01">
+              <namespace name="SIGNALS">
+                <namespace name="isActvnStsOfRtrctrRvsbRi">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isStsForRtrctrRvsbRi">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isActvnStsOfRtrctrRvsbRi_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isStsForRtrctrRvsbRi_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU01">
+              <namespace name="SIGNALS">
+                <namespace name="isDoorDrvrSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorLeReSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehMtnStCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehMtnStVehMtnSt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehMtnStChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorDrvrSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorLeReSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igVehMtnSt_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU02">
+              <namespace name="SIGNALS">
+                <namespace name="isTiAndDateIndcnSec1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnMins1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnDay">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnDataValid">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnHr1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnYr1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnMth1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igTiAndDateIndcn_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU03">
+              <namespace name="SIGNALS">
+                <namespace name="isDoorPassSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorRiReSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorPassSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorRiReSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU04">
+              <namespace name="SIGNALS">
+                <namespace name="isVehModMngtGlbSafe1EgyLvlElecSubtyp">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1CarModSts1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1Chks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1PwrLvlElecSubtyp">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1PwrLvlElecMai">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1FltEgyCnsWdSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1EgyLvlElecMai">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1Cntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1CarModSubtypWdCarModSubtyp">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1UsgModSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igVehModMngtGlbSafe1_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU05">
+              <namespace name="SIGNALS">
+                <namespace name="isCarTiGlb">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCarTiGlb_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU06">
+              <namespace name="SIGNALS">
+                <namespace name="isVehBattUSysUQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehBattUSysU">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igVehBattU_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU09">
+              <namespace name="SIGNALS">
+                <namespace name="isEngN2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCarModCrashSaved">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPostImpctBrkgRdy">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isIsgSpdActSgn">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEngN2_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCarModCrashSaved_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPostImpctBrkgRdy_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isIsgSpdActSgn_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU10">
+              <namespace name="SIGNALS">
+                <namespace name="isDrvrSeatPosPercSeatPosFrntHeiPerc">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDispOfPrpsnMod">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosSldQF">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosHeiPerc">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosSldPerc">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosHeiQF">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassAirbLampStsRecPassAirbLampStsChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassAirbLampStsRecPassAirbLampSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDispOfPrpsnModForEv">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosFrntHeiQF">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassAirbLampStsRecPassAirbLampStsCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyExtCmd">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDispOfPrpsnMod_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDispOfPrpsnModForEv_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyExtCmd_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igDrvrSeatPosPerc_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igPassAirbLampStsRec_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU11">
+              <namespace name="SIGNALS">
+                <namespace name="isRiFrntTireMsgTireFillgAssiPSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgSysWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgPWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgMsgOldFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgBattLoSt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgP">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgTWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgSysWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgT">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgMsgOldFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgP">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgTireFillgAssiPSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgPWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgTWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgBattLoSt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgFastLoseWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiReTireMsgT">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgFastLoseWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igRiFrntTireMsg_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igRiReTireMsg_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU12">
+              <namespace name="SIGNALS">
+                <namespace name="isCrsCtrlrStbOk">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsyAutDrvCtrlTyp">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSwtLiHzrdWarn">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCrsCtrlrActvnOk">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqBrkWarnIndcnReq">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEscCtrlIndcn">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqAbsWarnIndcnReq">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCrsCtrlrStbOk_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsyAutDrvCtrlTyp_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSwtLiHzrdWarn_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCrsCtrlrActvnOk_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEscCtrlIndcn_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igBrkAndAbsWarnIndcnReq_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU13">
+              <namespace name="SIGNALS">
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyCmd">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSumActv">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isReqForPassAirbIndcnAckd">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyCmd_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSumActv_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isReqForPassAirbIndcnAckd_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU14">
+              <namespace name="SIGNALS">
+                <namespace name="isAsyALgtStsAsyALgtSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorRiReLockSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorLeReLockSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorPassLockSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsyALgtStsCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorDrvrLockSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsyALgtStsChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorRiReLockSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorLeReLockSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorPassLockSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDoorDrvrLockSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igAsyALgtSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU18">
+              <namespace name="SIGNALS">
+                <namespace name="isEmgyAsscTrigSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEmgyAsscTrigSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU19">
+              <namespace name="SIGNALS">
+                <namespace name="isEscStCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrCrsCtrlFctSeld">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkPedlrRatQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEscStChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCrsCtrlrSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEscStEscSt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkTracCtrlActv">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkPedlrRatPerc">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCllsnMtgtnFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrCrsCtrlFctSeld_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCrsCtrlrSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkTracCtrlActv_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCllsnMtgtnFctSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igBrkPedlrRat_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igEscSt_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU20">
+              <namespace name="SIGNALS">
+                <namespace name="isLeReTireMsgBattLoSt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgP">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgMsgOldFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgP">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgT">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgTireFillgAssiPSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgTireFillgAssiPSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgPWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgFastLoseWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgMsgOldFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgTWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgSysWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgSysWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgFastLoseWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgT">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgBattLoSt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgPWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isLeReTireMsgTWarnFlg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igLeFrntTireMsg_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igLeReTireMsg_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU21">
+              <namespace name="SIGNALS">
+                <namespace name="isPassSeatPosPercSeatPosHeiPerc">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosSldPerc">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgMax1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosFrntHeiQF">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosSldQF">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosFrntHeiPerc">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosHeiQF">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgMax1_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igPassSeatPosPerc_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU22">
+              <namespace name="SIGNALS">
+                <namespace name="isPinionSteerAgGroupChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAg1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupSteerWhlTq">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAg1Qf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAgSpd1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAgSpd1Qf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupSteerWhlTqQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igPinionSteerAgGroup_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU23">
+              <namespace name="SIGNALS">
+                <namespace name="isAbsCtrlActvCtrlSts1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAbsCtrlActvChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAbsSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAbsCtrlActvCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAbsSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igAbsCtrlActv_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU24">
+              <namespace name="SIGNALS">
+                <namespace name="isAccrPedlRatAccrPedlRat">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCllsnAidPost">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isThrPos">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAccrPedlRatCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAccrPedlRatChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCllsnAidPost_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isThrPos_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igAccrPedlRat_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU25">
+              <namespace name="SIGNALS">
+                <namespace name="isAccrpedlStsChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAccrpedlStsFltSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAccrpedlStsCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igAccrpedlSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU26">
+              <namespace name="SIGNALS">
+                <namespace name="isBrkPedlPsdBrkPedlNotPsdSafe">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkPedlPsdCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkPedlPsdBrkPedlPsd">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkPedlPsdChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkPedlPsdQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igBrkPedlPsd_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU27">
+              <namespace name="SIGNALS">
+                <namespace name="isBrkSysCylPMstAct">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstActQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstTar">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstVirtQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstVirt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igBrkSysCylPMst_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU29">
+              <namespace name="SIGNALS">
+                <namespace name="isSftyDecelGroupSafeChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSftyDecelGroupSafeCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSftyDecelGroupSafeAsySftyDecelReq">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCllsnFwdWarn">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSftyDecelGroupSafeAsySftyEnaDecel">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCllsnFwdWarn_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igSftyDecelGroupSafe_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU30">
+              <namespace name="SIGNALS">
+                <namespace name="isVehSpdIndcdVeSpdIndcdUnit">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEpbStsEpbSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEpbStsCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEpbStsChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehSpdIndcdVehSpdIndcd">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igVehSpdIndcd_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igEpbSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU31">
+              <namespace name="SIGNALS">
+                <namespace name="isSwtIndcrIndcrTypExtReq">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isGearLvrIndcn">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSwtIndcrIndcrTypExtReqToUpdQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSwtIndcrIndcrTypExtReqChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSwtIndcrIndcrTypExtReqCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isGearLvrIndcn_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igSwtIndcr_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU32">
+              <namespace name="SIGNALS">
+                <namespace name="isPosnBriefPosnLgt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPosnBriefPosnLat">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igPosnBrief_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU33">
+              <namespace name="SIGNALS">
+                <namespace name="isVehCfgPrmCCPBytePosn4">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn5">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmBlkIDBytePosn1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn8">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn6">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn3">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn7">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU34">
+              <namespace name="SIGNALS">
+                <namespace name="isVehCfgPrmExtCCPBytePosn8">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn4">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn3">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn5">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtBlkIDBytePosn1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn6">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn7">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU36">
+              <namespace name="SIGNALS">
+                <namespace name="isVinVINSignalPos1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVinVINSignalPos7">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVinVINSignalPos6">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVinVINSignalPos4">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVinVINSignalPos5">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVinVINSignalPos2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVinBlockNr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVinVINSignalPos3">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU37">
+              <namespace name="SIGNALS">
+                <namespace name="isVehSpdLgtQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehSpdLgtCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehSpdLgtChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehSpdLgtA">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igVehSpdLgt_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU39">
+              <namespace name="SIGNALS">
+                <namespace name="isTrsmActrPosnSafeTrsmActrPosn">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehTiAndDataDay">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehTiAndDataHr1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTrsmActrPosnSafeTrsmActrPosnCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTrsmActrPosnSafeTrsmActrPosnChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehTiAndDataSec1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehTiAndDataYr1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehTiAndDataMth1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehTiAndDataDataValid">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehTiAndDataMins1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igVehTiAndData_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igTrsmActrPosnSafe_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU40">
+              <namespace name="SIGNALS">
+                <namespace name="isPrkgStsToEDRreserved2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRHPATo">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRreserved1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRLSDAandTBATo">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRAPATo">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRreserved3">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRRPATo">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igPrkgStsToEDR_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU43">
+              <namespace name="SIGNALS">
+                <namespace name="isVehCfgPrmExt2CCPBytePosn6">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn7">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2BlkIDBytePosn1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn5">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn3">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn8">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn4">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU45">
+              <namespace name="SIGNALS">
+                <namespace name="isCrsCtrlrMsg">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkTqAtWhlsReq">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAmbTIndcdWithUnitAmbTIndcdUnit">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAmbTIndcdWithUnitQF">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAmbTIndcdWithUnitAmbTIndcd">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTurnIndcrAndHwlByDrvInt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isCrsCtrlrMsg_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkTqAtWhlsReq_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isTurnIndcrAndHwlByDrvInt_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igAmbTIndcdWithUnit_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU46">
+              <namespace name="SIGNALS">
+                <namespace name="isAsySftyFctStsToEDRACSFB2FctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRAEBSFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRLDWSFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFDFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACCFctSTs">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFB1FctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRESFFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFEFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFCFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRCSFFctSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igAsySftyFctStsToEDR_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU47">
+              <namespace name="SIGNALS">
+                <namespace name="isPreCrashFrontDataChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataClosingVelocity">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataTimeToImpact">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataOverLap">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataObjectClass">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igPreCrashFrontData_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU48">
+              <namespace name="SIGNALS">
+                <namespace name="isWhlMotSysSpdAct">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlMotSysSpdAct_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU49">
+              <namespace name="SIGNALS">
+                <namespace name="isOverlap">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isOverlap_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU50">
+              <namespace name="SIGNALS">
+                <namespace name="isVehHomePrkgSysSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isVehHomePrkgSysSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU56">
+              <namespace name="SIGNALS">
+                <namespace name="isPassStuMonSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req4">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isHoodSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req5">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req3">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req1">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req2">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassStuMonSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req4_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isHoodSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req5_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req3_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req1_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEfuseKL15Req2_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU57">
+              <namespace name="SIGNALS">
+                <namespace name="isDrvrStuMonSts">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isDrvrStuMonSts_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU60">
+              <namespace name="SIGNALS">
+                <namespace name="isWhlDirRotlReRi">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlDirRotlReCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlDirRotlReLe">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlDirRotlReChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igWhlDirRotlRe_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU69">
+              <namespace name="SIGNALS">
+                <namespace name="isBkpOfDstTrvld">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBkpOfDstTrvld_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU70">
+              <namespace name="SIGNALS">
+                <namespace name="isSftyAirbRollovrSuppSwt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassAirbNotiConfirm">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isSftyAirbRollovrSuppSwt_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isPassAirbNotiConfirm_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU76">
+              <namespace name="SIGNALS">
+                <namespace name="isZCUDMResdSig1ToSRSSafetyUInt32">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isZCUDMResdSig1ToSRSSafetyChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isZCUDMResdSig1ToSRSSafetyCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igZCUDMResdSig1ToSRSSafety_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu80">
+              <namespace name="SIGNALS">
+                <namespace name="isWhlSpdCircumlFrntCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntRiQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntLe">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntLeQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntLe">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntWhlSpdCircumlFrntRi">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntRi">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igWhlSpdCircumlFrnt_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igWhlDirRotlFrnt_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu81">
+              <namespace name="SIGNALS">
+                <namespace name="isWhlSpdCircumlReLe">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReRiQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReLeQf">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReRi">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igWhlSpdCircumlRe_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu96">
+              <namespace name="SIGNALS">
+                <namespace name="isBrkFricTqTotAtWhlsActCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkFricTqTotAtWhlsActBrkFricTqTotAtWhlsAct">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isBrkFricTqTotAtWhlsActChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igBrkFricTqTotAtWhlsAct_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu97">
+              <namespace name="SIGNALS">
+                <namespace name="isEngNSafeEngNChks">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEngNSafeEngNCntr">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEngNSafeEngN">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="isEngNSafeEngNGrdt">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+                <namespace name="igEngNSafe_UB">
+                  <variable name="SignalVar" type="float" startValue="0" readOnly="false" valueSequence="false" />
+                </namespace>
+              </namespace>
+            </namespace>
+          </namespace>
+        </namespace>
+      </namespace>
+      <variable name="enable_AllNodes" type="int" startValue="1" readOnly="false" valueSequence="false" />
+    </namespace>
+  </namespace>
+</systemvariables>
