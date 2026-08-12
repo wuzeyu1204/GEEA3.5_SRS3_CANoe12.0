@@ -1,3 +1,4 @@
+/*@!Encoding:936*/
 includes
 {
   // Import required CAPL include files
@@ -161,18 +162,64 @@ on sysvar_update sysvar::IL::Klemme30
   //--- end generated part --- Block end #Body_KL30_Klemme30#; do not delete this line! Add application code below this line.
 }
 
+int E2E_StrEq(char a[], char b[])
+{
+  int i;
+
+  i = 0;
+
+  while (1)
+  {
+    if (a[i] != b[i])
+    {
+      return 0;
+    }
+
+    if (a[i] == 0)
+    {
+      return 1;
+    }
+
+    i++;
+  }
+}
+
 dword applPDUILTxPending(dword busContext, dword shortId, dword longId, char name[], dword& aPDULength, byte data[])
 {
-  dword ret = 1;
-  //--- begin generated part --- Block start #Hdr_applPDUILTxPending#; do not delete this line and do not add application code in this code block!
-  /* #ChannelStart# |CAN1| #BusStart# |ZCUD_CAN1| */
-  /* #ChannelEnd# |CAN1| #BusEnd# |ZCUD_CAN1| */
-  //--- end generated part --- Block end #Hdr_applPDUILTxPending#; do not delete this line! Add application code below this line.
-  //write("[%.6f %NODE_NAME%] applPDUILTxPending(0x%X, 0x%X, 0x%X, %s, %d, %d)", TimeNowNS()/1e9, busContext, shortId, longId, name, aPDULength, elcount(data));
-  //--- begin generated part --- Block start #Body_applPDUILTxPending#; do not delete this line and do not add application code in this code block!
-  /* #ChannelStart# |CAN1| #BusStart# |ZCUD_CAN1| */
-  /* #ChannelEnd# |CAN1| #BusEnd# |ZCUD_CAN1| */
-  //--- end generated part --- Block end #Body_applPDUILTxPending#; do not delete this line! Add application code below this line.
+  dword ret;
+
+  ret = 1;
+
+  // First-stage E2E TX hook verification:
+  // Observe only IPDU37 and do not modify payload.
+  if (E2E_StrEq(name, "ZCUDZCUDCAN1SignalIPDU37"))
+  {
+    if (aPDULength >= 8)
+    {
+      write(
+        "[E2E-TX] PDU=%s Len=%d Data=%02X %02X %02X %02X %02X %02X %02X %02X",
+        name,
+        aPDULength,
+        data[0],
+        data[1],
+        data[2],
+        data[3],
+        data[4],
+        data[5],
+        data[6],
+        data[7]
+      );
+    }
+    else
+    {
+      write(
+        "[E2E-TX] PDU=%s Len=%d (payload shorter than 8 bytes)",
+        name,
+        aPDULength
+      );
+    }
+  }
+
   return ret;
 }
 
