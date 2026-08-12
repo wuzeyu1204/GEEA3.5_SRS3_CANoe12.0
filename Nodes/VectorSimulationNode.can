@@ -1,4 +1,3 @@
-/*@!Encoding:936*/
 includes
 {
   // Import required CAPL include files
@@ -8,8 +7,8 @@ includes
   //--- end generated part --- Block end #Hdr_Includes#; do not delete this line! Add application code below this line.
   //--- begin generated part --- Block start #Body_Includes#; do not delete this line and do not add application code in this code block!
   /* #ChannelStart# |CAN1| #BusStart# |ZCUD_CAN1| */
-  #include "..\CAPL\PDU-NM-Panel-Helper_CAN.cin"
-  #include "..\CAPL\PDU-IL-KL15-Helper_CAN.cin"
+  // without NM: NM panel helper intentionally not used
+  #include "..\CAPL\PDU-IL-KL15-Helper_CAN1.cin"
   /* #ChannelEnd# |CAN1| #BusEnd# |ZCUD_CAN1| */
   //--- end generated part --- Block end #Body_Includes#; do not delete this line! Add application code below this line.
 }
@@ -19,11 +18,11 @@ variables
   // Define global variables for this CAPL file
 
   /*--- #GenHeader Begin# --- begin generated comment ---
-  | Generated on Wednesday, ?? 12, 2026, 11:10:38
+  | Generated on Tuesday, ?? 11, 2026, 19:05:10
   | By ModelGenerator for Vector 1.0.0.4, ModelGeneratorVectorDLL 1.4.0.29
   | Package Vector 3.3.1
   | Target Bus: ZCUD_CAN1; Channel: CAN1; DB Cluster: ZCUD_CAN1;
-  | From Database: E2E_CAN1.arxml
+  | From Database: SDB325300_SRS3_AR-4.2.2_251215_UnFlattened.arxml
   | CANoe Version 12.0.75.0
     --- #GenHeader End  # --- end generated comment --- */
 
@@ -34,9 +33,8 @@ variables
   //--- end generated part --- Block end #Hdr_GlobalVariables#; do not delete this line! Add application code below this line.
   //--- begin generated part --- Block start #Body_GlobalVariables#; do not delete this line and do not add application code in this code block!
   /* #ChannelStart# |CAN1| #BusStart# |ZCUD_CAN1| */
-  char gCAN1BusName[256] = "ZCUD_CAN1";
+  char gCAN1BusName[256] = "CAN";
   int gCAN1Channel = 1; //// The channel the bus is attached to
-  int gCAN1TXEnable = 1; //// enable/disable TX of application messages
 
   long gCAN1DisturbanceMode;
   long gCAN1DisturbanceCount;
