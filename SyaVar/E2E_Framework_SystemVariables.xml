@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sysvardefinition SYSTEM "systemvariables.dtd">
+<!-- Import this file into CANoe only in Implementation Guide Step 2. -->
+<systemvariables version="1">
+  <namespace name="SRS3_E2E">
+    <namespace name="Control">
+      <variable name="SelectedPdu" type="int" startValue="2" readOnly="false" valueSequence="false" />
+      <variable name="GlobalEnable" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="AutoProtect" type="int" startValue="1" readOnly="false" valueSequence="false" />
+      <variable name="OverrideMode" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="UpdateBitMode" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="ApplyOnce" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="RestoreNormal" type="int" startValue="0" readOnly="false" valueSequence="false" />
+    </namespace>
+
+    <namespace name="Tx">
+      <namespace name="VehMtnSt">
+        <namespace name="Signals">
+          <namespace name="VehMtnStVehMtnSt">
+            <variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" />
+            <variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" />
+            <variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" />
+            <variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" />
+          </namespace>
+        </namespace>
+        <namespace name="Status">
+          <variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" />
+          <variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" />
+          <variable name="DataID" type="int" startValue="54" readOnly="false" valueSequence="false" />
+          <variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" />
+          <variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" />
+        </namespace>
+      </namespace>
+
+      <namespace name="PreCrashFrontData">
+        <namespace name="Signals">
+          <namespace name="ClosingVelocity"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="ObjectClass"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="OverLap"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="100" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="TimeToImpact"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="250" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+        </namespace>
+        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="1041" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
+      </namespace>
+
+      <namespace name="VehSpdLgt">
+        <namespace name="Signals">
+          <namespace name="VehSpdLgtA"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="VehSpdLgtQf"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+        </namespace>
+        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="55" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
+      </namespace>
+
+      <namespace name="VehModMngtGlbSafe1">
+        <namespace name="Signals">
+          <namespace name="CarModSts1"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="CarModSubtypWd"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="EgyLvlElecMai"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="EgyLvlElecSubt"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="FltEgyCnsWdSts"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="PwrLvlElecMai"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="PwrLvlElecSubt"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="UsgModSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+        </namespace>
+        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="116" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
+      </namespace>
+
+      <namespace name="PassAirbLampStsRec">
+        <namespace name="Signals"><namespace name="PassAirbLampSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace></namespace>
+        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="1140" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
+      </namespace>
+    </namespace>
+
+    <namespace name="Fault">
+      <variable name="Type" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Mode" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Parameter" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="DurationFrames" type="int" startValue="1" readOnly="false" valueSequence="false" />
+      <variable name="Request" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Active" type="int" startValue="0" readOnly="false" valueSequence="false" />
+    </namespace>
+
+    <namespace name="Rx">
+      <variable name="SelectedObject" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="ActualCRC" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="ExpectedCRC" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="CounterDelta" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="LastRxTimeMs" type="float" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Verdict" type="int" startValue="0" readOnly="false" valueSequence="false" />
+    </namespace>
+
+    <namespace name="Test">
+      <variable name="CaseId" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Command" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Progress" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="Verdict" type="int" startValue="0" readOnly="false" valueSequence="false" />
+    </namespace>
+  </namespace>
+</systemvariables>

@@ -1,0 +1,75 @@
+/*@!Encoding:1252*/
+
+/*
+ * Project E2E PROFILE_G / P01 behavior core.
+ * CRC-8/SAE-J1850-ZERO: poly=0x1D, init=0x00, xorout=0x00.
+ * This module is independent from physical CAN signal bit layout.
+ */
+
+byte E2E_Crc8J1850ZeroUpdate(byte crc, byte value)
+{
+  int bitIndex;
+
+  crc ^= value;
+  for (bitIndex = 0; bitIndex < 8; bitIndex++)
+  {
+    if ((crc & 0x80) != 0)
+    {
+      crc = (crc << 1) ^ 0x1D;
+    }
+    else
+    {
+      crc = crc << 1;
+    }
+  }
+
+  return crc;
+}
+
+byte E2E_Crc8J1850Zero(byte inputData[], int inputLength)
+{
+  byte crc;
+  int byteIndex;
+
+  crc = 0x00;
+  for (byteIndex = 0; byteIndex < inputLength; byteIndex++)
+  {
+    crc = E2E_Crc8J1850ZeroUpdate(crc, inputData[byteIndex]);
+  }
+
+  return crc;
+}
+
+byte E2E_ProfileGCalculate(dword dataId, byte counter, byte applicationData[], int applicationLength)
+{
+  byte crc;
+  int byteIndex;
+
+  crc = 0x00;
+  crc = E2E_Crc8J1850ZeroUpdate(crc, dataId & 0xFF);
+  crc = E2E_Crc8J1850ZeroUpdate(crc, (dataId >> 8) & 0xFF);
+  crc = E2E_Crc8J1850ZeroUpdate(crc, counter & 0x0F);
+
+  for (byteIndex = 0; byteIndex < applicationLength; byteIndex++)
+  {
+    crc = E2E_Crc8J1850ZeroUpdate(crc, applicationData[byteIndex]);
+  }
+
+  return crc;
+}
+
+byte E2E_ProfileGNextCounter(byte counter)
+{
+  if (counter >= 14)
+  {
+    return 0;
+  }
+
+  return counter + 1;
+}
+
+int E2E_ProfileGCounterIsValid(byte counter)
+{
+  return counter <= 14;
+}
+

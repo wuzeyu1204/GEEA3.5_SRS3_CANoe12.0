@@ -1,0 +1,82 @@
+/*@!Encoding:1252*/
+
+/*
+ * Initial generated-rule framework derived from Config/E2E_Rules_Manifest.json.
+ * Do not add application behavior to this file.
+ */
+
+variables
+{
+  const int E2E_TX_PDU_COUNT = 5;
+
+  const int E2E_TX_VEH_MTN_ST = 0;
+  const int E2E_TX_PRE_CRASH_FRONT_DATA = 1;
+  const int E2E_TX_VEH_SPD_LGT = 2;
+  const int E2E_TX_VEH_MOD_MNGT_GLB_SAFE1 = 3;
+  const int E2E_TX_PASS_AIRB_LAMP_STS_REC = 4;
+
+  byte gE2E_TxCounter[5] = {0, 0, 0, 0, 0};
+}
+
+int E2E_RuleStringEquals(char left[], char right[])
+{
+  int index;
+
+  index = 0;
+  while (1)
+  {
+    if (left[index] != right[index])
+    {
+      return 0;
+    }
+    if (left[index] == 0)
+    {
+      return 1;
+    }
+    index++;
+  }
+}
+
+int E2E_FindTxPdu(char pduName[])
+{
+  if (E2E_RuleStringEquals(pduName, "ZCUDZCUDCAN1SignalIPDU01")) return E2E_TX_VEH_MTN_ST;
+  if (E2E_RuleStringEquals(pduName, "ZCUDZCUDCAN1SignalIPDU47")) return E2E_TX_PRE_CRASH_FRONT_DATA;
+  if (E2E_RuleStringEquals(pduName, "ZCUDZCUDCAN1SignalIPDU37")) return E2E_TX_VEH_SPD_LGT;
+  if (E2E_RuleStringEquals(pduName, "ZCUDZCUDCAN1SignalIPDU04")) return E2E_TX_VEH_MOD_MNGT_GLB_SAFE1;
+  if (E2E_RuleStringEquals(pduName, "ZCUDZCUDCAN1SignalIPDU10")) return E2E_TX_PASS_AIRB_LAMP_STS_REC;
+  return -1;
+}
+
+dword E2E_GetTxDataId(int pduIndex)
+{
+  switch (pduIndex)
+  {
+    case E2E_TX_VEH_MTN_ST: return 0x0036;
+    case E2E_TX_PRE_CRASH_FRONT_DATA: return 0x0411;
+    case E2E_TX_VEH_SPD_LGT: return 0x0037;
+    case E2E_TX_VEH_MOD_MNGT_GLB_SAFE1: return 0x0074;
+    case E2E_TX_PASS_AIRB_LAMP_STS_REC: return 0x0474;
+  }
+
+  return 0;
+}
+
+int E2E_GetTxDlc(int pduIndex)
+{
+  if ((pduIndex >= 0) && (pduIndex < E2E_TX_PDU_COUNT))
+  {
+    return 8;
+  }
+  return 0;
+}
+
+void E2E_ResetTxCounters()
+{
+  int pduIndex;
+
+  for (pduIndex = 0; pduIndex < E2E_TX_PDU_COUNT; pduIndex++)
+  {
+    gE2E_TxCounter[pduIndex] = 0;
+  }
+}
+

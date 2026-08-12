@@ -1,0 +1,48 @@
+/*@!Encoding:1252*/
+
+variables
+{
+  const int E2E_FAULT_NONE = 0;
+  const int E2E_FAULT_CORRUPT_CRC = 1;
+  const int E2E_FAULT_FREEZE_COUNTER = 2;
+  const int E2E_FAULT_COUNTER_15 = 3;
+  const int E2E_FAULT_COUNTER_JUMP = 4;
+  const int E2E_FAULT_WRONG_DATA_ID = 5;
+  const int E2E_FAULT_UB_ZERO = 6;
+  const int E2E_FAULT_CORRUPT_PAYLOAD = 7;
+  const int E2E_FAULT_STOP_TX = 8;
+
+  int gE2E_FaultType[5] = {0, 0, 0, 0, 0};
+  int gE2E_FaultRemainingFrames[5] = {0, 0, 0, 0, 0};
+  dword gE2E_FaultParameter[5] = {0, 0, 0, 0, 0};
+}
+
+void E2E_ResetFaults()
+{
+  int pduIndex;
+
+  for (pduIndex = 0; pduIndex < E2E_TX_PDU_COUNT; pduIndex++)
+  {
+    gE2E_FaultType[pduIndex] = E2E_FAULT_NONE;
+    gE2E_FaultRemainingFrames[pduIndex] = 0;
+    gE2E_FaultParameter[pduIndex] = 0;
+  }
+}
+
+int E2E_FaultIsActive(int pduIndex)
+{
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT))
+  {
+    return 0;
+  }
+  return gE2E_FaultType[pduIndex] != E2E_FAULT_NONE;
+}
+
+/* Fault placement is completed together with the per-PDU generated bindings.
+ * Keeping this function pass-through prevents an incomplete fault model from
+ * altering a valid PDU. */
+int E2E_ApplyPostProtectFault(int pduIndex, byte data[], int payloadLength)
+{
+  return 1;
+}
+

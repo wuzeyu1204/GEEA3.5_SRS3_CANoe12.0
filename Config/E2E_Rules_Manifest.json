@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "status": "framework-baseline-not-runtime-enabled",
+  "profile": {
+    "name": "PROFILE_G",
+    "project_behavior": "P01",
+    "crc": {
+      "name": "CRC-8-SAE-J1850-ZERO",
+      "polynomial": 29,
+      "initial_value": 0,
+      "xor_out": 0,
+      "reflect_input": false,
+      "reflect_output": false
+    },
+    "counter_min": 0,
+    "counter_max": 14,
+    "counter_modulus": 15,
+    "invalid_counter": 15,
+    "data_id_order": "low-byte-first",
+    "application_element_order": "arxml-application-record-element-case-insensitive",
+    "logical_multibyte_order": "little_endian"
+  },
+  "sources": {
+    "arxml": "Databases/SDB325300_SRS3_AR-4.2.2_251215_UnFlattened.arxml",
+    "can1_dbc": "Databases/CAN1/EEA35_SDB325300_KO11_ADCU11_ZCUD_CAN1_251215.dbc",
+    "canfd3_dbc": "Databases/CANFD3/EEA35_SDB325300_KO11_ADCU11_ZCUD_CANFD3_251215.dbc"
+  },
+  "tx_pdus": [
+    {
+      "index": 0,
+      "bus": "CAN1",
+      "can_id": 64,
+      "can_id_hex": "0x040",
+      "frame": "ZCUDZCUDCAN1Fr01",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU01",
+      "dlc": 8,
+      "cycle_ms": 15,
+      "e2e_object": "VehMtnSt_BCM_SRS3",
+      "group": "VehMtnSt",
+      "data_id": 54,
+      "max_delta": 14,
+      "crc_offset": 0,
+      "counter_offset": 8,
+      "ub": {"dbc_signal": "VehMtnSt_UB", "start_bit": 7, "length": 1, "byte_order": "big_endian"},
+      "crc": {"dbc_signal": "VehMtnStChks", "start_bit": 15, "length": 8, "byte_order": "big_endian"},
+      "counter": {"dbc_signal": "VehMtnStCntr", "start_bit": 6, "length": 4, "byte_order": "big_endian"},
+      "elements": [
+        {"application_element": "VehMtnSt", "dbc_signal": "VehMtnStVehMtnSt", "start_bit": 2, "length": 3, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 7.0, "unit": "", "default_raw": 0}
+      ]
+    },
+    {
+      "index": 1,
+      "bus": "CAN1",
+      "can_id": 80,
+      "can_id_hex": "0x050",
+      "frame": "ZCUDZCUDCAN1Fr47",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU47",
+      "dlc": 8,
+      "cycle_ms": 10,
+      "e2e_object": "PreCrashFrontData_ASDM_SRS3",
+      "group": "PreCrashFrontData",
+      "data_id": 1041,
+      "max_delta": 14,
+      "crc_offset": 0,
+      "counter_offset": 8,
+      "ub": {"dbc_signal": "PreCrashFrontData_UB", "start_bit": 40, "length": 1, "byte_order": "big_endian"},
+      "crc": {"dbc_signal": "PreCrashFrontDataChks", "start_bit": 23, "length": 8, "byte_order": "big_endian"},
+      "counter": {"dbc_signal": "PreCrashFrontDataCntr", "start_bit": 47, "length": 4, "byte_order": "big_endian"},
+      "elements": [
+        {"application_element": "ClosingVelocity", "dbc_signal": "PreCrashFrontDataClosingVelocity", "start_bit": 31, "length": 8, "byte_order": "big_endian", "signed": false, "factor": 0.167, "offset": 0.0, "minimum": 0.0, "maximum": 42.585, "unit": "m/s", "default_raw": 0},
+        {"application_element": "ObjectClass", "dbc_signal": "PreCrashFrontDataObjectClass", "start_bit": 43, "length": 3, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 7.0, "unit": "", "default_raw": 0},
+        {"application_element": "OverLap", "dbc_signal": "PreCrashFrontDataOverLap", "start_bit": 15, "length": 8, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": -100.0, "minimum": -100.0, "maximum": 100.0, "unit": "%", "default_raw": 100},
+        {"application_element": "TimeToImpact", "dbc_signal": "PreCrashFrontDataTimeToImpact", "start_bit": 39, "length": 8, "byte_order": "big_endian", "signed": false, "factor": 0.004, "offset": 0.0, "minimum": 0.0, "maximum": 1.02, "unit": "s", "default_raw": 250}
+      ]
+    },
+    {
+      "index": 2,
+      "bus": "CAN1",
+      "can_id": 118,
+      "can_id_hex": "0x076",
+      "frame": "ZCUDZCUDCAN1Fr37",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU37",
+      "dlc": 8,
+      "cycle_ms": 20,
+      "e2e_object": "VehSpdLgt_BCM_SRS3",
+      "group": "VehSpdLgt",
+      "data_id": 55,
+      "max_delta": 14,
+      "crc_offset": 0,
+      "counter_offset": 8,
+      "ub": {"dbc_signal": "VehSpdLgt_UB", "start_bit": 23, "length": 1, "byte_order": "big_endian"},
+      "crc": {"dbc_signal": "VehSpdLgtChks", "start_bit": 39, "length": 8, "byte_order": "big_endian"},
+      "counter": {"dbc_signal": "VehSpdLgtCntr", "start_bit": 47, "length": 4, "byte_order": "big_endian"},
+      "elements": [
+        {"application_element": "VehSpdLgtA", "dbc_signal": "VehSpdLgtA", "start_bit": 22, "length": 15, "byte_order": "big_endian", "signed": false, "factor": 0.00391, "offset": 0.0, "minimum": 0.0, "maximum": 125.0027, "unit": "m/s", "default_raw": 0},
+        {"application_element": "VehSpdLgtQf", "dbc_signal": "VehSpdLgtQf", "start_bit": 43, "length": 2, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 3.0, "unit": "", "default_raw": 1}
+      ]
+    },
+    {
+      "index": 3,
+      "bus": "CAN1",
+      "can_id": 240,
+      "can_id_hex": "0x0F0",
+      "frame": "ZCUDZCUDCAN1Fr04",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU04",
+      "dlc": 8,
+      "cycle_ms": 30,
+      "e2e_object": "VehModMngtGlbSafe1_ZCUD_SRS3",
+      "group": "VehModMngtGlbSafe1",
+      "data_id": 116,
+      "max_delta": 14,
+      "crc_offset": 0,
+      "counter_offset": 8,
+      "ub": {"dbc_signal": "VehModMngtGlbSafe1_UB", "start_bit": 7, "length": 1, "byte_order": "big_endian"},
+      "crc": {"dbc_signal": "VehModMngtGlbSafe1Chks", "start_bit": 39, "length": 8, "byte_order": "big_endian"},
+      "counter": {"dbc_signal": "VehModMngtGlbSafe1Cntr", "start_bit": 15, "length": 4, "byte_order": "big_endian"},
+      "elements": [
+        {"application_element": "CarModSts1", "dbc_signal": "VehModMngtGlbSafe1CarModSts1", "start_bit": 2, "length": 3, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 7.0, "unit": "", "default_raw": 0},
+        {"application_element": "CarModSubtypWdCarModSubtyp", "dbc_signal": "VehModMngtGlbSafe1CarModSubtypWd", "start_bit": 5, "length": 3, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 7.0, "unit": "Unitless", "default_raw": 0},
+        {"application_element": "EgyLvlElecMai", "dbc_signal": "VehModMngtGlbSafe1EgyLvlElecMai", "start_bit": 27, "length": 4, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 15.0, "unit": "Unitless", "default_raw": 0},
+        {"application_element": "EgyLvlElecSubtyp", "dbc_signal": "VehModMngtGlbSafe1EgyLvlElecSubt", "start_bit": 31, "length": 4, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 15.0, "unit": "Unitless", "default_raw": 0},
+        {"application_element": "FltEgyCnsWdSts", "dbc_signal": "VehModMngtGlbSafe1FltEgyCnsWdSts", "start_bit": 6, "length": 1, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 1.0, "unit": "", "default_raw": 0},
+        {"application_element": "PwrLvlElecMai", "dbc_signal": "VehModMngtGlbSafe1PwrLvlElecMai", "start_bit": 19, "length": 4, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 15.0, "unit": "Unitless", "default_raw": 0},
+        {"application_element": "PwrLvlElecSubtyp", "dbc_signal": "VehModMngtGlbSafe1PwrLvlElecSubt", "start_bit": 23, "length": 4, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 15.0, "unit": "Unitless", "default_raw": 0},
+        {"application_element": "UsgModSts", "dbc_signal": "VehModMngtGlbSafe1UsgModSts", "start_bit": 11, "length": 4, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 15.0, "unit": "", "default_raw": 1}
+      ]
+    },
+    {
+      "index": 4,
+      "bus": "CAN1",
+      "can_id": 912,
+      "can_id_hex": "0x390",
+      "frame": "ZCUDZCUDCAN1Fr10",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU10",
+      "dlc": 8,
+      "cycle_ms": 800,
+      "e2e_object": "PassAirbLampStsRec_OHC_SRS3",
+      "group": "PassAirbLampStsRec",
+      "data_id": 1140,
+      "max_delta": 14,
+      "crc_offset": 0,
+      "counter_offset": 8,
+      "ub": {"dbc_signal": "PassAirbLampStsRec_UB", "start_bit": 63, "length": 1, "byte_order": "big_endian"},
+      "crc": {"dbc_signal": "PassAirbLampStsRecPassAirbL_0000", "start_bit": 55, "length": 8, "byte_order": "big_endian"},
+      "counter": {"dbc_signal": "PassAirbLampStsRecPassAirbL_0001", "start_bit": 43, "length": 4, "byte_order": "big_endian"},
+      "elements": [
+        {"application_element": "PassAirbLampSts", "dbc_signal": "PassAirbLampStsRecPassAirbLampSt", "start_bit": 45, "length": 2, "byte_order": "big_endian", "signed": false, "factor": 1.0, "offset": 0.0, "minimum": 0.0, "maximum": 3.0, "unit": "", "default_raw": 1}
+      ]
+    }
+  ],
+  "rx_scope": [
+    {"bus": "CAN1", "can_id": 16, "can_id_hex": "0x010", "frame": "SrsZCUDCAN1Fr02", "dlc": 4, "cycle_ms": 200, "group": "CrashStsSafe", "e2e_object": "CrashStsSafe_SRS_XCU", "data_id": 1035, "max_delta": 14},
+    {"bus": "CAN1", "can_id": 18, "can_id_hex": "0x012", "frame": "SrsZCUDCAN1Fr03", "dlc": 8, "cycle_ms": 10, "group": "ADataRawSafe", "e2e_object": "ADataRawSafe_SRS_BCM8", "data_id": 34, "max_delta": 3},
+    {"bus": "CAN1", "can_id": 19, "can_id_hex": "0x013", "frame": "SrsZCUDCAN1Fr04", "dlc": 8, "cycle_ms": 10, "group": "AsyDataWithCmpSafe", "e2e_object": "AsyDataWithCmpSafe_SRS_SODL5", "data_id": 36, "max_delta": 14},
+    {"bus": "CAN1", "can_id": 33, "can_id_hex": "0x021", "frame": "SrsZCUDCAN1Fr05", "dlc": 8, "cycle_ms": 10, "group": "BltLockStSafeAtDrvr", "e2e_object": "BltLockStSafeAtDrvr_SRS_ASDM9", "data_id": 1036, "max_delta": 14},
+    {"bus": "CAN1", "can_id": 112, "can_id_hex": "0x070", "frame": "SrsZCUDCAN1Fr10", "dlc": 8, "cycle_ms": 20, "group": "RecOfPostImpctBrkgSuspc", "e2e_object": "RecOfPostImpctBrkgSuspc_SRS_BCM8", "data_id": 25, "max_delta": 3},
+    {"bus": "CAN1", "can_id": 137, "can_id_hex": "0x089", "frame": "SrsZCUDCAN1Fr01", "dlc": 8, "cycle_ms": 10, "group": "AgDataRawSafe", "e2e_object": "AgDataRawSafe_SRS_BCM8", "data_id": 35, "max_delta": 3},
+    {"bus": "CAN1", "can_id": 322, "can_id_hex": "0x142", "frame": "SrsZCUDCAN1Fr07", "dlc": 8, "cycle_ms": 30, "group": "AgDataRaw2Safe", "e2e_object": "AgDataRaw2Safe_SRS_XCU", "data_id": 1028, "max_delta": 13},
+    {"bus": "CAN1", "can_id": 322, "can_id_hex": "0x142", "frame": "SrsZCUDCAN1Fr07", "dlc": 8, "cycle_ms": 30, "group": "PassAirbLampReq", "e2e_object": "PassAirbLampReq_SRS_OHC", "data_id": 1141, "max_delta": 14},
+    {"bus": "CAN1", "can_id": 328, "can_id_hex": "0x148", "frame": "SrsZCUDCAN1Fr12", "dlc": 8, "cycle_ms": 30, "group": "RecOfPostImpctBrkgCfmd", "e2e_object": "RecOfPostImpctBrkgCfmd_SRS_BCM8", "data_id": 74, "max_delta": 3},
+    {"bus": "CAN1", "can_id": 628, "can_id_hex": "0x274", "frame": "SrsZCUDCAN1Fr14", "dlc": 8, "cycle_ms": 80, "group": "SRSResdSig1ToZCUDMSafety", "e2e_object": "SRSResdSig1ToZCUDMSafety_SRS_ZCUD5", "data_id": 3806, "max_delta": 14},
+    {"bus": "CANFD3", "can_id": 50, "can_id_hex": "0x032", "frame": "SrsZCUDCANFD3Fr01", "dlc": 64, "cycle_ms": 5, "group": "ADataRawSafe", "e2e_object": "ADataRawSafe_SRS_BCM8", "data_id": 34, "max_delta": 3},
+    {"bus": "CANFD3", "can_id": 50, "can_id_hex": "0x032", "frame": "SrsZCUDCANFD3Fr01", "dlc": 64, "cycle_ms": 5, "group": "AgDataRawSafe", "e2e_object": "AgDataRawSafe_SRS_BCM8", "data_id": 35, "max_delta": 3},
+    {"bus": "CANFD3", "can_id": 50, "can_id_hex": "0x032", "frame": "SrsZCUDCANFD3Fr01", "dlc": 64, "cycle_ms": 5, "group": "AsyDataWithCmpSafe", "e2e_object": "AsyDataWithCmpSafe_SRS_SODL5", "data_id": 36, "max_delta": 14},
+    {"bus": "CANFD3", "can_id": 50, "can_id_hex": "0x032", "frame": "SrsZCUDCANFD3Fr01", "dlc": 64, "cycle_ms": 5, "group": "IntgtIMUDataRawSafe", "e2e_object": "IntgtIMUDataRawSafe_SRS_ZCUD5", "data_id": 6915, "max_delta": 3},
+    {"bus": "CANFD3", "can_id": 63, "can_id_hex": "0x03F", "frame": "SrsZCUDCANFD3Fr02", "dlc": 2, "cycle_ms": 200, "group": "CrashStsSafe", "e2e_object": "CrashStsSafe_SRS_XCU", "data_id": 1035, "max_delta": 14}
+  ]
+}

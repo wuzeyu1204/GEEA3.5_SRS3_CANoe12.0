@@ -1,0 +1,167 @@
+/*@!Encoding:1252*/
+
+/* Physical CAN signal bit codec. DBC byte order is kept separate from the
+ * PROFILE_G logical application-element serialization order. The current Tx
+ * signals are at most 15 bits, therefore dword raw values are sufficient. */
+
+int E2E_PayloadPositionIsValid(int position, int payloadLength)
+{
+  return (position >= 0) && (position < (payloadLength * 8));
+}
+
+int E2E_SetMotorolaRaw(byte data[], int payloadLength, int startBit, int bitLength, dword rawValue)
+{
+  int elementBit;
+  int position;
+  int byteIndex;
+  int bitIndex;
+  byte mask;
+
+  position = startBit;
+  for (elementBit = 0; elementBit < bitLength; elementBit++)
+  {
+    if (!E2E_PayloadPositionIsValid(position, payloadLength))
+    {
+      return 0;
+    }
+
+    byteIndex = position / 8;
+    bitIndex = position % 8;
+    mask = 1 << bitIndex;
+
+    if ((rawValue & (1 << (bitLength - 1 - elementBit))) != 0)
+    {
+      data[byteIndex] |= mask;
+    }
+    else
+    {
+      data[byteIndex] &= ~mask;
+    }
+
+    if ((position % 8) == 0)
+    {
+      position += 15;
+    }
+    else
+    {
+      position -= 1;
+    }
+  }
+
+  return 1;
+}
+
+int E2E_GetMotorolaRaw(byte data[], int payloadLength, int startBit, int bitLength, dword& rawValue)
+{
+  int elementBit;
+  int position;
+  int byteIndex;
+  int bitIndex;
+
+  rawValue = 0;
+  position = startBit;
+  for (elementBit = 0; elementBit < bitLength; elementBit++)
+  {
+    if (!E2E_PayloadPositionIsValid(position, payloadLength))
+    {
+      return 0;
+    }
+
+    byteIndex = position / 8;
+    bitIndex = position % 8;
+    rawValue <<= 1;
+    rawValue |= (data[byteIndex] >> bitIndex) & 0x01;
+
+    if ((position % 8) == 0)
+    {
+      position += 15;
+    }
+    else
+    {
+      position -= 1;
+    }
+  }
+
+  return 1;
+}
+
+int E2E_SetIntelRaw(byte data[], int payloadLength, int startBit, int bitLength, dword rawValue)
+{
+  int elementBit;
+  int position;
+  int byteIndex;
+  int bitIndex;
+  byte mask;
+
+  for (elementBit = 0; elementBit < bitLength; elementBit++)
+  {
+    position = startBit + elementBit;
+    if (!E2E_PayloadPositionIsValid(position, payloadLength))
+    {
+      return 0;
+    }
+
+    byteIndex = position / 8;
+    bitIndex = position % 8;
+    mask = 1 << bitIndex;
+    if ((rawValue & (1 << elementBit)) != 0)
+    {
+      data[byteIndex] |= mask;
+    }
+    else
+    {
+      data[byteIndex] &= ~mask;
+    }
+  }
+
+  return 1;
+}
+
+int E2E_GetIntelRaw(byte data[], int payloadLength, int startBit, int bitLength, dword& rawValue)
+{
+  int elementBit;
+  int position;
+  int byteIndex;
+  int bitIndex;
+
+  rawValue = 0;
+  for (elementBit = 0; elementBit < bitLength; elementBit++)
+  {
+    position = startBit + elementBit;
+    if (!E2E_PayloadPositionIsValid(position, payloadLength))
+    {
+      return 0;
+    }
+
+    byteIndex = position / 8;
+    bitIndex = position % 8;
+    rawValue |= ((dword)((data[byteIndex] >> bitIndex) & 0x01)) << elementBit;
+  }
+
+  return 1;
+}
+
+int E2E_PhysicalToRaw(double physicalValue, double factor, double offset, dword rawMaximum, dword& rawValue)
+{
+  double scaledValue;
+
+  if (factor == 0.0)
+  {
+    return 0;
+  }
+
+  scaledValue = (physicalValue - offset) / factor;
+  if ((scaledValue < 0.0) || (scaledValue > rawMaximum))
+  {
+    return 0;
+  }
+
+  rawValue = (dword)(scaledValue + 0.5);
+  return 1;
+}
+
+double E2E_RawToPhysical(dword rawValue, double factor, double offset)
+{
+  return (rawValue * factor) + offset;
+}
+

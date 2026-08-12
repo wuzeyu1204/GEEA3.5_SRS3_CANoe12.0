@@ -1,0 +1,21 @@
+TestId,Area,Objective,Scope,ExpectedEvidence,Status
+GEN-001,Generation,Verify manifest coverage,"5 Tx PDUs; 16 Tx elements; 15 Rx groups",Static verifier output,Implemented
+ALG-001,Algorithm,Verify CRC golden vectors,All 5 Tx groups,15 vectors plus independent verifier,Static-PASS
+TX-001,Nominal,Verify normal protection,All 5 Tx groups,Counter and CRC trace,Planned
+SIG-001,Signals,Verify min nominal max values,All 16 Tx elements,Decoded signal and payload trace,Planned
+SIG-002,Signals,Verify raw and reserved values,All enum and raw-capable elements,Only target bits change,Planned
+MOD-001,Mode,Verify Pass Through,All 5 Tx PDUs,PDU-IL application data preserved,Planned
+MOD-002,Mode,Verify One Shot,All 5 Tx PDUs,Exactly one PDU cycle overridden,Planned
+MOD-003,Mode,Verify Continuous and Restore,All 5 Tx PDUs,Restore by next PDU cycle,Planned
+CNT-001,Counter,Verify 14 to 0 wrap,All 5 Tx groups,Counter sequence trace,Planned
+UB-001,UpdateBit,Verify UB zero behavior,All 5 Tx groups,Counter and CRC do not advance,Planned
+FI-CRC-001,Fault,Inject corrupt CRC,All 5 Tx groups,CRC error and recovery verdict,Planned
+FI-CNT-001,Fault,Inject repeated counter,All 5 Tx groups,Repeated verdict,Planned
+FI-CNT-002,Fault,Inject counter 15,All 5 Tx groups,Invalid counter verdict,Planned
+FI-DID-001,Fault,Use wrong DataID for CRC,All 5 Tx groups,CRC error with unchanged application data,Planned
+FI-TMO-001,Fault,Suppress transmission,All 5 Tx PDUs,Timeout within frozen threshold,Planned
+REC-001,Recovery,Clear all faults,All fault types,Return to OK and normal application data,Planned
+RX-001,RxMonitor,Verify CAN1 Rx checking,10 CAN1 E2E groups,Per-group verdict and statistics,Planned
+RX-002,RxMonitor,Verify CANFD3 multi-group checking,5 CANFD3 E2E groups,Independent group verdicts,Planned
+PWR-001,State,Verify KL15 cycle,All active groups,Frozen reset policy evidence,Planned
+RPT-001,Reporting,Verify report completeness,Complete test run,"XML; HTML; BLF; CSV; baseline hashes",Planned

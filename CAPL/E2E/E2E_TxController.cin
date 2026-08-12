@@ -1,0 +1,62 @@
+/*@!Encoding:1252*/
+
+variables
+{
+  /* Safe default: the framework observes supported PDU names but does not
+   * modify payload until generated bindings and golden vectors are complete. */
+  int gE2E_FrameworkEnable = 0;
+  int gE2E_FrameworkDebug = 0;
+}
+
+void E2E_TxInitialize()
+{
+  E2E_ResetTxCounters();
+  E2E_ResetFaults();
+  gE2E_FrameworkEnable = 0;
+}
+
+int E2E_TxProcess(
+  dword busContext,
+  dword shortId,
+  dword longId,
+  char pduName[],
+  dword& pduLength,
+  byte data[])
+{
+  int pduIndex;
+
+  pduIndex = E2E_FindTxPdu(pduName);
+  if (pduIndex < 0)
+  {
+    return 1;
+  }
+
+  if (pduLength < E2E_GetTxDlc(pduIndex))
+  {
+    write("[E2E] ERROR: PDU=%s length=%d expected=%d", pduName, pduLength, E2E_GetTxDlc(pduIndex));
+    return 1;
+  }
+
+  if (gE2E_FrameworkDebug)
+  {
+    write("[E2E] observed supported Tx PDU=%s index=%d", pduName, pduIndex);
+  }
+
+  if (!gE2E_FrameworkEnable)
+  {
+    return 1;
+  }
+
+  /* Implementation gate:
+   * 1. Apply generated Panel application-value bindings.
+   * 2. Resolve UB and counter state.
+   * 3. Build logical application bytes in ARXML element order.
+   * 4. Call E2E_ProfileGCalculate().
+   * 5. Write physical CRC/counter fields.
+   * 6. Apply the selected fault at its defined phase.
+   * 7. Publish status System Variables.
+   */
+
+  return E2E_ApplyPostProtectFault(pduIndex, data, pduLength);
+}
+

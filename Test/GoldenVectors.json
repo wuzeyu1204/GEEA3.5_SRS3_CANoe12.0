@@ -1,0 +1,455 @@
+{
+  "schema_version": 1,
+  "status": "GOLDEN_GENERATED_BY_EXTERNAL_ZXDOC_AND_INDEPENDENTLY_VERIFIED",
+  "vector_count": 15,
+  "coverage": {
+    "tx_pdus": 5,
+    "vectors_per_pdu": 3,
+    "counters": [
+      0,
+      7,
+      14
+    ],
+    "cases": [
+      "default",
+      "nominal",
+      "valid-boundary"
+    ]
+  },
+  "source": {
+    "repository": "https://github.com/wuzeyu1204/GEEA3.5_SRS3_E2E_ZXDoc",
+    "commit": "ed93367f39cba6ab54becc0b547bc360e1ac86c0",
+    "peer_tx": "E2E/CAN1/SRS3_E2E_CAN1_PeerTx.py",
+    "peer_tx_sha256": "25176FBEA072A1F4B697A3787E68CA12599A86A1F1E299A56FDBEC0272AA323B",
+    "rules": "E2E/SRS3_E2E_Rules.json",
+    "rules_sha256": "1D832A039F61DA6D248CA004D519C2FCAD546812AD46A6F0C16A7B3CA44BC355",
+    "anchor": "E2E/E2E_Verify.py",
+    "anchor_sha256": "214842285816C8C0F8768866991CF8ACDD6DF81B59380C89BB5F14F7F8301B74",
+    "canoe_manifest_sha256": "29FD94E384A23FFB1BCB9C7199EDE4BBD3097255C9CAD641191F868ADCEFA949"
+  },
+  "external_anchor": {
+    "description": "ZXDoc legacy known-answer vector for 0x076",
+    "can_id_hex": "0x076",
+    "counter": 0,
+    "application_raw": {
+      "VehSpdLgtA": 0,
+      "VehSpdLgtQf": 3
+    },
+    "crc_input_hex": "37 00 00 00 00 03",
+    "expected_crc": 212,
+    "expected_crc_hex": "0xD4"
+  },
+  "vectors": [
+    {
+      "id": "GV-040-DEFAULT_C0",
+      "case": "DEFAULT_C0",
+      "can_id": 64,
+      "can_id_hex": "0x040",
+      "frame": "ZCUDZCUDCAN1Fr01",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU01",
+      "group": "VehMtnSt",
+      "data_id": 54,
+      "counter": 0,
+      "ub": 1,
+      "application_raw": {
+        "VehMtnSt": 0
+      },
+      "application_physical": {
+        "VehMtnSt": 0.0
+      },
+      "input_payload_hex": "80 00 00 00 00 00 00 00",
+      "crc_input_hex": "36 00 00 00",
+      "expected_crc": 6,
+      "expected_crc_hex": "0x06",
+      "expected_payload_hex": "80 06 00 00 00 00 00 00"
+    },
+    {
+      "id": "GV-040-NOMINAL_C7",
+      "case": "NOMINAL_C7",
+      "can_id": 64,
+      "can_id_hex": "0x040",
+      "frame": "ZCUDZCUDCAN1Fr01",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU01",
+      "group": "VehMtnSt",
+      "data_id": 54,
+      "counter": 7,
+      "ub": 1,
+      "application_raw": {
+        "VehMtnSt": 4
+      },
+      "application_physical": {
+        "VehMtnSt": 4.0
+      },
+      "input_payload_hex": "84 00 00 00 00 00 00 00",
+      "crc_input_hex": "36 00 07 04",
+      "expected_crc": 139,
+      "expected_crc_hex": "0x8B",
+      "expected_payload_hex": "BC 8B 00 00 00 00 00 00"
+    },
+    {
+      "id": "GV-040-BOUNDARY_C14",
+      "case": "BOUNDARY_C14",
+      "can_id": 64,
+      "can_id_hex": "0x040",
+      "frame": "ZCUDZCUDCAN1Fr01",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU01",
+      "group": "VehMtnSt",
+      "data_id": 54,
+      "counter": 14,
+      "ub": 1,
+      "application_raw": {
+        "VehMtnSt": 7
+      },
+      "application_physical": {
+        "VehMtnSt": 7.0
+      },
+      "input_payload_hex": "87 00 00 00 00 00 00 00",
+      "crc_input_hex": "36 00 0E 07",
+      "expected_crc": 186,
+      "expected_crc_hex": "0xBA",
+      "expected_payload_hex": "F7 BA 00 00 00 00 00 00"
+    },
+    {
+      "id": "GV-050-DEFAULT_C0",
+      "case": "DEFAULT_C0",
+      "can_id": 80,
+      "can_id_hex": "0x050",
+      "frame": "ZCUDZCUDCAN1Fr47",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU47",
+      "group": "PreCrashFrontData",
+      "data_id": 1041,
+      "counter": 0,
+      "ub": 1,
+      "application_raw": {
+        "ClosingVelocity": 0,
+        "ObjectClass": 0,
+        "OverLap": 100,
+        "TimeToImpact": 250
+      },
+      "application_physical": {
+        "ClosingVelocity": 0.0,
+        "ObjectClass": 0.0,
+        "OverLap": 0.0,
+        "TimeToImpact": 1.0
+      },
+      "input_payload_hex": "00 64 00 00 FA 01 00 00",
+      "crc_input_hex": "11 04 00 00 00 64 FA",
+      "expected_crc": 254,
+      "expected_crc_hex": "0xFE",
+      "expected_payload_hex": "00 64 FE 00 FA 01 00 00"
+    },
+    {
+      "id": "GV-050-NOMINAL_C7",
+      "case": "NOMINAL_C7",
+      "can_id": 80,
+      "can_id_hex": "0x050",
+      "frame": "ZCUDZCUDCAN1Fr47",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU47",
+      "group": "PreCrashFrontData",
+      "data_id": 1041,
+      "counter": 7,
+      "ub": 1,
+      "application_raw": {
+        "ClosingVelocity": 72,
+        "ObjectClass": 1,
+        "OverLap": 100,
+        "TimeToImpact": 125
+      },
+      "application_physical": {
+        "ClosingVelocity": 12.024,
+        "ObjectClass": 1.0,
+        "OverLap": 0.0,
+        "TimeToImpact": 0.5
+      },
+      "input_payload_hex": "00 64 00 48 7D 03 00 00",
+      "crc_input_hex": "11 04 07 48 01 64 7D",
+      "expected_crc": 7,
+      "expected_crc_hex": "0x07",
+      "expected_payload_hex": "00 64 07 48 7D 73 00 00"
+    },
+    {
+      "id": "GV-050-BOUNDARY_C14",
+      "case": "BOUNDARY_C14",
+      "can_id": 80,
+      "can_id_hex": "0x050",
+      "frame": "ZCUDZCUDCAN1Fr47",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU47",
+      "group": "PreCrashFrontData",
+      "data_id": 1041,
+      "counter": 14,
+      "ub": 1,
+      "application_raw": {
+        "ClosingVelocity": 255,
+        "ObjectClass": 7,
+        "OverLap": 200,
+        "TimeToImpact": 255
+      },
+      "application_physical": {
+        "ClosingVelocity": 42.585,
+        "ObjectClass": 7.0,
+        "OverLap": 100.0,
+        "TimeToImpact": 1.02
+      },
+      "input_payload_hex": "00 C8 00 FF FF 0F 00 00",
+      "crc_input_hex": "11 04 0E FF 07 C8 FF",
+      "expected_crc": 102,
+      "expected_crc_hex": "0x66",
+      "expected_payload_hex": "00 C8 66 FF FF EF 00 00"
+    },
+    {
+      "id": "GV-076-DEFAULT_C0",
+      "case": "DEFAULT_C0",
+      "can_id": 118,
+      "can_id_hex": "0x076",
+      "frame": "ZCUDZCUDCAN1Fr37",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU37",
+      "group": "VehSpdLgt",
+      "data_id": 55,
+      "counter": 0,
+      "ub": 1,
+      "application_raw": {
+        "VehSpdLgtA": 0,
+        "VehSpdLgtQf": 1
+      },
+      "application_physical": {
+        "VehSpdLgtA": 0.0,
+        "VehSpdLgtQf": 1.0
+      },
+      "input_payload_hex": "00 00 80 00 00 04 00 00",
+      "crc_input_hex": "37 00 00 00 00 01",
+      "expected_crc": 238,
+      "expected_crc_hex": "0xEE",
+      "expected_payload_hex": "00 00 80 00 EE 04 00 00"
+    },
+    {
+      "id": "GV-076-NOMINAL_C7",
+      "case": "NOMINAL_C7",
+      "can_id": 118,
+      "can_id_hex": "0x076",
+      "frame": "ZCUDZCUDCAN1Fr37",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU37",
+      "group": "VehSpdLgt",
+      "data_id": 55,
+      "counter": 7,
+      "ub": 1,
+      "application_raw": {
+        "VehSpdLgtA": 7104,
+        "VehSpdLgtQf": 3
+      },
+      "application_physical": {
+        "VehSpdLgtA": 27.77664,
+        "VehSpdLgtQf": 3.0
+      },
+      "input_payload_hex": "00 00 9B C0 00 0C 00 00",
+      "crc_input_hex": "37 00 07 C0 1B 03",
+      "expected_crc": 186,
+      "expected_crc_hex": "0xBA",
+      "expected_payload_hex": "00 00 9B C0 BA 7C 00 00"
+    },
+    {
+      "id": "GV-076-BOUNDARY_C14",
+      "case": "BOUNDARY_C14",
+      "can_id": 118,
+      "can_id_hex": "0x076",
+      "frame": "ZCUDZCUDCAN1Fr37",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU37",
+      "group": "VehSpdLgt",
+      "data_id": 55,
+      "counter": 14,
+      "ub": 1,
+      "application_raw": {
+        "VehSpdLgtA": 31970,
+        "VehSpdLgtQf": 3
+      },
+      "application_physical": {
+        "VehSpdLgtA": 125.0027,
+        "VehSpdLgtQf": 3.0
+      },
+      "input_payload_hex": "00 00 FC E2 00 0C 00 00",
+      "crc_input_hex": "37 00 0E E2 7C 03",
+      "expected_crc": 238,
+      "expected_crc_hex": "0xEE",
+      "expected_payload_hex": "00 00 FC E2 EE EC 00 00"
+    },
+    {
+      "id": "GV-0F0-DEFAULT_C0",
+      "case": "DEFAULT_C0",
+      "can_id": 240,
+      "can_id_hex": "0x0F0",
+      "frame": "ZCUDZCUDCAN1Fr04",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU04",
+      "group": "VehModMngtGlbSafe1",
+      "data_id": 116,
+      "counter": 0,
+      "ub": 1,
+      "application_raw": {
+        "CarModSts1": 0,
+        "CarModSubtypWdCarModSubtyp": 0,
+        "EgyLvlElecMai": 0,
+        "EgyLvlElecSubtyp": 0,
+        "FltEgyCnsWdSts": 0,
+        "PwrLvlElecMai": 0,
+        "PwrLvlElecSubtyp": 0,
+        "UsgModSts": 1
+      },
+      "application_physical": {
+        "CarModSts1": 0.0,
+        "CarModSubtypWdCarModSubtyp": 0.0,
+        "EgyLvlElecMai": 0.0,
+        "EgyLvlElecSubtyp": 0.0,
+        "FltEgyCnsWdSts": 0.0,
+        "PwrLvlElecMai": 0.0,
+        "PwrLvlElecSubtyp": 0.0,
+        "UsgModSts": 1.0
+      },
+      "input_payload_hex": "80 01 00 00 00 00 00 00",
+      "crc_input_hex": "74 00 00 00 00 00 00 00 00 00 01",
+      "expected_crc": 94,
+      "expected_crc_hex": "0x5E",
+      "expected_payload_hex": "80 01 00 00 5E 00 00 00"
+    },
+    {
+      "id": "GV-0F0-NOMINAL_C7",
+      "case": "NOMINAL_C7",
+      "can_id": 240,
+      "can_id_hex": "0x0F0",
+      "frame": "ZCUDZCUDCAN1Fr04",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU04",
+      "group": "VehModMngtGlbSafe1",
+      "data_id": 116,
+      "counter": 7,
+      "ub": 1,
+      "application_raw": {
+        "CarModSts1": 0,
+        "CarModSubtypWdCarModSubtyp": 0,
+        "EgyLvlElecMai": 8,
+        "EgyLvlElecSubtyp": 2,
+        "FltEgyCnsWdSts": 0,
+        "PwrLvlElecMai": 8,
+        "PwrLvlElecSubtyp": 2,
+        "UsgModSts": 13
+      },
+      "application_physical": {
+        "CarModSts1": 0.0,
+        "CarModSubtypWdCarModSubtyp": 0.0,
+        "EgyLvlElecMai": 8.0,
+        "EgyLvlElecSubtyp": 2.0,
+        "FltEgyCnsWdSts": 0.0,
+        "PwrLvlElecMai": 8.0,
+        "PwrLvlElecSubtyp": 2.0,
+        "UsgModSts": 13.0
+      },
+      "input_payload_hex": "80 0D 28 28 00 00 00 00",
+      "crc_input_hex": "74 00 07 00 00 08 02 00 08 02 0D",
+      "expected_crc": 174,
+      "expected_crc_hex": "0xAE",
+      "expected_payload_hex": "80 7D 28 28 AE 00 00 00"
+    },
+    {
+      "id": "GV-0F0-BOUNDARY_C14",
+      "case": "BOUNDARY_C14",
+      "can_id": 240,
+      "can_id_hex": "0x0F0",
+      "frame": "ZCUDZCUDCAN1Fr04",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU04",
+      "group": "VehModMngtGlbSafe1",
+      "data_id": 116,
+      "counter": 14,
+      "ub": 1,
+      "application_raw": {
+        "CarModSts1": 7,
+        "CarModSubtypWdCarModSubtyp": 7,
+        "EgyLvlElecMai": 15,
+        "EgyLvlElecSubtyp": 15,
+        "FltEgyCnsWdSts": 1,
+        "PwrLvlElecMai": 15,
+        "PwrLvlElecSubtyp": 15,
+        "UsgModSts": 15
+      },
+      "application_physical": {
+        "CarModSts1": 7.0,
+        "CarModSubtypWdCarModSubtyp": 7.0,
+        "EgyLvlElecMai": 15.0,
+        "EgyLvlElecSubtyp": 15.0,
+        "FltEgyCnsWdSts": 1.0,
+        "PwrLvlElecMai": 15.0,
+        "PwrLvlElecSubtyp": 15.0,
+        "UsgModSts": 15.0
+      },
+      "input_payload_hex": "FF 0F FF FF 00 00 00 00",
+      "crc_input_hex": "74 00 0E 07 07 0F 0F 01 0F 0F 0F",
+      "expected_crc": 187,
+      "expected_crc_hex": "0xBB",
+      "expected_payload_hex": "FF EF FF FF BB 00 00 00"
+    },
+    {
+      "id": "GV-390-DEFAULT_C0",
+      "case": "DEFAULT_C0",
+      "can_id": 912,
+      "can_id_hex": "0x390",
+      "frame": "ZCUDZCUDCAN1Fr10",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU10",
+      "group": "PassAirbLampStsRec",
+      "data_id": 1140,
+      "counter": 0,
+      "ub": 1,
+      "application_raw": {
+        "PassAirbLampSts": 1
+      },
+      "application_physical": {
+        "PassAirbLampSts": 1.0
+      },
+      "input_payload_hex": "00 00 00 00 00 10 00 80",
+      "crc_input_hex": "74 04 00 01",
+      "expected_crc": 174,
+      "expected_crc_hex": "0xAE",
+      "expected_payload_hex": "00 00 00 00 00 10 AE 80"
+    },
+    {
+      "id": "GV-390-NOMINAL_C7",
+      "case": "NOMINAL_C7",
+      "can_id": 912,
+      "can_id_hex": "0x390",
+      "frame": "ZCUDZCUDCAN1Fr10",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU10",
+      "group": "PassAirbLampStsRec",
+      "data_id": 1140,
+      "counter": 7,
+      "ub": 1,
+      "application_raw": {
+        "PassAirbLampSts": 2
+      },
+      "application_physical": {
+        "PassAirbLampSts": 2.0
+      },
+      "input_payload_hex": "00 00 00 00 00 20 00 80",
+      "crc_input_hex": "74 04 07 02",
+      "expected_crc": 112,
+      "expected_crc_hex": "0x70",
+      "expected_payload_hex": "00 00 00 00 00 27 70 80"
+    },
+    {
+      "id": "GV-390-BOUNDARY_C14",
+      "case": "BOUNDARY_C14",
+      "can_id": 912,
+      "can_id_hex": "0x390",
+      "frame": "ZCUDZCUDCAN1Fr10",
+      "pdu": "ZCUDZCUDCAN1SignalIPDU10",
+      "group": "PassAirbLampStsRec",
+      "data_id": 1140,
+      "counter": 14,
+      "ub": 1,
+      "application_raw": {
+        "PassAirbLampSts": 3
+      },
+      "application_physical": {
+        "PassAirbLampSts": 3.0
+      },
+      "input_payload_hex": "00 00 00 00 00 30 00 80",
+      "crc_input_hex": "74 04 0E 03",
+      "expected_crc": 123,
+      "expected_crc_hex": "0x7B",
+      "expected_payload_hex": "00 00 00 00 00 3E 7B 80"
+    }
+  ]
+}

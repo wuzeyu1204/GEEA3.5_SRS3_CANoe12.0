@@ -1,0 +1,22 @@
+/*@!Encoding:1252*/
+
+includes
+{
+  #include "..\CAPL\E2E\E2E_ProfileG_Core.cin"
+  #include "..\CAPL\E2E\E2E_BitCodec.cin"
+}
+
+variables
+{
+  int gE2E_RxMonitorEnable = 0;
+}
+
+on preStart
+{
+  gE2E_RxMonitorEnable = 0;
+  write("[E2E-RX] Framework loaded in safe disabled state");
+}
+
+/* Message handlers and generated per-group bindings are intentionally added
+ * in the CAN1 Rx implementation step after Tx golden-vector verification. */
+

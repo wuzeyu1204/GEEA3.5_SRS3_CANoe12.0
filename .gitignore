@@ -1,0 +1,15 @@
+# CANoe runtime and report output
+Reports/*
+!Reports/.gitkeep
+*.bak
+*.tmp
+*.log
+*.stcfg
+
+# Python tooling
+__pycache__/
+*.pyc
+
+# Local editor files
+.vscode/
+.idea/
