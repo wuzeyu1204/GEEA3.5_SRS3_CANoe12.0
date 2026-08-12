@@ -1,0 +1,329 @@
+variables
+{
+  /* IL Include for PDU IL for non-NM (KL15) nodes
+   *
+   * 
+   *
+   * The simulation node needs to load the components AsrPDUIL.dll.
+   *
+   * Call IL<CAPLPrefix>_OnInit() in "on preStart()" of the main program!
+   * Call IL<CAPLPrefix>_OnStart() in "on start()" of the main program!
+   *
+   * Version 5.5, (c) 2016 Vector Informatik GmbH, Department for Networks and Distributed Systems
+   */
+
+  dword gIL<CAPLPrefix>_DebugFlags              = 0;
+
+  const dword cIL<CAPLPrefix>_ILIndDebug      = 0x0001;
+  const dword cIL<CAPLPrefix>_ILInitDebug     = 0x0002;
+  const dword cIL<CAPLPrefix>_ILControlDebug  = 0x0010;
+  
+  const dword cIL<CAPLPrefix>_NSToS = 1000000000;
+
+  // Internally used variables and timers:
+  dword   gIL<CAPLPrefix>_BusContext = 0;
+  int     gIL<CAPLPrefix>_EnableNode = 1;
+}
+
+/*****************************************************************************
+ * Include Initialization
+ *****************************************************************************/
+
+void IL<CAPLPrefix>_OnInit ()
+{
+  gIL<CAPLPrefix>_BusContext = GetBusNameContext(g<CAPLPrefix>BusName);
+  if (gIL<CAPLPrefix>_BusContext == 0)
+  {
+    write("[%.6f %NODE_NAME%] ERROR: cannot determine bus context of CAN bus '%s'!", TimeNowNS()/cIL<CAPLPrefix>_NSToS, g<CAPLPrefix>BusName);
+  }
+
+/* Block start #UseNMVariables#; */
+  NMP<CAPLPrefix>_InitSysVars();
+  
+/* Block end #UseNMVariables#; */
+  gIL<CAPLPrefix>_EnableNode = ((@sysvar::IL_<CAPLPrefix>::EnableNode::%NODE_NAME% == 0) || (@sysvar::IL_<CAPLPrefix>::enable_AllNodes == 0)) ? 0 : 1;
+ 
+  if (strncmp("%NODE_NAME%", "_LRR", 50) == 0)
+  {
+    gIL<CAPLPrefix>_DebugFlags |= cIL<CAPLPrefix>_ILIndDebug;
+    gIL<CAPLPrefix>_DebugFlags |= cIL<CAPLPrefix>_ILInitDebug;
+    gIL<CAPLPrefix>_DebugFlags |= cIL<CAPLPrefix>_ILControlDebug;
+  }
+
+  if ((@sysvar::IL::Klemme30 == 0) || (@sysvar::IL::Klemme15 == 0) || (gIL<CAPLPrefix>_EnableNode == 0))
+  {
+    SetBusContext(gIL<CAPLPrefix>_BusContext);
+    <DLLPrefix>ControlInit(); // Initialize IL; but disables the automatic IL start
+    if (@sysvar::IL::Klemme30 == 0)
+      IL<CAPLPrefix>_Enable(0);
+  }
+  else
+  {
+    // The IL must be initialized anyway. Otherwise, we cannot set specific operation modes for signals and/or messages.
+    SetBusContext(gIL<CAPLPrefix>_BusContext);
+    <DLLPrefix>ControlInit(); // Initialize IL; but disables the automatic IL start
+    if (@sysvar::IL::Klemme30 == 0)
+    {
+      IL<CAPLPrefix>_Enable(0);
+    }
+    else
+    {
+      //IL<CAPLPrefix>_Enable(1);
+      <DLLPrefix>ControlSimulationOn();
+      if (@sysvar::IL::Klemme15 == 1)
+        <DLLPrefix>ActivateClamp15();
+      else
+        <DLLPrefix>DeactivateClamp15();
+    }
+  }
+}
+
+void IL<CAPLPrefix>_OnStart ()
+{
+  if (gIL<CAPLPrefix>_DebugFlags & cIL<CAPLPrefix>_ILInitDebug)
+  {
+    write("+++++++++ %NODE_NAME%: IL on start()");
+  }
+
+/* Block start #UseNMVariables#; */
+  _NMP<CAPLPrefix>_DisableAllControls();
+
+/* Block end #UseNMVariables#; */
+  if ((@sysvar::IL::Klemme15 > 0) && (@sysvar::IL::Klemme30 > 0))
+  {
+    IL<CAPLPrefix>_SetIgnitionState(@sysvar::IL::Klemme15);
+	
+    if (@sysvar::IL::Klemme30 > 0)
+    {
+      IL<CAPLPrefix>_StartStop(1);
+    }
+/* Block start #UseNMVariables#; */
+    // Request IL, if Klemme15 is active.
+    @sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL = 1;
+/* Block end #UseNMVariables#; */
+  }
+/* Block start #UseNMVariables#; */
+
+  gNMP<CAPLPrefix>_TEnableControls.set(2);
+/* Block end #UseNMVariables#; */
+}
+
+/*****************************************************************************
+ * IL Control
+ * These functions can be called from the main program or react on
+ * panel controls or the NM status of the controlled node.
+ *****************************************************************************/
+
+void IL<CAPLPrefix>_Enable (int enable)
+{
+  /* void IL<CAPLPrefix>_Enable (int enable);
+   *
+   *  Function enables/disables the cyclic sending of all messages
+   *  that are controlled by the Interaction Layer.
+   */
+  int wasEnabled = -1;
+
+  //if (enable == wasEnabled) return;
+  SetBusContext(gIL<CAPLPrefix>_BusContext);
+  if (gIL<CAPLPrefix>_DebugFlags & cIL<CAPLPrefix>_ILControlDebug)
+  {
+    write("[%.6f %NODE_NAME%] IL<CAPLPrefix>_Enable(%d) called ...", TimeNowNS()/cIL<CAPLPrefix>_NSToS, enable);
+  }
+
+  if (enable == 1)
+  {
+    gIL<CAPLPrefix>_EnableNode = 1;
+    <DLLPrefix>ControlSimulationOn();
+    IL<CAPLPrefix>_SetIgnitionState(@sysvar::IL::Klemme15);
+    if (@sysvar::IL::Klemme15)
+      IL<CAPLPrefix>_StartStop(1);
+    IL<CAPLPrefix>_WaitResume(@sysvar::IL::Klemme15);
+    StartSim(gIL<CAPLPrefix>_BusContext, 1, 3);
+  }
+  else
+  {
+    StopSim(gIL<CAPLPrefix>_BusContext, 1, 3);
+    <DLLPrefix>ControlSimulationOff();
+    gIL<CAPLPrefix>_EnableNode = 0;
+  }
+
+  wasEnabled = enable;
+}
+
+void IL<CAPLPrefix>_StartStop (int dostart)
+{
+  /* void IL<CAPLPrefix>_StartStop (int dostart);
+   *
+   *  Function starts/stops the cyclic sending of all messages
+   *  that are controlled by the Interaction Layer.
+   */
+  int wasStarted = -1;
+
+  //if (dostart == wasStarted) return;
+  if (gIL<CAPLPrefix>_EnableNode == 0) return;
+
+  SetBusContext(gIL<CAPLPrefix>_BusContext);
+  if (gIL<CAPLPrefix>_DebugFlags & cIL<CAPLPrefix>_ILControlDebug)
+  {
+    write("[%.6f %NODE_NAME%] IL<CAPLPrefix>_StartStop(%d) called ...", TimeNowNS()/cIL<CAPLPrefix>_NSToS, dostart);
+  }
+
+  if (dostart == 1)
+  {
+    <DLLPrefix>ControlStart();
+    StartSim(gIL<CAPLPrefix>_BusContext, 1, 2);
+  }
+  else
+  {
+    StopSim(gIL<CAPLPrefix>_BusContext, 1, 2);
+    <DLLPrefix>ControlStop();
+  }
+
+  wasStarted = dostart;
+}
+
+void IL<CAPLPrefix>_WaitResume (int resume)
+{
+  /* void IL<CAPLPrefix>_WaitResume (int resume);
+   *
+   *  Function resumes/waits the cyclic sending of all messages
+   *  that are controlled by the Interaction Layer.
+   */
+  int wasResumed = -1;
+
+  //if (resume == wasResumed) return;
+  if (gIL<CAPLPrefix>_EnableNode == 0) return;
+
+  SetBusContext(gIL<CAPLPrefix>_BusContext);
+  if (gIL<CAPLPrefix>_DebugFlags & cIL<CAPLPrefix>_ILControlDebug)
+  {
+    write("[%.6f %NODE_NAME%] IL<CAPLPrefix>_WaitResume(%d) called ...", TimeNowNS()/cIL<CAPLPrefix>_NSToS, resume);
+  }
+
+  if (resume == 1)
+  {
+    <DLLPrefix>ControlResume(0);
+    StartSim(gIL<CAPLPrefix>_BusContext, 1, 1);
+  }
+  else
+  {
+    StopSim(gIL<CAPLPrefix>_BusContext, 1, 1);
+    <DLLPrefix>ControlWait(0);
+  }
+
+  wasResumed = resume;
+}
+
+void IL<CAPLPrefix>_SetIgnitionState (int ignition)
+{
+  /* void IL<CAPLPrefix>_SetIgnitionState (int ignition);
+   *
+   *  Function sets the ignition state at the Interaction Layer.
+   */
+  int wasIgnition = -1;
+
+  //if (ignition == wasIgnition) return;
+  SetBusContext(gIL<CAPLPrefix>_BusContext);
+  if (gIL<CAPLPrefix>_DebugFlags & cIL<CAPLPrefix>_ILControlDebug)
+  {
+    write("[%.6f %NODE_NAME%] IL<CAPLPrefix>_SetIgnitionState(%d) called ...", TimeNowNS()/cIL<CAPLPrefix>_NSToS, ignition);
+  }
+
+  if (ignition > 0)
+  {
+    IL<CAPLPrefix>_StartStop(1); // start CAN IL
+/* Block start #UseNMVariables#; */
+    @sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL = 1;
+/* Block end #UseNMVariables#; */
+    //@sysvar::_ILControl::Ignition = 1;
+    SysSetVariableInt("_ILControl", "Ignition", 1);
+    <DLLPrefix>ActivateClamp15();
+  }
+  else
+  {
+    <DLLPrefix>DeactivateClamp15();
+    //@sysvar::_ILControl::Ignition = 0;
+    SysSetVariableInt("_ILControl", "Ignition", 0);
+/* Block start #UseNMVariables#; */
+    @sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL = 0;
+/* Block end #UseNMVariables#; */
+    IL<CAPLPrefix>_StartStop(0); // stop CAN IL
+  }
+
+  wasIgnition = ignition;
+}
+
+void IL<CAPLPrefix>_OnEnvKlemme15(int enable)
+{
+  IL<CAPLPrefix>_SetIgnitionState(enable);
+}
+
+void IL<CAPLPrefix>_OnEnvKlemme30(int enable)
+{
+  if(enable != 0)
+  {
+    IL<CAPLPrefix>_Enable(1);
+    if (@sysvar::IL::Klemme15 > 0)
+    {
+/* Block start #UseNMVariables#; */
+      @sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL = 1;
+/* Block end #UseNMVariables#; */
+    }
+/* Block start #MissingNMVariables#; */
+    // Restore ignition state at IL (and toggle if on):
+    IL<CAPLPrefix>_SetIgnitionState(0);
+    IL<CAPLPrefix>_SetIgnitionState(@sysvar::IL::Klemme15);
+/* Block end #MissingNMVariables#; */
+  }
+  else
+  {
+    IL<CAPLPrefix>_Enable(0);
+  }
+}
+
+/* Block start #UseNMVariables#; */
+NM<CAPLPrefix>_PassiveBusStart ()
+{
+  @sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL = 1;
+
+  if (gIL<CAPLPrefix>_DebugFlags & cIL<CAPLPrefix>_ILControlDebug)
+  {
+    write("[%.6f %NODE_NAME%]: NM<CAPLPrefix>_PassiveStartUp()", TimeNowNS()/cIL<CAPLPrefix>_NSToS);
+  }
+}
+
+/* Block end #UseNMVariables#; */
+/* Block start #UseNMVariables#; */
+/*****************************************************************************
+ * IL Control
+ * These functions control the sending behavior of the node and are called
+ * from the NM indications or from the control panel.
+ *****************************************************************************/
+
+on sysvar_update sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL
+{
+  IL<CAPLPrefix>_WaitResume(@this);
+}
+
+on sysvar_update sysvar::NM_<CAPLPrefix>::StateControl::ILReleaseAll
+{
+  if( @this == 1 )
+  {
+    @sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL = 0;
+    //@this = 0;
+  }
+}
+
+on sysvar_update sysvar::NM_<CAPLPrefix>::StateControl::ILRequestAll
+{
+  if( @this == 1 )
+  {
+    @sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestIL = 1;
+    //@this = 0;
+  }
+}
+
+/* Block end #UseNMVariables#; */
+/*****************************************************************************
+ * EOF
+ *****************************************************************************/

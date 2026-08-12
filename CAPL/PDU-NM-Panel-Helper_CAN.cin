@@ -1,0 +1,196 @@
+variables
+{
+  /* NM-IL Include for initializing the NM panel controls
+   *
+   * ATTENTION: Adapt variables gNumSimNodes and gSimNodeNames and system variable definitions
+   * in file "SysVarDef.xml" to your nodes of the CANoe's simulation setup!
+   *
+   * Version 5.5, (c) 2016 Vector Informatik GmbH, Department for Networks and Distributed Systems
+   */
+
+  dword gNMP<CAPLPrefix>_Channel                 = <Channel>; // The CAN channel the bus is attached to
+  dword gNMP<CAPLPrefix>_DebugFlags              = 0;
+
+/* Block start #UseNMVariables#; */
+  char  gNMP<CAPLPrefix>_SysVarNamespace[120];   // Will be initialized in NMP<CAPLPrefix>_InitSysVars()
+  char  gNMP<CAPLPrefix>_SysVarNMState[100]      = "State";
+  char  gNMP<CAPLPrefix>_SysVarNMMode[100]       = "Mode";
+  char  gNMP<CAPLPrefix>_SysVarNMRequestBus[100] = "RequestBus";
+  char  gNMP<CAPLPrefix>_SysVarNMRequestIL[100]  = "RequestIL";
+
+/* Block end #UseNMVariables#; */
+  const int cNMP<CAPLPrefix>_MaxSimNodes = <NumNodes>;
+  const int cNMP<CAPLPrefix>_HasNMPanel = <HasNMPanel>;
+
+  // The nodes of CANoe's simulation setup that are possibly observed:
+  int   gNMP<CAPLPrefix>_NumSimNodes = <NumNodes>;
+    
+  char  gNMP<CAPLPrefix>_SimNodeNames[cNMP<CAPLPrefix>_MaxSimNodes][100] = { // All these CAPL nodes need to include this file!
+    <NodeName_List>
+  };
+
+  const dword cNMP<CAPLPrefix>_NMControlDebug  = 0x0004;
+  const dword cNMP<CAPLPrefix>_BusControlDebug = 0x0008;
+
+  enum t<CAPLPrefix>_ASR_NM_STATE {
+    c<CAPLPrefix>_ASR_NM_STATE_UNDEFINED         = 0,
+    c<CAPLPrefix>_ASR_NM_STATE_BUS_SLEEP         = 1,
+    c<CAPLPrefix>_ASR_NM_STATE_PREPARE_BUS_SLEEP = 2,
+    c<CAPLPrefix>_ASR_NM_STATE_READY_SLEEP       = 3,
+    c<CAPLPrefix>_ASR_NM_STATE_NORMAL_OPERATION  = 4,
+    c<CAPLPrefix>_ASR_NM_STATE_REPEAT_MESSAGE    = 5,
+    c<CAPLPrefix>_ASR_NM_STATE_SYNCHRONIZE       = 6
+  };
+
+  enum t<CAPLPrefix>_OSEK_NM_STATE {
+    c<CAPLPrefix>_OSEK_NM_STATE_UNDEFINED        = 0,
+    c<CAPLPrefix>_OSEK_NM_STATE_BUS_SLEEP        = 1,
+    c<CAPLPrefix>_OSEK_NM_STATE_READY_SLEEP      = 2,
+    c<CAPLPrefix>_OSEK_NM_STATE_AWAKE            = 3
+  };
+
+  enum t<CAPLPrefix>_NM_NODE_MODE {
+    c<CAPLPrefix>_NM_NODE_MODE_Sleep_Mode        = 0,
+    c<CAPLPrefix>_NM_NODE_MODE_Network_Mode      = 1,
+    c<CAPLPrefix>_NM_NODE_MODE_Synchronize_Mode  = 2
+  };
+
+  const double cNMP<CAPLPrefix>_NS2S = 1000000000.0;
+
+/* Block start #UseNMVariables#; */
+  // Internally used variables and timers:
+  msTimer gNMP<CAPLPrefix>_TEnableControls;
+  int     gNMP<CAPLPrefix>_IsInitialized = 0;
+
+/* Block end #UseNMVariables#; */
+}
+
+/* Block start #UseNMVariables#; */
+/*****************************************************************************
+ * Include Initialization
+ *****************************************************************************/
+
+NMP<CAPLPrefix>_InitSysVars ()
+{
+  int i;
+  char lSysVarNamespace[120];
+
+  //Nm_GetNodeName(gNMP<CAPLPrefix>_MyNodeName, elcount(gNMP<CAPLPrefix>_MyNodeName));
+
+  strncpy(gNMP<CAPLPrefix>_SysVarNamespace, "NM_<CAPLPrefix>::", elcount(gNMP<CAPLPrefix>_SysVarNamespace));
+  strncat(gNMP<CAPLPrefix>_SysVarNamespace, gECU, elcount(gNMP<CAPLPrefix>_SysVarNamespace));
+
+  //@sysvar::NM_<CAPLPrefix>::%NODE_NAME%::RequestBus = 0;
+
+  strncpy(lSysVarNamespace, "NM_<CAPLPrefix>::", elcount(lSysVarNamespace));
+  strncat(lSysVarNamespace, "StateControl", elcount(lSysVarNamespace));
+  if (sysGetVariableInt(lSysVarNamespace, "ControlsDisabled") == 1) return;
+
+  sysSetVariableInt(lSysVarNamespace, "ControlsDisabled", 1);
+
+  //@sysvar::NM_<CAPLPrefix>::StateControl::BusActive = 1;
+
+  //@sysvar::NM_<CAPLPrefix>::StateControl::StopCommunication = 0;
+  //@sysvar::NM_<CAPLPrefix>::StateControl::StartCommunication = 0;
+
+  // If any node is disabled in the sim setup, also init its sys vars:
+  for (i=0; i<cNMP<CAPLPrefix>_MaxSimNodes && i<gNMP<CAPLPrefix>_NumSimNodes; i++)
+  {
+    strncpy(lSysVarNamespace, "NM_<CAPLPrefix>::", elcount(lSysVarNamespace));
+    strncat(lSysVarNamespace, gNMP<CAPLPrefix>_SimNodeNames[i], elcount(lSysVarNamespace));
+
+    sysSetVariableInt(lSysVarNamespace, gNMP<CAPLPrefix>_SysVarNMState, c<CAPLPrefix>_ASR_NM_STATE_UNDEFINED);
+    sysSetVariableInt(lSysVarNamespace, gNMP<CAPLPrefix>_SysVarNMMode, c<CAPLPrefix>_NM_NODE_MODE_Sleep_Mode);
+    sysSetVariableInt(lSysVarNamespace, gNMP<CAPLPrefix>_SysVarNMRequestIL, 0);
+    //sysSetVariableInt(lSysVarNamespace, gNMP<CAPLPrefix>_SysVarNMRequestBus, 0);
+  }
+}
+
+_NMP<CAPLPrefix>_DisableAllControls ()
+{
+  int i;
+  char lSysVarNamespace[120];
+  char lSysVarName[120];
+
+  if (cNMP<CAPLPrefix>_HasNMPanel <= 0)
+  {
+    return;
+  }
+
+  strncpy(lSysVarNamespace, "NM_<CAPLPrefix>::", elcount(lSysVarNamespace));
+  strncat(lSysVarNamespace, "StateControl", elcount(lSysVarNamespace));
+  if (sysGetVariableInt(lSysVarNamespace, "ControlsDisabled") >= 2) return;
+
+  for (i=0; i<cNMP<CAPLPrefix>_MaxSimNodes && i<gNMP<CAPLPrefix>_NumSimNodes; i++)
+  {
+    strncpy(lSysVarName, "NM_<CAPLPrefix>_", elcount(lSysVarName));
+    strncat(lSysVarName, gNMP<CAPLPrefix>_SimNodeNames[i], elcount(lSysVarName));
+    strncat(lSysVarName, "_NMReq", elcount(lSysVarName));
+    enableControl("NMPanel", lSysVarName, 0);
+    SetControlVisibility("NM Panel <CAPLPrefix>", lSysVarName, 0);
+
+    strncpy(lSysVarName, "NM_<CAPLPrefix>_", elcount(lSysVarName));
+    strncat(lSysVarName, gNMP<CAPLPrefix>_SimNodeNames[i], elcount(lSysVarName));
+    strncat(lSysVarName, "_NMApplAct", elcount(lSysVarName));
+    enableControl("NMPanel", lSysVarName, 0);
+    SetControlVisibility("NM Panel <CAPLPrefix>", lSysVarName, 0);
+
+    strncpy(lSysVarName, "NM_<CAPLPrefix>_", elcount(lSysVarName));
+    strncat(lSysVarName, gNMP<CAPLPrefix>_SimNodeNames[i], elcount(lSysVarName));
+    strncat(lSysVarName, "_ILReq", elcount(lSysVarName));
+    enableControl("NMPanel", lSysVarName, 0);
+    SetControlVisibility("NM Panel <CAPLPrefix>", lSysVarName, 0);
+
+    strncpy(lSysVarName, "NM_<CAPLPrefix>_", elcount(lSysVarName));
+    strncat(lSysVarName, gNMP<CAPLPrefix>_SimNodeNames[i], elcount(lSysVarName));
+    strncat(lSysVarName, "_NMState", elcount(lSysVarName));
+    enableControl("NM Panel <CAPLPrefix>", lSysVarName, 0);
+
+    strncpy(lSysVarName, "NM_<CAPLPrefix>_", elcount(lSysVarName));
+    strncat(lSysVarName, gNMP<CAPLPrefix>_SimNodeNames[i], elcount(lSysVarName));
+    strncat(lSysVarName, "_NMStaticText", elcount(lSysVarName));
+    setControlForeColor("NM Panel <CAPLPrefix>", lSysVarName, MakeRGB(180,180,180));
+
+    strncpy(lSysVarName, "NM_<CAPLPrefix>_", elcount(lSysVarName));
+    strncat(lSysVarName, gNMP<CAPLPrefix>_SimNodeNames[i], elcount(lSysVarName));
+    strncat(lSysVarName, "_NMDeactivate", elcount(lSysVarName));
+    enableControl("NMPanel", lSysVarName, 0);
+    SetControlVisibility("NM Panel <CAPLPrefix>", lSysVarName, 0);
+  }
+  sysSetVariableInt(lSysVarNamespace, "ControlsDisabled", 2);
+}
+
+_NMP<CAPLPrefix>_EnableMyControls (int enable)
+{
+  gNMP<CAPLPrefix>_IsInitialized = 1;
+
+  openPanel("MainPanel");
+
+  if (cNMP<CAPLPrefix>_HasNMPanel <= 0)
+  {
+    return;
+  }
+
+  enableControl("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMReq", enable);
+  SetControlVisibility("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMReq", enable);
+  enableControl("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMApplAct", enable);
+  SetControlVisibility("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMApplAct", enable);
+  enableControl("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_ILReq", enable);
+  SetControlVisibility("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_ILReq", enable);
+  enableControl("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMDeactivate", enable);
+  SetControlVisibility("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMDeactivate", enable);
+  enableControl("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMState", enable);
+  setControlForeColor("NM Panel <CAPLPrefix>", "NM_<CAPLPrefix>_%NODE_NAME%_NMStaticText", MakeRGB(0,0,0));
+  
+  //openPanel("NM Panel <CAPLPrefix>");
+}
+
+on timer gNMP<CAPLPrefix>_TEnableControls
+{
+  _NMP<CAPLPrefix>_EnableMyControls(1);
+}
+
+/* Block end #UseNMVariables#; */
+/*****************************************************************************
+ * EOF
+ *****************************************************************************/

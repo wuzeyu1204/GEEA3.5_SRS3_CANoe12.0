@@ -1,0 +1,1412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="IL" comment="" interface="">
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Klemme15" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Klemme30" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+    </namespace>
+    <namespace name="IL_CAN1" comment="" interface="">
+      <namespace name="NODES" comment="" interface="">
+        <namespace name="N_VectorSimulationNode" comment="" interface="">
+          <namespace name="PDUS" comment="" interface="">
+            <namespace name="ETCZCUDCAN1DevSignalPdu01" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup3" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup4" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup5" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup6" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup7" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSRSdevelpsignalgroupRXFunctiondevpsignalgroup8" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="RmlZcudCAN1SignalIPdu01" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isActvnStsOfRtrctrRvsbLe" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isActvnStsOfRtrctrRvsbLe_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isStsForRtrctrRvsbLe" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isStsForRtrctrRvsbLe_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="RmrZcudCAN1SignalIPdu01" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isActvnStsOfRtrctrRvsbRi" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isActvnStsOfRtrctrRvsbRi_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isStsForRtrctrRvsbRi" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isStsForRtrctrRvsbRi_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU01" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igVehMtnSt_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorDrvrSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorDrvrSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorLeReSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorLeReSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehMtnStChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehMtnStCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehMtnStVehMtnSt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU02" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igTiAndDateIndcn_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnDataValid" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnDay" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnHr1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnMins1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnMth1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnSec1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTiAndDateIndcnYr1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU03" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isDoorPassSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorPassSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorRiReSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorRiReSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU04" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igVehModMngtGlbSafe1_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1CarModSts1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1CarModSubtypWdCarModSubtyp" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1Chks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1Cntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1EgyLvlElecMai" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1EgyLvlElecSubtyp" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1FltEgyCnsWdSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1PwrLvlElecMai" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1PwrLvlElecSubtyp" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehModMngtGlbSafe1UsgModSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU05" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isCarTiGlb" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCarTiGlb_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU06" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igVehBattU_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehBattUSysU" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehBattUSysUQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU09" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isCarModCrashSaved" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCarModCrashSaved_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEngN2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEngN2_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isIsgSpdActSgn" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isIsgSpdActSgn_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPostImpctBrkgRdy" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPostImpctBrkgRdy_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU10" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igDrvrSeatPosPerc_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="igPassAirbLampStsRec_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDispOfPrpsnMod" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDispOfPrpsnMod_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDispOfPrpsnModForEv" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDispOfPrpsnModForEv_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosFrntHeiPerc" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosFrntHeiQF" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosHeiPerc" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosHeiQF" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosSldPerc" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrSeatPosPercSeatPosSldQF" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassAirbLampStsRecPassAirbLampSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassAirbLampStsRecPassAirbLampStsChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassAirbLampStsRecPassAirbLampStsCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyExtCmd" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyExtCmd_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU11" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igRiFrntTireMsg_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="igRiReTireMsg_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgBattLoSt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgFastLoseWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgMsgOldFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgP" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgPWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgSysWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgT" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgTireFillgAssiPSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiFrntTireMsgTWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgBattLoSt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgFastLoseWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgMsgOldFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgP" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgPWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgSysWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgT" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgTireFillgAssiPSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRiReTireMsgTWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU12" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igBrkAndAbsWarnIndcnReq_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsyAutDrvCtrlTyp" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsyAutDrvCtrlTyp_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqAbsWarnIndcnReq" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqBrkWarnIndcnReq" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkAndAbsWarnIndcnReqCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrActvnOk" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrActvnOk_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrStbOk" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrStbOk_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEscCtrlIndcn" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEscCtrlIndcn_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSwtLiHzrdWarn" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSwtLiHzrdWarn_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU13" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isReqForPassAirbIndcnAckd" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isReqForPassAirbIndcnAckd_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyCmd" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isRlyPwrDistbnCmd1WdIgnRlyCmd_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSumActv" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSumActv_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU14" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igAsyALgtSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsyALgtStsAsyALgtSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsyALgtStsChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsyALgtStsCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorDrvrLockSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorDrvrLockSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorLeReLockSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorLeReLockSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorPassLockSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorPassLockSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorRiReLockSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDoorRiReLockSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU18" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isEmgyAsscTrigSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEmgyAsscTrigSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU19" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igBrkPedlrRat_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="igEscSt_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkPedlrRatPerc" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkPedlrRatQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkTracCtrlActv" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkTracCtrlActv_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCllsnMtgtnFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCllsnMtgtnFctSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrCrsCtrlFctSeld" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrCrsCtrlFctSeld_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEscStChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEscStCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEscStEscSt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU20" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igLeFrntTireMsg_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="igLeReTireMsg_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgBattLoSt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgFastLoseWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgMsgOldFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgP" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgPWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgSysWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgT" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgTireFillgAssiPSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeFrntTireMsgTWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgBattLoSt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgFastLoseWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgMsgOldFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgP" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgPWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgSysWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgT" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgTireFillgAssiPSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isLeReTireMsgTWarnFlg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU21" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igPassSeatPosPerc_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosFrntHeiPerc" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosFrntHeiQF" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosHeiPerc" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosHeiQF" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosSldPerc" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassSeatPosPercSeatPosSldQF" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgMax1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgMax1_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU22" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igPinionSteerAgGroup_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAg1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAg1Qf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAgSpd1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupPinionSteerAgSpd1Qf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupSteerWhlTq" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPinionSteerAgGroupSteerWhlTqQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU23" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igAbsCtrlActv_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAbsCtrlActvChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAbsCtrlActvCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAbsCtrlActvCtrlSts1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAbsSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAbsSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU24" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igAccrPedlRat_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAccrPedlRatAccrPedlRat" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAccrPedlRatChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAccrPedlRatCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCllsnAidPost" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCllsnAidPost_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isThrPos" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isThrPos_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU25" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igAccrpedlSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAccrpedlStsChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAccrpedlStsCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAccrpedlStsFltSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU26" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igBrkPedlPsd_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkPedlPsdBrkPedlNotPsdSafe" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkPedlPsdBrkPedlPsd" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkPedlPsdChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkPedlPsdCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkPedlPsdQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU27" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igBrkSysCylPMst_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstAct" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstActQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstTar" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstVirt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkSysCylPMstVirtQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU29" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igSftyDecelGroupSafe_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCllsnFwdWarn" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCllsnFwdWarn_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSftyDecelGroupSafeAsySftyDecelReq" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSftyDecelGroupSafeAsySftyEnaDecel" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSftyDecelGroupSafeChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSftyDecelGroupSafeCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU30" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igEpbSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="igVehSpdIndcd_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEpbStsChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEpbStsCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEpbStsEpbSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehSpdIndcdVehSpdIndcd" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehSpdIndcdVeSpdIndcdUnit" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU31" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igSwtIndcr_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isGearLvrIndcn" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isGearLvrIndcn_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSwtIndcrIndcrTypExtReq" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSwtIndcrIndcrTypExtReqChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSwtIndcrIndcrTypExtReqCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSwtIndcrIndcrTypExtReqToUpdQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU32" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igPosnBrief_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPosnBriefPosnLat" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPosnBriefPosnLgt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU33" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isVehCfgPrmBlkIDBytePosn1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn3" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn4" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn5" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn6" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn7" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmCCPBytePosn8" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU34" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isVehCfgPrmExtBlkIDBytePosn1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn3" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn4" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn5" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn6" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn7" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExtCCPBytePosn8" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU36" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isVinBlockNr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVinVINSignalPos1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVinVINSignalPos2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVinVINSignalPos3" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVinVINSignalPos4" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVinVINSignalPos5" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVinVINSignalPos6" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVinVINSignalPos7" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU37" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igVehSpdLgt_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehSpdLgtA" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehSpdLgtChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehSpdLgtCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehSpdLgtQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU39" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igTrsmActrPosnSafe_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="igVehTiAndData_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTrsmActrPosnSafeTrsmActrPosn" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTrsmActrPosnSafeTrsmActrPosnChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTrsmActrPosnSafeTrsmActrPosnCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehTiAndDataDataValid" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehTiAndDataDay" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehTiAndDataHr1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehTiAndDataMins1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehTiAndDataMth1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehTiAndDataSec1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehTiAndDataYr1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU40" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igPrkgStsToEDR_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRAPATo" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRHPATo" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRLSDAandTBATo" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRreserved1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRreserved2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRreserved3" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPrkgStsToEDRRPATo" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU43" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isVehCfgPrmExt2BlkIDBytePosn1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn3" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn4" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn5" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn6" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn7" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehCfgPrmExt2CCPBytePosn8" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU45" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igAmbTIndcdWithUnit_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAmbTIndcdWithUnitAmbTIndcd" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAmbTIndcdWithUnitAmbTIndcdUnit" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAmbTIndcdWithUnitQF" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkTqAtWhlsReq" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkTqAtWhlsReq_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrMsg" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isCrsCtrlrMsg_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTurnIndcrAndHwlByDrvInt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isTurnIndcrAndHwlByDrvInt_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU46" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igAsySftyFctStsToEDR_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACCFctSTs" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFB1FctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFB2FctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFCFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFDFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRACSFEFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRAEBSFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRCSFFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRESFFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isAsySftyFctStsToEDRLDWSFctSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU47" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igPreCrashFrontData_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataClosingVelocity" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataObjectClass" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataOverLap" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPreCrashFrontDataTimeToImpact" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU48" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isWhlMotSysSpdAct" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlMotSysSpdAct_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU49" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isOverlap" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isOverlap_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU50" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isVehHomePrkgSysSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isVehHomePrkgSysSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU56" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isEfuseKL15Req1" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req1_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req2" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req2_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req3" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req3_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req4" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req4_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req5" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEfuseKL15Req5_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isHoodSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isHoodSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassStuMonSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassStuMonSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU57" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isDrvrStuMonSts" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isDrvrStuMonSts_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU60" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igWhlDirRotlRe_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlReChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlReCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlReLe" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlReRi" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU69" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isBkpOfDstTrvld" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBkpOfDstTrvld_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU70" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="isPassAirbNotiConfirm" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isPassAirbNotiConfirm_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSftyAirbRollovrSuppSwt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isSftyAirbRollovrSuppSwt_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPDU76" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igZCUDMResdSig1ToSRSSafety_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isZCUDMResdSig1ToSRSSafetyChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isZCUDMResdSig1ToSRSSafetyCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isZCUDMResdSig1ToSRSSafetyUInt32" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu80" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igWhlDirRotlFrnt_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="igWhlSpdCircumlFrnt_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntLe" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlDirRotlFrntRi" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntLe" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntLeQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntRiQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlFrntWhlSpdCircumlFrntRi" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu81" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igWhlSpdCircumlRe_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReLe" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReLeQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReRi" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isWhlSpdCircumlReRiQf" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu96" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igBrkFricTqTotAtWhlsAct_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkFricTqTotAtWhlsActBrkFricTqTotAtWhlsAct" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkFricTqTotAtWhlsActChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isBrkFricTqTotAtWhlsActCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+            <namespace name="ZCUDZCUDCAN1SignalIPdu97" comment="" interface="">
+              <namespace name="SIGNALS" comment="" interface="">
+                <namespace name="igEngNSafe_UB" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEngNSafeEngN" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEngNSafeEngNChks" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEngNSafeEngNCntr" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+                <namespace name="isEngNSafeEngNGrdt" comment="" interface="">
+                  <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SignalVar" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+                </namespace>
+              </namespace>
+            </namespace>
+          </namespace>
+          <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="EnableNode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+        </namespace>
+      </namespace>
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="enable_AllNodes" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+    </namespace>
+    <namespace name="NM_CAN1" comment="" interface="">
+      <namespace name="NODES" comment="" interface="">
+        <namespace name="N_VectorSimulationNode" comment="" interface="">
+          <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DeactivateNM" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        </namespace>
+      </namespace>
+      <namespace name="StateControl" comment="" interface="">
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="ActiveNodes" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DeactivateNM" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="NmPduTxEnable" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+      </namespace>
+    </namespace>
+  </namespace>
+</systemvariables>
