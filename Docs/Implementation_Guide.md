@@ -1,5 +1,19 @@
 # SRS3 CANoe E2E分步骤实施指南
 
+## 当前快速发送步骤（Panel许可发送，v1.4.0）
+
+1. 关闭 CANoe 和 Panel Designer，双击 `PanelPlugin\Install_SRS3_E2E_PanelPlugin.bat`，确认显示 `[OK] Installed`。这一步只更新 WPF DLL。
+2. 打开 `GEEA3.5_SRS3_CAN1_12.0.cfg`，在 Simulation Setup 中编译 `VectorSimulationNode.can`。如有 CAPL 编译错误，先截图完整错误列表，不要启动测量。
+3. 编译通过后启动测量。面板应从`已绑定 / 等待数据`进入`控制就绪 / 未使能`。此时先观察Trace至少2秒，5个受控PDU都不得发送。
+4. 勾选`发送使能`，等待`发送已使能 / 待命`；继续观察1秒仍不得出现受控PDU。使能只解锁命令，不自动发送。
+5. 在面板选择目标PDU：`原值单帧`不覆盖应用值并只发送一次，`改值单帧`使用Panel值发送一次，`改值连续`使用Panel值按数据库周期发送。
+6. 在中间信号表修改Physical/Enum；需要精确位模式时勾选`使用Raw`并填写`最终Raw`。所有该PDU应用信号均可编辑。
+7. 保持`自动保护`勾选、`UB模式=自动 Auto`，点击`执行当前`。单帧模式只允许当前ID一个物理PDU事件；连续模式的周期必须与PDU表一致。
+8. 连续模式点击`停止当前`后不得再出现该PDU，其他已运行ID必须继续发送；`停止全部`才统一停止5个ID。
+9. 多ID发送：先让0x076连续发送，再选择0x040并执行连续发送；Trace中两者应分别按20 ms和15 ms运行。切换选择本身不会启动或停止任何ID，PDU表发送状态必须与实际一致。
+
+当前静态验证结果：5 个 Tx PDU、16 个应用元素、15 组 Golden Vector 全部通过。Codex 未启动或操作 CANoe；CAPL 编译和总线发送由用户执行。
+
 ## 使用方式
 
 严格按步骤执行。每一步必须满足“通过条件”后再进入下一步。发生异常时执行本步骤
@@ -53,7 +67,7 @@ python Tools\verify_e2e_golden_vectors.py
 
 1. 备份当前 `.cfg`；
 2. 打开System Variables配置；
-3. 导入 `SyaVar/E2E_Framework_SystemVariables.xml`；
+3. 导入 `SyaVar/10_SRS3_E2E_Core_SystemVariables.xml`；
 4. 确认原有 `IL` 和 `IL_CAN1` 命名空间仍存在；
 5. 确认新增根命名空间为 `SRS3_E2E`；
 6. 保存配置并关闭CANoe。
@@ -66,8 +80,8 @@ python Tools\verify_e2e_golden_vectors.py
 
 回退：使用备份CFG；删除导入的 `SRS3_E2E` 命名空间。
 
-静态验收结果：配置同时引用 `SyaVar/E2E_SystemVariables.xml` 和
-`SyaVar/E2E_Framework_SystemVariables.xml`；原 `IL`、`IL_CAN1` 命名空间保留；
+静态验收结果：配置同时引用 `SyaVar/01_CANoe_IL_SystemVariables.xml` 和
+`SyaVar/10_SRS3_E2E_Core_SystemVariables.xml`；原 `IL`、`IL_CAN1` 命名空间保留；
 E2E定义包含5个Tx Group和16个应用信号命名空间，`GlobalEnable`初值为0。
 
 ## Step 3：创建Panel静态外壳
@@ -87,20 +101,19 @@ E2E定义包含5个Tx Group和16个应用信号命名空间，`GlobalEnable`初�
 - 不启动测量也不会修改数据库或CAPL；
 - 测量运行时原PDU内容保持不变，因为GlobalEnable=0。
 
-## Step 4：以安全Pass Through方式接入CAPL框架
+## Step 4：以安全Panel许可门接入CAPL框架
 
 在 `Nodes/VectorSimulationNode.can` 的includes中按顺序加入：
 
 ```capl
+#include "..\CAPL\E2E\Generated\E2E_TxRules_Generated.cin"
 #include "..\CAPL\E2E\E2E_ProfileG_Core.cin"
 #include "..\CAPL\E2E\E2E_BitCodec.cin"
-#include "..\CAPL\E2E\Generated\E2E_TxRules_Generated.cin"
 #include "..\CAPL\E2E\E2E_FaultInjection.cin"
 #include "..\CAPL\E2E\E2E_TxController.cin"
-#include "..\CAPL\E2E\E2E_PanelController.cin"
 ```
 
-在 `on preStart` 调用：
+在 `on start` 调用：
 
 ```capl
 E2E_TxInitialize();
@@ -109,21 +122,15 @@ E2E_TxInitialize();
 把当前TxPending的IPDU37日志体替换为：
 
 ```capl
-return E2E_TxProcess(
-  busContext,
-  shortId,
-  longId,
-  name,
-  aPDULength,
-  data);
+return E2E_TxProcess(name, aPDULength, data);
 ```
 
-此时 `gE2E_FrameworkEnable=0`，函数只识别5个PDU并保持Payload不变。
+`SRS3_E2E::Control::GlobalEnable=0` 时，函数只识别5个PDU并保持Payload不变。
 
 通过条件：
 
 - CAPL编译成功；
-- 5个PDU周期不变；
+- 未获许可时5个PDU均被抑制；连续许可时周期与数据库一致；
 - Tx Payload与接入前一致；
 - 总线上没有重复ID帧。
 
@@ -145,16 +152,18 @@ return E2E_TxProcess(
 
 测试顺序：
 
-- Pass Through；
-- One Shot；
-- Continuous；
+- 原值单帧；
+- 改值单帧；
+- 改值连续；
 - Counter 14→0；
-- Restore Normal；
+- 停止发送；
 - Golden Vector。
 
 在Golden Vector一致前，不实现其他PDU。
 
 ## Step 6：扩展全部5个Tx PDU
+
+源码、Panel元数据和Golden Vector已覆盖全部5帧；当前动态证据仅覆盖 `0x076` 连续发送。其余4帧按下列顺序完成CANoe验收，不需要再复制一套CAPL发送器。
 
 顺序建议：
 
@@ -170,8 +179,10 @@ return E2E_TxProcess(
 - Raw值；
 - Counter回卷；
 - Golden Vector；
-- Restore Normal；
+- 停止发送；
 - 验证非目标bit保持不变。
+
+额外执行多PDU组合测试：逐个启动两个、三个直至全部5个PDU；停止当前只能影响所选ID，停止全部必须清除所有ID。验证每个PDU的Counter独立推进、CRC基于本PDU最终Raw、UB/自动保护不因切换编辑对象而改变。
 
 ## Step 7：故障注入
 
@@ -240,3 +251,46 @@ rx: add CANFD3 E2E monitor
 ```
 
 不要把多个阶段合并为一次提交，否则问题发生时无法快速回退到最后一个已验证状态。
+## Rx接收测试实施（v1.5.0）
+
+本步骤的源代码与离线向量已经完成；以下操作需要用户在CANoe界面内完成。本轮没有自动
+打开或修改`.cfg`，避免破坏当前可发送基线。
+
+### A. CAN1动态接收测试
+
+1. 关闭测量，在System Variables中导入独立接收定义
+   `SyaVar/30_SRS3_E2E_RxBridge_SystemVariables.xml`，确认新增
+   `SRS3_E2E::WpfBridge::RxBridge`且类型为`Int32[224]`。
+2. 在CAN1 Simulation Setup新增Network Node，CAPL程序选择
+   `Nodes/E2E_RxMonitor.can`；该节点只有`on message *`监视逻辑，没有`output()`。
+3. 打开`Panels/SRS3 E2E Rx WPF Control.xvp`并加入配置；若现有页面中的Symbol丢失，
+   将WPF控件重新绑定到`SRS3_E2E::WpfBridge::RxBridge`。
+4. Compile All Nodes。出现任何CAPL编译错误时停止，不进行总线测试，保留完整错误文本。
+5. 启动测量。Panel选择CAN1，顶部应显示`RX MONITOR READY`，表中应有10个Group。
+6. 以`0x076`为首个冒烟对象：收到首个UB=1且CRC有效的帧应显示“初始帧”；下一个
+   Counter+1帧显示“正常”；Panel Raw区必须与Trace的8字节完全一致。
+7. 使用已有Tx对端或Replay分别输入`Test/RxGoldenVectors.json`中的CRC_ERROR和
+   UB_INACTIVE向量，状态应分别显示“CRC错误”和“UB未激活”。不要用本Rx节点发测试帧。
+8. 停止对端发送，等待`max(50 ms, 4×周期)`，已收到过帧的Group应进入“超时”。
+9. 保存Trace/截图，记录CANoe版本、DBC、Group、DataID、Rx/Calc CRC、Counter/Delta、UB、
+   Age和完整Payload。
+
+### B. CANFD3动态接收测试前置
+
+`Nodes/E2E_RxMonitor_CANFD3.can`和5个Group规则已实现，但当前CFG尚未配置CANFD3网络。
+在未冻结Vector硬件通道、仲裁/数据位率、BRS和CANFD3 DBC映射前，Panel必须显示
+“监听节点未配置/未启动”。完成网络配置后，把该CAPL节点放入CANFD3；`0x032`一次接收
+必须独立更新4个Group，`0x03F`更新1个Group，Payload按`canGetDataLength(this)`读取完整
+64/2字节。
+
+### C. 离线回归命令
+
+```powershell
+python Tools\generate_e2e_rx_artifacts.py
+python Tools\verify_e2e_rx.py
+python Tools\verify_e2e_golden_vectors.py
+python Tools\verify_e2e_framework.py
+python Tools\verify_panel_send_gate.py
+```
+
+预期Rx输出为`PASS: 15 groups, 45 golden vectors, CAN1/CANFD3 receive-only nodes`。

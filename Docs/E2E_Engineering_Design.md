@@ -8,22 +8,23 @@
 | 基线 | GitHub `origin/main`，初始恢复提交 `e4b692a` |
 | CANoe | 12.0.75 |
 | ECU | GEEA3.5 SRS3真实ECU |
-| 总线 | CAN1 Tx/Rx；CANFD3后续Rx |
+| 总线 | 单工程：CAN1 Tx/Rx；CANFD3后续Rx |
 | 日期 | 2026-08-12 |
-| 当前验证级别 | 文件级静态验证；未执行CANoe编译和测量 |
+| 当前验证级别 | 静态规则/Golden Vector通过；用户截图已验证0x076连续发送，其他帧待动态验收 |
 
 ## 2. 设计结论
 
-保留当前 `AsrPDUIL2` 周期发送机制，在 `applPDUILTxPending()` 中叠加：
+保留 `AsrPDUIL2` 作为唯一PDU发送路径，但5个受保护PDU默认不允许上总线。PDU-IL仍按数据库周期产生TxPending机会，`applPDUILTxPending()` 根据Panel许可返回0或1，并在放行前完成：
 
 1. Panel应用信号覆盖；
 2. UB处理；
 3. Counter更新；
 4. Profile G CRC计算；
 5. 分阶段故障注入；
-6. Panel状态发布。
+6. Panel状态发布；
+7. 单帧/连续发送许可判定。
 
-正常发送不使用额外 `on timer + output()`，避免与PDU-IL重复发送。接收方向使用
+未勾选发送使能或未执行发送时，回调对5个目标PDU返回0。单帧模式只放行下一次所选PDU调度；连续模式才按数据库周期持续放行。工程不使用额外 `on timer + output()`，避免第二发送源。接收方向使用
 独立E2E Monitor节点，自动化判定使用CAPL Test Module。
 
 ## 3. 当前基线
@@ -53,12 +54,13 @@
 
 ```mermaid
 flowchart LR
-    Panel["CANoe Panel"] --> SysVar["SRS3_E2E System Variables"]
-    SysVar --> TxCtrl["E2E Tx Controller"]
+    Panel["WPF Panel"] --> Bridge["PanelBridge 命令/状态邮箱"]
+    Bridge --> TxCtrl["E2E Tx Controller"]
     PduIl["AsrPDUIL2"] --> Hook["applPDUILTxPending"]
     Rules["Generated Rules"] --> TxCtrl
     Hook --> TxCtrl
-    TxCtrl --> Protect["Signal Override / UB / Counter / CRC"]
+    TxCtrl --> Gate["Send Permission Gate"]
+    Gate --> Protect["Signal Override / UB / Counter / CRC"]
     Protect --> Fault["Fault Injection"]
     Fault --> CAN1["CAN1"]
     CAN1 --> SRS["SRS3 ECU"]
@@ -74,9 +76,10 @@ flowchart LR
 
 | 组件 | 职责 | 禁止职责 |
 |---|---|---|
-| Panel | 输入、命令、状态显示 | CRC算法、位打包、定时发送 |
-| PDU-IL | PDU生命周期和周期发送 | 项目E2E故障注入 |
-| Tx Controller | 应用覆盖、Protect、故障和状态 | 新建重复周期发送器 |
+| Panel | 输入、发送许可命令、状态显示 | CRC算法、位打包、直接发送 |
+| PanelBridge | WPF与CAPL间交换命令和状态 | 产生周期、发送PDU、计算E2E |
+| PDU-IL | 产生数据库调度机会并执行最终PDU发送 | 决定Panel测试意图 |
+| Tx Controller | 默认拦截、单帧/连续许可、应用覆盖、Protect、故障和状态 | 新建重复发送器 |
 | Rx Monitor | CRC/Counter/周期/超时检查 | 修改接收帧 |
 | Test Module | 刺激、判定、报告 | 作为正常通信发送器 |
 | Generator | ARXML/DBC到CAPL规则 | 人工猜测信号映射 |
@@ -142,27 +145,33 @@ UB为0时该Group不推进Counter和CRC。共享PDU中的Group分别维护状态
 
 ## 8. Panel设计
 
-Panel包含四页：
+### 8.1 当前WPF实现（v1.4.0）
 
-1. Communication；
-2. E2E Tx；
-3. Fault Injection；
-4. Monitor & Test。
+当前实施采用单页WPF上下表格布局，保留下述逻辑模型，但不再使用五套固定GroupBox作为主操作界面。WPF只绑定一个 `Int32[64]` 邮箱：`SRS3_E2E::WpfBridge::PanelBridge`。
 
-CANoe 12中创建5个固定应用信号GroupBox，使用 `setControlVisibility()` 切换显示，
-使用 `enableControl()` 控制运行状态下的编辑权限。运行时不动态创建控件。
+CANoe可能在控件初始化时先报告 `ExchangeSymbolDataType.Unknown`，测量数据激活后才报告 `LongArray`。`Unknown`只表示等待数据类型激活，不表示Symbol未绑定；插件通过ValueChanged事件和250 ms只读轮询完成状态迁移。
+
+发送使能使用确认式握手：Panel把请求值写入索引5并把Command索引6置3；CAPL在下一次PDU-IL TxPending中更新实际 `SRS3_E2E::Control::GlobalEnable`，清除Command并回写索引5。使能只解锁发送命令，本身不发送PDU。只有LongArray有效、BridgeReady=1且实际使能=1时，执行当前才可用；停止当前和停止全部在BridgeReady=1时可用。
+
+PDU-IL仍是唯一底层发送路径，但CAPL是发送许可门：无许可返回0，单帧/连续有许可时完成保护并返回1。Trace同时显示同一事件的 `CAN Frame Tx` 与 `AUTOSAR PDU Tx` 不是重复发送。
+
+当前交付只实现一个E2E Tx WPF控件，不再采用旧方案中的四页Panel和5套固定GroupBox。控件从上到下固定为：命令工具栏、5个受保护PDU表、E2E只读状态、当前PDU应用信号表、完整8-byte最终Payload。PDU切换通过同一个信号表的数据源完成，不在运行时创建Vector标准控件。
+
+视觉遵循PDU Interactive Generator的上下表格层级：白/浅灰为主体，低饱和蓝色表示主操作和Counter，黄色表示UB或等待，红色表示CRC/故障，绿色只表示桥接安全使能。顶部纯黑标题栏已取消。
 
 覆盖模式：
 
-- Pass Through：保留PDU-IL应用数据；
-- One Shot：只覆盖下一PDU周期；
-- Continuous：每个周期持续覆盖；
-- Restore Normal：清除覆盖和故障，下一PDU周期恢复。
+- 原值单帧 / Pass Through：不覆盖应用值，只放行下一次所选PDU调度；
+- 改值单帧 / One Shot：覆盖应用值并只放行一次；
+- 改值连续 / Continuous：覆盖应用值，并按数据库周期持续放行；
+- 停止当前：撤销所选PDU的单帧或连续许可，其他PDU保持原状态；停止全部撤销所有许可。
+
+`发送使能`是Panel发送命令的安全锁；Measurement启动和停止都强制清零。`自动保护`对所有Panel发送统一生效：勾选后写入UB/Counter/CRC，不勾选则发送未经本控制器保护的最终Payload，用于负向测试。
 
 每个应用元素包含Physical/Enum、Raw、Use Raw和Input Valid。CRC、Counter和UB不
 作为普通应用数据编辑。
 
-完整控件名和System Variable绑定见 `Panels/README.md`。
+完整桥接字段、控件行为和CANoe动态验收步骤见 `PanelPlugin/README.md` 与 `Docs/Panel_Function_Verification.md`。
 
 ## 9. Tx处理顺序
 
@@ -175,7 +184,11 @@ sequenceDiagram
     participant Bus as CAN1
     IL->>Hook: name, length, data[]
     Hook->>Hook: Find PDU rule
-    Hook->>SV: Read override and application values
+    Hook->>SV: Read Panel send permission
+    alt no permission
+        Hook-->>IL: return 0, suppress PDU
+    else one-shot or continuous permission
+    Hook->>SV: Read mode and application values
     Hook->>Hook: Apply application values when requested
     Hook->>Hook: Resolve UB and counter
     Hook->>Core: DataID, counter, logical elements
@@ -184,11 +197,35 @@ sequenceDiagram
     Hook->>Hook: Apply fault at defined phase
     Hook->>SV: Publish final status and payload
     Hook-->>IL: return 1
-    IL->>Bus: Existing cyclic transmission
+    IL->>Bus: Send permitted PDU
+    end
 ```
 
-所有CRC计算必须基于最终应用数据。One Shot在一次成功TxPending处理后自动回到
-Pass Through。
+所有CRC计算必须基于最终应用数据。One Shot在一次成功TxPending处理后自动撤销该PDU许可；Continuous保持该PDU许可直到停止当前、停止全部、取消发送使能或Measurement结束。
+
+Tx Panel采用每PDU独立运行模型：所选PDU变化只切换编辑和状态归属，不改变其他PDU许可。执行当前时，只为所选PDU更新发送模式、UB模式、自动保护、应用Raw和许可；停止当前只撤销该PDU，停止全部撤销5个PDU。由此既支持单ID发送，也支持任意多个ID按各自数据库周期并行发送。
+
+并行发送不增加第二发送源：每个ID仍只在自己的PDU-IL TxPending机会中放行。多个周期在同一时间到期时，由CAN控制器按ID仲裁和现有总线负载决定实际发送时刻，因此验收应检查平均周期及合理抖动，不能要求所有帧时间戳完全等于标称周期。
+
+### 9.1 单工程CAN1/CANFD3与Panel分层
+
+一个CANoe `.cfg` 可以同时承载CAN1和CANFD3，但“网络选择”是对象筛选和路由选择，不是把同一个PDU改发到另一条总线。当前事实边界如下：
+
+| 网络 | 当前规则角色 | 当前运行配置 | Panel行为 |
+|---|---|---|---|
+| CAN1 | 5个Tx PDU；10个后续Rx Group | 已装载CAN1数据库与PDU-IL节点 | Tx控件可发送；后续Rx控件可监控 |
+| CANFD3 | 5个Rx Group，帧 `0x032/0x03F` 的DBC发送节点为SRS3 | DBC文件存在，但尚未加入当前CFG | 仅在完成通道配置后由Rx控件选择/监控，不提供Tx按钮 |
+
+单工程最终Panel建议采用同一视觉体系下的四个独立WPF控件/页面，避免扩大当前已验证的Tx邮箱协议：
+
+| Panel | 网络选择 | 核心布局 | 命令边界 |
+|---|---|---|---|
+| E2E Tx Control | 固定CAN1 Tx | PDU表/各ID状态 → 信号表 → 8-byte Raw/CRC/Counter/UB | 执行当前/停止当前/停止全部/发送使能 |
+| E2E Rx Monitor | CAN1 / CANFD3 | 网络与Group表 → 当前Group状态/时序 → 接收Raw | 全部只读，可清统计 |
+| Fault Injection | CAN1 Tx | PDU/故障/参数表 → 生效阶段 → 当前注入状态 | Arm/Apply Once/Continuous/Clear |
+| Test Runner | CAN1 / CANFD3 | 用例树 → 步骤与期望 → Pass/Fail/证据路径 | Run/Stop/Export，不直接作为第二发送器 |
+
+Rx控件的网络下拉框只有在对应CAPL Rx节点报告Ready后才可选择实时模式；否则显示“数据库存在/通道未配置”，不显示伪造状态。各控件使用独立System Variable邮箱（保留当前 `PanelBridge` 给Tx），从而不破坏已导入的Tx绑定，也便于单独编译和回退。
 
 ## 10. 故障模型
 
@@ -236,10 +273,10 @@ WRONG_SEQUENCE / CRC_ERROR / UB_INACTIVE / TIMEOUT
 
 ## 12. 状态与恢复
 
-- Measurement Start：Counter和统计清零；框架默认Disabled。
-- Global Enable：只有规则和Golden Vector通过后才允许开启。
+- Measurement Start：Counter、命令、发送许可和发送使能全部清零；5个PDU默认不发送。
+- 发送使能：只解锁Panel命令，不自动发送。
 - UB=0：保持Counter。
-- Restore Normal：清除覆盖和故障，保留Auto Protect。
+- 停止当前：清除所选PDU发送许可和覆盖；停止全部清除全部PDU许可和覆盖。
 - Node Disable：清除One Shot和Continuous。
 - Measurement Stop：停止记录并关闭报告文件。
 
@@ -252,7 +289,7 @@ KL15循环是否重置Tx/Rx Counter、超时阈值和ECU恢复判据必须由项
 - 规则生成和Golden Vector；
 - 16个应用元素Min/Nominal/Max；
 - Raw和Reserved值；
-- Pass Through、One Shot、Continuous、Restore；
+- 原值单帧、改值单帧、改值连续、停止发送；
 - Counter回卷；
 - UB=0；
 - CRC、Counter、DataID、Payload和Timeout故障；
@@ -279,13 +316,14 @@ Baseline记录Git提交、CANoe/DLL版本、ARXML/DBC哈希、规则哈希、ECU
 ## 14. 验收条件
 
 - CANoe 12编译无错误；
-- 原PDU-IL周期不变且无重复帧；
+- 未执行Panel发送时5个目标PDU在总线上为零帧；
+- 连续模式周期与数据库周期一致且无重复帧；
 - 5个Tx PDU均进入统一入口；
 - 16个应用元素均可通过Panel修改；
 - One Shot只影响一个PDU周期；
 - Counter按0～14循环；
 - CRC与ZXDoc Golden Vector一致；
-- Restore Normal在下一PDU周期恢复；
+- 停止发送后所选PDU后续调度全部被抑制；
 - 15个Rx Group独立判定；
 - 故障注入只改变目标错误维度；
 - 报告可追溯到源码和数据库版本。
@@ -294,7 +332,7 @@ Baseline记录Git提交、CANoe/DLL版本、ARXML/DBC哈希、规则哈希、ECU
 
 1. `E2E_CAN1.arxml`与原ARXML的运行选择需在CANoe中确认；不能仅因文件名切换。
 2. 当前CFG内嵌System Variable与外部XML需要建立一致性检查。
-3. Stop Tx的PDU级抑制API需通过CANoe 12帮助或最小实验确认。
+3. PDU级抑制使用CANoe 12官方 `applPDUILTxPending()` 返回0；仍需在CANoe编译和Trace中完成动态验收。
 4. CANFD3仲裁/数据相位、BRS和通道映射尚未进入当前配置。
 5. ECU E2E错误反应的可观测接口尚未冻结。
 6. KL15和Measurement重启后的Counter初始化策略尚未冻结。

@@ -1,0 +1,564 @@
+/*@!Encoding:1252*/
+
+/* GENERATED FILE - DO NOT EDIT.
+ * Source SHA-256: 9FFB8F5B3DB4DA50ED4537DF4517E53D39191D3E6AA024C2A88AAC42E50E30A6
+ * Physical start bits use Vector/DBC Motorola numbering.
+ */
+
+int E2E_GetRxGroupCount() { return 15; }
+
+int E2E_GetRxBus(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 0;
+    case 1: return 0;
+    case 2: return 0;
+    case 3: return 0;
+    case 4: return 0;
+    case 5: return 0;
+    case 6: return 0;
+    case 7: return 0;
+    case 8: return 0;
+    case 9: return 0;
+    case 10: return 1;
+    case 11: return 1;
+    case 12: return 1;
+    case 13: return 1;
+    case 14: return 1;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxCanId(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 16;
+    case 1: return 18;
+    case 2: return 19;
+    case 3: return 33;
+    case 4: return 112;
+    case 5: return 137;
+    case 6: return 322;
+    case 7: return 322;
+    case 8: return 328;
+    case 9: return 628;
+    case 10: return 50;
+    case 11: return 50;
+    case 12: return 50;
+    case 13: return 50;
+    case 14: return 63;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxDlc(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 4;
+    case 1: return 8;
+    case 2: return 8;
+    case 3: return 8;
+    case 4: return 8;
+    case 5: return 8;
+    case 6: return 8;
+    case 7: return 8;
+    case 8: return 8;
+    case 9: return 8;
+    case 10: return 64;
+    case 11: return 64;
+    case 12: return 64;
+    case 13: return 64;
+    case 14: return 2;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxCycleMs(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 200;
+    case 1: return 10;
+    case 2: return 10;
+    case 3: return 10;
+    case 4: return 20;
+    case 5: return 10;
+    case 6: return 30;
+    case 7: return 30;
+    case 8: return 30;
+    case 9: return 80;
+    case 10: return 5;
+    case 11: return 5;
+    case 12: return 5;
+    case 13: return 5;
+    case 14: return 200;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxTimeoutMs(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 800;
+    case 1: return 50;
+    case 2: return 50;
+    case 3: return 50;
+    case 4: return 80;
+    case 5: return 50;
+    case 6: return 120;
+    case 7: return 120;
+    case 8: return 120;
+    case 9: return 320;
+    case 10: return 50;
+    case 11: return 50;
+    case 12: return 50;
+    case 13: return 50;
+    case 14: return 800;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxDataId(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 1035;
+    case 1: return 34;
+    case 2: return 36;
+    case 3: return 1036;
+    case 4: return 25;
+    case 5: return 35;
+    case 6: return 1028;
+    case 7: return 1141;
+    case 8: return 74;
+    case 9: return 3806;
+    case 10: return 34;
+    case 11: return 35;
+    case 12: return 36;
+    case 13: return 6915;
+    case 14: return 1035;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxMaxDelta(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 14;
+    case 1: return 3;
+    case 2: return 14;
+    case 3: return 14;
+    case 4: return 3;
+    case 5: return 3;
+    case 6: return 13;
+    case 7: return 14;
+    case 8: return 3;
+    case 9: return 14;
+    case 10: return 3;
+    case 11: return 3;
+    case 12: return 14;
+    case 13: return 3;
+    case 14: return 14;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxUbStartBit(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 5;
+    case 1: return 56;
+    case 2: return 56;
+    case 3: return 14;
+    case 4: return 41;
+    case 5: return 5;
+    case 6: return 6;
+    case 7: return 33;
+    case 8: return 30;
+    case 9: return 43;
+    case 10: return 7;
+    case 11: return 69;
+    case 12: return 176;
+    case 13: return 298;
+    case 14: return 10;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxCrcStartBit(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 15;
+    case 1: return 7;
+    case 2: return 23;
+    case 3: return 23;
+    case 4: return 39;
+    case 5: return 47;
+    case 6: return 15;
+    case 7: return 47;
+    case 8: return 63;
+    case 9: return 39;
+    case 10: return 39;
+    case 11: return 111;
+    case 12: return 162;
+    case 13: return 274;
+    case 14: return 7;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxCounterStartBit(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 3;
+    case 1: return 15;
+    case 2: return 47;
+    case 3: return 11;
+    case 4: return 47;
+    case 5: return 55;
+    case 6: return 3;
+    case 7: return 51;
+    case 8: return 29;
+    case 9: return 47;
+    case 10: return 47;
+    case 11: return 119;
+    case 12: return 170;
+    case 13: return 282;
+    case 14: return 15;
+    default: return -1;
+  }
+}
+
+int E2E_GetRxElementCount(int groupIndex)
+{
+  switch (groupIndex)
+  {
+    case 0: return 1;
+    case 1: return 6;
+    case 2: return 6;
+    case 3: return 2;
+    case 4: return 1;
+    case 5: return 4;
+    case 6: return 2;
+    case 7: return 3;
+    case 8: return 13;
+    case 9: return 1;
+    case 10: return 6;
+    case 11: return 4;
+    case 12: return 6;
+    case 13: return 12;
+    case 14: return 1;
+    default: return 0;
+  }
+}
+
+int E2E_GetRxElementStartBit(int groupIndex, int elementIndex)
+{
+  switch (groupIndex)
+  {
+    case 0:
+      switch (elementIndex)
+      {
+        case 0: return 4;
+        default: return -1;
+      }
+    case 1:
+      switch (elementIndex)
+      {
+        case 0: return 23;
+        case 1: return 11;
+        case 2: return 38;
+        case 3: return 9;
+        case 4: return 55;
+        case 5: return 24;
+        default: return -1;
+      }
+    case 2:
+      switch (elementIndex)
+      {
+        case 0: return 41;
+        case 1: return 55;
+        case 2: return 43;
+        case 3: return 31;
+        case 4: return 33;
+        case 5: return 7;
+        default: return -1;
+      }
+    case 3:
+      switch (elementIndex)
+      {
+        case 0: return 13;
+        case 1: return 12;
+        default: return -1;
+      }
+    case 4:
+      switch (elementIndex)
+      {
+        case 0: return 43;
+        default: return -1;
+      }
+    case 5:
+      switch (elementIndex)
+      {
+        case 0: return 15;
+        case 1: return 51;
+        case 2: return 31;
+        case 3: return 49;
+        default: return -1;
+      }
+    case 6:
+      switch (elementIndex)
+      {
+        case 0: return 23;
+        case 1: return 5;
+        default: return -1;
+      }
+    case 7:
+      switch (elementIndex)
+      {
+        case 0: return 32;
+        case 1: return 55;
+        case 2: return 53;
+        default: return -1;
+      }
+    case 8:
+      switch (elementIndex)
+      {
+        case 0: return 25;
+        case 1: return 39;
+        case 2: return 37;
+        case 3: return 35;
+        case 4: return 33;
+        case 5: return 47;
+        case 6: return 45;
+        case 7: return 43;
+        case 8: return 41;
+        case 9: return 55;
+        case 10: return 53;
+        case 11: return 51;
+        case 12: return 49;
+        default: return -1;
+      }
+    case 9:
+      switch (elementIndex)
+      {
+        case 0: return 7;
+        default: return -1;
+      }
+    case 10:
+      switch (elementIndex)
+      {
+        case 0: return 6;
+        case 1: return 43;
+        case 2: return 23;
+        case 3: return 41;
+        case 4: return 55;
+        case 5: return 71;
+        default: return -1;
+      }
+    case 11:
+      switch (elementIndex)
+      {
+        case 0: return 79;
+        case 1: return 115;
+        case 2: return 95;
+        case 3: return 113;
+        default: return -1;
+      }
+    case 12:
+      switch (elementIndex)
+      {
+        case 0: return 182;
+        case 1: return 143;
+        case 2: return 180;
+        case 3: return 144;
+        case 4: return 178;
+        case 5: return 127;
+        default: return -1;
+      }
+    case 13:
+      switch (elementIndex)
+      {
+        case 0: return 239;
+        case 1: return 294;
+        case 2: return 240;
+        case 3: return 292;
+        case 4: return 257;
+        case 5: return 290;
+        case 6: return 191;
+        case 7: return 288;
+        case 8: return 207;
+        case 9: return 302;
+        case 10: return 223;
+        case 11: return 300;
+        default: return -1;
+      }
+    case 14:
+      switch (elementIndex)
+      {
+        case 0: return 11;
+        default: return -1;
+      }
+    default: return -1;
+  }
+}
+
+int E2E_GetRxElementBitLength(int groupIndex, int elementIndex)
+{
+  switch (groupIndex)
+  {
+    case 0:
+      switch (elementIndex)
+      {
+        case 0: return 1;
+        default: return -1;
+      }
+    case 1:
+      switch (elementIndex)
+      {
+        case 0: return 15;
+        case 1: return 2;
+        case 2: return 15;
+        case 3: return 2;
+        case 4: return 15;
+        case 5: return 2;
+        default: return -1;
+      }
+    case 2:
+      switch (elementIndex)
+      {
+        case 0: return 2;
+        case 1: return 15;
+        case 2: return 2;
+        case 3: return 14;
+        case 4: return 2;
+        case 5: return 16;
+        default: return -1;
+      }
+    case 3:
+      switch (elementIndex)
+      {
+        case 0: return 1;
+        case 1: return 1;
+        default: return -1;
+      }
+    case 4:
+      switch (elementIndex)
+      {
+        case 0: return 2;
+        default: return -1;
+      }
+    case 5:
+      switch (elementIndex)
+      {
+        case 0: return 16;
+        case 1: return 2;
+        case 2: return 16;
+        case 3: return 2;
+        default: return -1;
+      }
+    case 6:
+      switch (elementIndex)
+      {
+        case 0: return 16;
+        case 1: return 2;
+        default: return -1;
+      }
+    case 7:
+      switch (elementIndex)
+      {
+        case 0: return 1;
+        case 1: return 2;
+        case 2: return 2;
+        default: return -1;
+      }
+    case 8:
+      switch (elementIndex)
+      {
+        case 0: return 2;
+        case 1: return 2;
+        case 2: return 2;
+        case 3: return 2;
+        case 4: return 2;
+        case 5: return 2;
+        case 6: return 2;
+        case 7: return 2;
+        case 8: return 2;
+        case 9: return 2;
+        case 10: return 2;
+        case 11: return 2;
+        case 12: return 2;
+        default: return -1;
+      }
+    case 9:
+      switch (elementIndex)
+      {
+        case 0: return 32;
+        default: return -1;
+      }
+    case 10:
+      switch (elementIndex)
+      {
+        case 0: return 15;
+        case 1: return 2;
+        case 2: return 15;
+        case 3: return 2;
+        case 4: return 15;
+        case 5: return 2;
+        default: return -1;
+      }
+    case 11:
+      switch (elementIndex)
+      {
+        case 0: return 16;
+        case 1: return 2;
+        case 2: return 16;
+        case 3: return 2;
+        default: return -1;
+      }
+    case 12:
+      switch (elementIndex)
+      {
+        case 0: return 2;
+        case 1: return 15;
+        case 2: return 2;
+        case 3: return 14;
+        case 4: return 2;
+        case 5: return 16;
+        default: return -1;
+      }
+    case 13:
+      switch (elementIndex)
+      {
+        case 0: return 15;
+        case 1: return 2;
+        case 2: return 15;
+        case 3: return 2;
+        case 4: return 15;
+        case 5: return 2;
+        case 6: return 16;
+        case 7: return 2;
+        case 8: return 16;
+        case 9: return 2;
+        case 10: return 16;
+        case 11: return 2;
+        default: return -1;
+      }
+    case 14:
+      switch (elementIndex)
+      {
+        case 0: return 1;
+        default: return -1;
+      }
+    default: return -1;
+  }
+}
+

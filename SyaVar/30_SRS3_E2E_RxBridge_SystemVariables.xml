@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sysvardefinition SYSTEM "systemvariables.dtd">
+<!-- Rx WPF mailbox only. Does not define Tx PanelBridge or core variables. -->
+<systemvariables version="1">
+  <namespace name="SRS3_E2E">
+    <namespace name="WpfBridge">
+      <variable
+        name="RxBridge"
+        comment="SRS3 E2E Rx monitor bridge protocol v2; 224 signed 32-bit integers"
+        anlyzLocal="2"
+        type="intarray"
+        arrayLength="224"
+        bitcount="32"
+        isSigned="true"
+        encoding="65001"
+        readOnly="false"
+        valueSequence="false"
+        unit=""
+        startValue="2;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" />
+    </namespace>
+  </namespace>
+</systemvariables>

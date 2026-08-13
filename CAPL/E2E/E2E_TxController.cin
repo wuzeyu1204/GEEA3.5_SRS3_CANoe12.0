@@ -1,62 +1,452 @@
 /*@!Encoding:1252*/
 
+/*
+ * PDU-IL Tx adapter for the five protected SRS3 PDUs.
+ * PDU-IL remains the only transport sender. Its configured cyclic attempts
+ * are blocked by default; Panel grants one-shot or continuous permission.
+ * This module edits the pending payload in place and never calls output().
+ */
+
 variables
 {
-  /* Safe default: the framework observes supported PDU names but does not
-   * modify payload until generated bindings and golden vectors are complete. */
-  int gE2E_FrameworkEnable = 0;
-  int gE2E_FrameworkDebug = 0;
+  int gE2E_OverrideActive[5] = {0, 0, 0, 0, 0};
+  /* 0 stopped, 1 permit exactly one scheduled PDU, 2 permit cyclic PDU-IL sends. */
+  int gE2E_PanelSendMode[5] = {0, 0, 0, 0, 0};
+  int gE2E_PanelUbMode[5] = {0, 0, 0, 0, 0};
+  int gE2E_PanelProtectMode[5] = {1, 1, 1, 1, 1};
+  int gE2E_BridgeActive = 0;
+  int gE2E_LastSelectedPdu = -1;
+  dword gE2E_OverrideRaw[40];
+}
+
+int E2E_BridgeSelectedPdu()
+{
+  int selectedPdu;
+
+  selectedPdu = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[1];
+  if ((selectedPdu < 0) || (selectedPdu >= E2E_TX_PDU_COUNT))
+  {
+    return E2E_TX_VEH_SPD_LGT;
+  }
+  return selectedPdu;
+}
+
+void E2E_BridgePublishControlState()
+{
+  int pduIndex;
+
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[0] = 1;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[5] = @sysvar::SRS3_E2E::Control::GlobalEnable;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[38] = gE2E_BridgeActive;
+  for (pduIndex = 0; pduIndex < E2E_TX_PDU_COUNT; pduIndex++)
+  {
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[47 + pduIndex] =
+      gE2E_PanelSendMode[pduIndex];
+  }
+}
+
+void E2E_ClearOverride(int pduIndex)
+{
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return;
+  gE2E_OverrideActive[pduIndex] = 0;
+}
+
+void E2E_StopPanelSend(int pduIndex)
+{
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return;
+  gE2E_PanelSendMode[pduIndex] = 0;
+  E2E_ClearOverride(pduIndex);
+}
+
+void E2E_StopAllPanelSends()
+{
+  int pduIndex;
+
+  for (pduIndex = 0; pduIndex < E2E_TX_PDU_COUNT; pduIndex++)
+  {
+    E2E_StopPanelSend(pduIndex);
+  }
+}
+
+void E2E_BridgePublishSelection(int pduIndex)
+{
+  int index;
+
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return;
+
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[9] = gE2E_TxCounter[pduIndex];
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[10] = E2E_GetTxDataId(pduIndex);
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[11] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[12] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[13] = E2E_GetTxSignalCount(pduIndex);
+
+  /* Clear only status/output slots. The selected PDU's next blocked PDU-IL
+   * attempt publishes its real pending application values and payload. */
+  for (index = 0; index < 8; index++)
+  {
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[14 + index] = 0;
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[39 + index] = 0;
+  }
+}
+
+void E2E_BridgeSynchronizeSelection()
+{
+  int selectedPdu;
+
+  selectedPdu = E2E_BridgeSelectedPdu();
+  if (selectedPdu == gE2E_LastSelectedPdu) return;
+
+  /* Selection only changes the editor/status target. Every PDU keeps its own
+   * permission and may continue concurrently at its database cycle. */
+  gE2E_LastSelectedPdu = selectedPdu;
+  E2E_BridgePublishSelection(selectedPdu);
+}
+
+void E2E_BridgePollCommand()
+{
+  int command;
+  int requestedEnable;
+  int pduIndex;
+  int signalIndex;
+  int signalCount;
+  int mode;
+  int inputsValid;
+
+  E2E_BridgeSynchronizeSelection();
+  command = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[6];
+  if (command == 0)
+  {
+    E2E_BridgePublishControlState();
+    return;
+  }
+
+  pduIndex = E2E_BridgeSelectedPdu();
+  if (command == 3)
+  {
+    requestedEnable = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[5];
+    if (requestedEnable != 0)
+    {
+      @sysvar::SRS3_E2E::Control::GlobalEnable = 1;
+    }
+    else
+    {
+      @sysvar::SRS3_E2E::Control::GlobalEnable = 0;
+      E2E_StopAllPanelSends();
+    }
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 0;
+  }
+  else if (command == 2)
+  {
+    E2E_StopPanelSend(pduIndex);
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 0;
+  }
+  else if (command == 4)
+  {
+    E2E_StopAllPanelSends();
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 0;
+  }
+  else if (command == 1)
+  {
+    mode = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[2];
+    signalCount = E2E_GetTxSignalCount(pduIndex);
+    inputsValid = 1;
+
+    for (signalIndex = 0; signalIndex < signalCount; signalIndex++)
+    {
+      if (@sysvar::SRS3_E2E::WpfBridge::PanelBridge[30 + signalIndex] == 0)
+      {
+        inputsValid = 0;
+      }
+    }
+
+    if (mode == 0)
+    {
+      /* Pass-through still requires an explicit Panel send command. */
+      E2E_ClearOverride(pduIndex);
+      gE2E_PanelUbMode[pduIndex] =
+        @sysvar::SRS3_E2E::WpfBridge::PanelBridge[3];
+      gE2E_PanelProtectMode[pduIndex] =
+        @sysvar::SRS3_E2E::WpfBridge::PanelBridge[4] != 0;
+      gE2E_PanelSendMode[pduIndex] = 1;
+      @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 2;
+    }
+    else if ((mode == 1) || (mode == 2))
+    {
+      if (inputsValid)
+      {
+        for (signalIndex = 0; signalIndex < signalCount; signalIndex++)
+        {
+          gE2E_OverrideRaw[(pduIndex * 8) + signalIndex] =
+            @sysvar::SRS3_E2E::WpfBridge::PanelBridge[14 + signalIndex];
+        }
+        gE2E_OverrideActive[pduIndex] = 1;
+        gE2E_PanelUbMode[pduIndex] =
+          @sysvar::SRS3_E2E::WpfBridge::PanelBridge[3];
+        gE2E_PanelProtectMode[pduIndex] =
+          @sysvar::SRS3_E2E::WpfBridge::PanelBridge[4] != 0;
+        gE2E_PanelSendMode[pduIndex] = mode;
+        @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 2;
+      }
+      else
+      {
+        E2E_StopPanelSend(pduIndex);
+        @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 3;
+      }
+    }
+    else
+    {
+      E2E_StopPanelSend(pduIndex);
+      @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 3;
+    }
+  }
+
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[6] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[7] =
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[7] + 1;
+  E2E_BridgePublishControlState();
+}
+
+int E2E_ReadApplicationRaw(int pduIndex, byte data[], int payloadLength, dword rawValues[])
+{
+  int signalIndex;
+  int signalCount;
+
+  signalCount = E2E_GetTxSignalCount(pduIndex);
+  for (signalIndex = 0; signalIndex < signalCount; signalIndex++)
+  {
+    if (!E2E_GetMotorolaRaw(
+      data,
+      payloadLength,
+      E2E_GetTxSignalStartBit(pduIndex, signalIndex),
+      E2E_GetTxSignalBitLength(pduIndex, signalIndex),
+      rawValues[signalIndex]))
+    {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+int E2E_WriteApplicationRaw(int pduIndex, byte data[], int payloadLength, dword rawValues[])
+{
+  int signalIndex;
+  int signalCount;
+
+  signalCount = E2E_GetTxSignalCount(pduIndex);
+  for (signalIndex = 0; signalIndex < signalCount; signalIndex++)
+  {
+    if (!E2E_SetMotorolaRaw(
+      data,
+      payloadLength,
+      E2E_GetTxSignalStartBit(pduIndex, signalIndex),
+      E2E_GetTxSignalBitLength(pduIndex, signalIndex),
+      rawValues[signalIndex]))
+    {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+int E2E_BuildLogicalApplicationData(int pduIndex, dword rawValues[], byte applicationData[])
+{
+  int signalIndex;
+  int byteIndex;
+  int byteCount;
+  int outputIndex;
+  dword rawValue;
+
+  outputIndex = 0;
+  for (signalIndex = 0; signalIndex < E2E_GetTxSignalCount(pduIndex); signalIndex++)
+  {
+    rawValue = rawValues[signalIndex];
+    byteCount = (E2E_GetTxSignalBitLength(pduIndex, signalIndex) + 7) / 8;
+    for (byteIndex = 0; byteIndex < byteCount; byteIndex++)
+    {
+      applicationData[outputIndex] = (rawValue >> (8 * byteIndex)) & 0xFF;
+      outputIndex++;
+    }
+  }
+  return outputIndex;
+}
+
+int E2E_ResolveUpdateBit(int pduIndex)
+{
+  int ubMode;
+
+  ubMode = gE2E_PanelUbMode[pduIndex];
+  if (ubMode == 1) return 0;
+  if (ubMode == 2) return 1;
+  return 1;
+}
+
+void E2E_BridgePublishFrame(
+  int pduIndex,
+  int state,
+  byte counter,
+  byte crc,
+  int updateBit,
+  dword rawValues[],
+  byte data[])
+{
+  int index;
+
+  if (pduIndex != E2E_BridgeSelectedPdu()) return;
+
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = state;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[9] = counter;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[10] = E2E_GetTxDataId(pduIndex);
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[11] = crc;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[12] = updateBit;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[13] = E2E_GetTxSignalCount(pduIndex);
+
+  for (index = 0; index < 8; index++)
+  {
+    if (index < E2E_GetTxSignalCount(pduIndex))
+    {
+      @sysvar::SRS3_E2E::WpfBridge::PanelBridge[14 + index] = rawValues[index];
+    }
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[39 + index] = data[index];
+  }
 }
 
 void E2E_TxInitialize()
 {
+  int pduIndex;
+  int rawIndex;
+
+  /* Measurement always starts safe: Panel must explicitly arm and send. */
+  gE2E_BridgeActive = 1;
+  @sysvar::SRS3_E2E::Control::GlobalEnable = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[2] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[3] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[4] = 1;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[5] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[6] = 0;
+
   E2E_ResetTxCounters();
   E2E_ResetFaults();
-  gE2E_FrameworkEnable = 0;
+  for (pduIndex = 0; pduIndex < E2E_TX_PDU_COUNT; pduIndex++)
+  {
+    E2E_StopPanelSend(pduIndex);
+    gE2E_PanelUbMode[pduIndex] = 0;
+    gE2E_PanelProtectMode[pduIndex] = 1;
+  }
+  for (rawIndex = 0; rawIndex < 40; rawIndex++)
+  {
+    gE2E_OverrideRaw[rawIndex] = 0;
+  }
+  gE2E_LastSelectedPdu = E2E_BridgeSelectedPdu();
+  E2E_BridgePublishSelection(gE2E_LastSelectedPdu);
+  E2E_BridgePublishControlState();
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 0;
 }
 
-int E2E_TxProcess(
-  dword busContext,
-  dword shortId,
-  dword longId,
-  char pduName[],
-  dword& pduLength,
-  byte data[])
+void E2E_TxShutdown()
+{
+  gE2E_BridgeActive = 0;
+  @sysvar::SRS3_E2E::Control::GlobalEnable = 0;
+  E2E_StopAllPanelSends();
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[5] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[6] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[38] = 0;
+}
+
+dword E2E_TxProcess(char pduName[], dword payloadLength, byte data[])
 {
   int pduIndex;
+  int signalIndex;
+  int logicalLength;
+  int updateBit;
+  int protectEnabled;
+  byte counter;
+  byte crc;
+  byte logicalData[16];
+  dword rawValues[8];
 
+  E2E_BridgePollCommand();
   pduIndex = E2E_FindTxPdu(pduName);
-  if (pduIndex < 0)
+  if (pduIndex < 0) return 1;
+  if (payloadLength < E2E_GetTxDlc(pduIndex)) return 0;
+
+  if (!E2E_ReadApplicationRaw(pduIndex, data, payloadLength, rawValues)) return 0;
+
+  if (@sysvar::SRS3_E2E::Control::GlobalEnable == 0)
   {
+    E2E_StopPanelSend(pduIndex);
+    if (pduIndex == E2E_BridgeSelectedPdu())
+    {
+      E2E_BridgePublishFrame(pduIndex, 0, gE2E_TxCounter[pduIndex], 0, 0, rawValues, data);
+    }
+    return 0;
+  }
+
+  /* PDU-IL keeps its internal schedule, but no protected PDU reaches the bus
+   * until Panel grants a one-shot or continuous send permission. */
+  if (gE2E_PanelSendMode[pduIndex] == 0)
+  {
+    if (pduIndex == E2E_BridgeSelectedPdu())
+    {
+      E2E_BridgePublishFrame(pduIndex, 0, gE2E_TxCounter[pduIndex], 0, 0, rawValues, data);
+    }
+    return 0;
+  }
+
+  if (gE2E_OverrideActive[pduIndex])
+  {
+    for (signalIndex = 0; signalIndex < E2E_GetTxSignalCount(pduIndex); signalIndex++)
+    {
+      rawValues[signalIndex] = gE2E_OverrideRaw[(pduIndex * 8) + signalIndex];
+    }
+    if (!E2E_WriteApplicationRaw(pduIndex, data, payloadLength, rawValues))
+    {
+      E2E_StopPanelSend(pduIndex);
+      @sysvar::SRS3_E2E::WpfBridge::PanelBridge[8] = 3;
+      return 0;
+    }
+  }
+
+  protectEnabled = gE2E_PanelProtectMode[pduIndex];
+
+  if (!protectEnabled)
+  {
+    if (gE2E_PanelSendMode[pduIndex] == 1)
+    {
+      E2E_BridgePublishFrame(pduIndex, 6, gE2E_TxCounter[pduIndex], 0, 0, rawValues, data);
+      E2E_StopPanelSend(pduIndex);
+    }
+    else
+    {
+      E2E_BridgePublishFrame(pduIndex, 5, gE2E_TxCounter[pduIndex], 0, 0, rawValues, data);
+    }
     return 1;
   }
 
-  if (pduLength < E2E_GetTxDlc(pduIndex))
+  updateBit = E2E_ResolveUpdateBit(pduIndex);
+  E2E_SetMotorolaRaw(data, payloadLength, E2E_GetTxUbStartBit(pduIndex), 1, updateBit);
+  counter = gE2E_TxCounter[pduIndex];
+  E2E_SetMotorolaRaw(data, payloadLength, E2E_GetTxCounterStartBit(pduIndex), 4, counter);
+
+  logicalLength = E2E_BuildLogicalApplicationData(pduIndex, rawValues, logicalData);
+  crc = E2E_ProfileGCalculate(E2E_GetTxDataId(pduIndex), counter, logicalData, logicalLength);
+  E2E_SetMotorolaRaw(data, payloadLength, E2E_GetTxCrcStartBit(pduIndex), 8, crc);
+
+  if (gE2E_PanelSendMode[pduIndex] == 1)
   {
-    write("[E2E] ERROR: PDU=%s length=%d expected=%d", pduName, pduLength, E2E_GetTxDlc(pduIndex));
-    return 1;
+    E2E_BridgePublishFrame(pduIndex, 4, counter, crc, updateBit, rawValues, data);
+  }
+  else
+  {
+    E2E_BridgePublishFrame(pduIndex, 1, counter, crc, updateBit, rawValues, data);
+  }
+  gE2E_TxCounter[pduIndex] = E2E_ProfileGNextCounter(counter);
+
+  if (gE2E_PanelSendMode[pduIndex] == 1)
+  {
+    E2E_StopPanelSend(pduIndex);
   }
 
-  if (gE2E_FrameworkDebug)
-  {
-    write("[E2E] observed supported Tx PDU=%s index=%d", pduName, pduIndex);
-  }
-
-  if (!gE2E_FrameworkEnable)
-  {
-    return 1;
-  }
-
-  /* Implementation gate:
-   * 1. Apply generated Panel application-value bindings.
-   * 2. Resolve UB and counter state.
-   * 3. Build logical application bytes in ARXML element order.
-   * 4. Call E2E_ProfileGCalculate().
-   * 5. Write physical CRC/counter fields.
-   * 6. Apply the selected fault at its defined phase.
-   * 7. Publish status System Variables.
-   */
-
-  return E2E_ApplyPostProtectFault(pduIndex, data, pduLength);
+  return E2E_ApplyPostProtectFault(pduIndex, data, payloadLength);
 }
-

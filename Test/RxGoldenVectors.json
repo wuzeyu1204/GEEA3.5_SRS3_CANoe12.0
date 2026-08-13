@@ -1,0 +1,410 @@
+{
+  "schema": "SRS3_E2E_RxGoldenVectors_v1",
+  "vectors": [
+    {
+      "group_index": 0,
+      "bus": "CAN1",
+      "can_id": "0x010",
+      "group": "CrashStsSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "20 20 00 00"
+    },
+    {
+      "group_index": 0,
+      "bus": "CAN1",
+      "can_id": "0x010",
+      "group": "CrashStsSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "21 6D 00 00"
+    },
+    {
+      "group_index": 0,
+      "bus": "CAN1",
+      "can_id": "0x010",
+      "group": "CrashStsSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "01 6C 00 00"
+    },
+    {
+      "group_index": 1,
+      "bus": "CAN1",
+      "can_id": "0x012",
+      "group": "ADataRawSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "8D 00 00 00 00 00 00 01"
+    },
+    {
+      "group_index": 1,
+      "bus": "CAN1",
+      "can_id": "0x012",
+      "group": "ADataRawSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "71 10 00 00 00 00 00 01"
+    },
+    {
+      "group_index": 1,
+      "bus": "CAN1",
+      "can_id": "0x012",
+      "group": "ADataRawSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "70 10 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 2,
+      "bus": "CAN1",
+      "can_id": "0x013",
+      "group": "AsyDataWithCmpSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 61 00 00 00 00 01"
+    },
+    {
+      "group_index": 2,
+      "bus": "CAN1",
+      "can_id": "0x013",
+      "group": "AsyDataWithCmpSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 9D 00 00 10 00 01"
+    },
+    {
+      "group_index": 2,
+      "bus": "CAN1",
+      "can_id": "0x013",
+      "group": "AsyDataWithCmpSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 9C 00 00 10 00 00"
+    },
+    {
+      "group_index": 3,
+      "bus": "CAN1",
+      "can_id": "0x021",
+      "group": "BltLockStSafeAtDrvr",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 40 8C 00 00 00 00 00"
+    },
+    {
+      "group_index": 3,
+      "bus": "CAN1",
+      "can_id": "0x021",
+      "group": "BltLockStSafeAtDrvr",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 41 02 00 00 00 00 00"
+    },
+    {
+      "group_index": 3,
+      "bus": "CAN1",
+      "can_id": "0x021",
+      "group": "BltLockStSafeAtDrvr",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 01 03 00 00 00 00 00"
+    },
+    {
+      "group_index": 4,
+      "bus": "CAN1",
+      "can_id": "0x070",
+      "group": "RecOfPostImpctBrkgSuspc",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 00 00 24 02 00 00"
+    },
+    {
+      "group_index": 4,
+      "bus": "CAN1",
+      "can_id": "0x070",
+      "group": "RecOfPostImpctBrkgSuspc",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 00 00 69 12 00 00"
+    },
+    {
+      "group_index": 4,
+      "bus": "CAN1",
+      "can_id": "0x070",
+      "group": "RecOfPostImpctBrkgSuspc",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 68 10 00 00"
+    },
+    {
+      "group_index": 5,
+      "bus": "CAN1",
+      "can_id": "0x089",
+      "group": "AgDataRawSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "20 00 00 00 00 93 00 00"
+    },
+    {
+      "group_index": 5,
+      "bus": "CAN1",
+      "can_id": "0x089",
+      "group": "AgDataRawSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "20 00 00 00 00 CF 10 00"
+    },
+    {
+      "group_index": 5,
+      "bus": "CAN1",
+      "can_id": "0x089",
+      "group": "AgDataRawSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 00 CE 10 00"
+    },
+    {
+      "group_index": 6,
+      "bus": "CAN1",
+      "can_id": "0x142",
+      "group": "AgDataRaw2Safe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "40 B0 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 6,
+      "bus": "CAN1",
+      "can_id": "0x142",
+      "group": "AgDataRaw2Safe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "41 2C 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 6,
+      "bus": "CAN1",
+      "can_id": "0x142",
+      "group": "AgDataRaw2Safe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "01 2D 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 7,
+      "bus": "CAN1",
+      "can_id": "0x142",
+      "group": "PassAirbLampReq",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 00 00 02 9A 00 00"
+    },
+    {
+      "group_index": 7,
+      "bus": "CAN1",
+      "can_id": "0x142",
+      "group": "PassAirbLampReq",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 00 00 02 06 01 00"
+    },
+    {
+      "group_index": 7,
+      "bus": "CAN1",
+      "can_id": "0x142",
+      "group": "PassAirbLampReq",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 00 07 01 00"
+    },
+    {
+      "group_index": 8,
+      "bus": "CAN1",
+      "can_id": "0x148",
+      "group": "RecOfPostImpctBrkgCfmd",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 00 40 00 00 00 91"
+    },
+    {
+      "group_index": 8,
+      "bus": "CAN1",
+      "can_id": "0x148",
+      "group": "RecOfPostImpctBrkgCfmd",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 00 44 00 00 00 11"
+    },
+    {
+      "group_index": 8,
+      "bus": "CAN1",
+      "can_id": "0x148",
+      "group": "RecOfPostImpctBrkgCfmd",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 04 00 00 00 10"
+    },
+    {
+      "group_index": 9,
+      "bus": "CAN1",
+      "can_id": "0x274",
+      "group": "SRSResdSig1ToZCUDMSafety",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 00 00 44 08 00 00"
+    },
+    {
+      "group_index": 9,
+      "bus": "CAN1",
+      "can_id": "0x274",
+      "group": "SRSResdSig1ToZCUDMSafety",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 00 00 2F 18 00 00"
+    },
+    {
+      "group_index": 9,
+      "bus": "CAN1",
+      "can_id": "0x274",
+      "group": "SRSResdSig1ToZCUDMSafety",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 2E 10 00 00"
+    },
+    {
+      "group_index": 10,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "ADataRawSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "80 00 00 00 8D 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 10,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "ADataRawSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "80 00 00 00 71 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 10,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "ADataRawSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 70 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 11,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "AgDataRawSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 00 00 00 00 00 00 20 00 00 00 00 93 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 11,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "AgDataRawSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 00 00 00 00 00 00 20 00 00 00 00 CF 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 11,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "AgDataRawSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 00 00 00 00 00 00 00 00 00 CE 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 12,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "AsyDataWithCmpSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 08 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 12,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "AsyDataWithCmpSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 E8 81 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 12,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "AsyDataWithCmpSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 E0 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 13,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "IntgtIMUDataRawSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 58 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 13,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "IntgtIMUDataRawSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 06 18 80 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 13,
+      "bus": "CANFD3",
+      "can_id": "0x032",
+      "group": "IntgtIMUDataRawSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 06 10 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    {
+      "group_index": 14,
+      "bus": "CANFD3",
+      "can_id": "0x03F",
+      "group": "CrashStsSafe",
+      "case": "INITIAL_VALID",
+      "expected": "INITIAL",
+      "payload_hex": "20 04"
+    },
+    {
+      "group_index": 14,
+      "bus": "CANFD3",
+      "can_id": "0x03F",
+      "group": "CrashStsSafe",
+      "case": "CRC_ERROR",
+      "expected": "CRC_ERROR",
+      "payload_hex": "6D 14"
+    },
+    {
+      "group_index": 14,
+      "bus": "CANFD3",
+      "can_id": "0x03F",
+      "group": "CrashStsSafe",
+      "case": "UB_INACTIVE",
+      "expected": "UB_INACTIVE",
+      "payload_hex": "6C 10"
+    }
+  ]
+}

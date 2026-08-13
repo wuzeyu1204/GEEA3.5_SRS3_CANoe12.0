@@ -13,3 +13,11 @@ __pycache__/
 # Local editor files
 .vscode/
 .idea/
+.vs/
+*.suo
+*.user
+
+# WPF panel plugin build output and local preview
+PanelPlugin/**/bin/
+PanelPlugin/**/obj/
+work/

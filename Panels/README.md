@@ -1,61 +1,18 @@
-# SRS3 E2E Panel specification
+# SRS3 E2E Panels
 
-## 实现约束
+当前工程只保留两张CANoe 12 WPF页面：
 
-Panel使用CANoe 12 Panel Designer创建，所有控件静态放置，不在运行时动态创建。
-PDU选择后，由CAPL `setControlVisibility()` 切换5个GroupBox；测量状态改变时使用
-`enableControl()` 控制编辑权限。
+| 页面 | 控件 | 绑定变量 | 用途 |
+|---|---|---|---|
+| `SRS3 E2E WPF Control.xvp` | `E2E Tx WPF Control` | `SRS3_E2E::WpfBridge::PanelBridge` | CAN1五个受保护PDU的信号编辑、单帧/连续许可与E2E状态 |
+| `SRS3 E2E Rx WPF Control.xvp` | `E2E Rx WPF Control` | `SRS3_E2E::WpfBridge::RxBridge` | CAN1/CANFD3十五个E2E Group的只读接收监控 |
 
-建议Panel名称：`SRS3 E2E Control`。
+旧的原生GroupBox页面及`E2E_PanelController.cin`已经删除。当前WPF控件通过数组邮箱与CAPL通信，不使用`setControlVisibility()`或`enableControl()`操纵Panel控件。
 
-## 页面
+## 运行约束
 
-1. `Communication`
-2. `E2E Tx`
-3. `Fault Injection`
-4. `Monitor & Test`
-
-## E2E Tx固定GroupBox
-
-| GroupBox控件名 | PDU | 应用控件数量 |
-|---|---|---:|
-| `grpVehMtnSt` | `0x040 VehMtnSt` | 1 |
-| `grpPreCrashFrontData` | `0x050 PreCrashFrontData` | 4 |
-| `grpVehSpdLgt` | `0x076 VehSpdLgt` | 2 |
-| `grpVehModMngtGlbSafe1` | `0x0F0 VehModMngtGlbSafe1` | 8 |
-| `grpPassAirbLampStsRec` | `0x390 PassAirbLampStsRec` | 1 |
-
-每个应用元素包括Physical/Enum输入、Raw输入、Use Raw开关和Input Valid显示。
-具体系统变量路径来自 `SyaVar/E2E_Framework_SystemVariables.xml`。
-
-## 公共控件名
-
-| 控件 | 控件名 | 系统变量/作用 |
-|---|---|---|
-| PDU选择 | `cmbSelectedPdu` | `SRS3_E2E::Control::SelectedPdu` |
-| 覆盖模式 | `cmbOverrideMode` | `SRS3_E2E::Control::OverrideMode` |
-| UB模式 | `cmbUpdateBitMode` | `SRS3_E2E::Control::UpdateBitMode` |
-| Auto Protect | `chkAutoProtect` | `SRS3_E2E::Control::AutoProtect` |
-| Apply | `btnApplyNextCycle` | `SRS3_E2E::Control::ApplyOnce` |
-| Restore | `btnRestoreNormal` | `SRS3_E2E::Control::RestoreNormal` |
-| 全局使能 | `chkGlobalEnable` | `SRS3_E2E::Control::GlobalEnable` |
-
-## 枚举约定
-
-- OverrideMode：0=Pass Through，1=One Shot，2=Continuous。
-- UpdateBitMode：0=Auto，1=Force 0，2=Force 1。
-- Fault Type：0=None，1=CRC，2=Freeze Counter，3=Counter 15，
-  4=Counter Jump，5=Wrong DataID，6=UB 0，7=Payload Corruption，8=Stop Tx。
-
-## 创建原则
-
-- 状态变量只绑定显示控件，不提供用户写入入口。
-- 连续物理量使用Numeric Input；枚举使用ComboBox。
-- VehSpdLgtA可在Panel显示km/h，但System Variable保持DBC单位m/s，单位转换由
-  Panel输入侧或独立显示变量完成，不能改变CRC使用的Raw值。
-- Payload建议使用8个两位十六进制显示框，避免依赖字符串System Variable。
-- Panel按钮只产生请求变量；TxPending在下一PDU周期消费并清除请求。
-
-本目录暂不包含手工伪造的 `.xvp`。Panel文件应由CANoe 12 Panel Designer创建，
-避免生成不兼容的专有格式。完成后保存为 `Panels/SRS3_E2E_Control.xvp`。
+- Tx Panel只提交控制命令；周期仍来自PDU-IL，CAPL在TxPending中决定拦截或放行。
+- Rx Panel只写当前显示Group的索引，不发送报文、不改变Tx许可。
+- 安装或更新控件前必须关闭CANoe和Vector Panel Designer，然后运行`PanelPlugin/Install_SRS3_E2E_PanelPlugin.bat`。
+- 当前CFG内置`PanelBridge`，外部系统变量只引用`01_CANoe_IL`、`10_SRS3_E2E_Core`和`30_SRS3_E2E_RxBridge`。
 

@@ -12,6 +12,11 @@ includes
   #include "..\CAPL\PDU-IL-KL15-Helper_CAN1.cin"
   /* #ChannelEnd# |CAN1| #BusEnd# |ZCUD_CAN1| */
   //--- end generated part --- Block end #Body_Includes#; do not delete this line! Add application code below this line.
+  #include "..\CAPL\E2E\Generated\E2E_TxRules_Generated.cin"
+  #include "..\CAPL\E2E\E2E_ProfileG_Core.cin"
+  #include "..\CAPL\E2E\E2E_BitCodec.cin"
+  #include "..\CAPL\E2E\E2E_FaultInjection.cin"
+  #include "..\CAPL\E2E\E2E_TxController.cin"
 }
 
 variables
@@ -72,10 +77,12 @@ on start
   ILCAN1_OnStart();
   /* #ChannelEnd# |CAN1| #BusEnd# |ZCUD_CAN1| */
   //--- end generated part --- Block end #Body_OnStart#; do not delete this line! Add application code below this line.
+  E2E_TxInitialize();
 }
 
 on preStop
 {
+  E2E_TxShutdown();
   // Prepare stopping
   //--- begin generated part --- Block start #Hdr_OnStopping#; do not delete this line and do not add application code in this code block!
   /* #ChannelStart# |CAN1| #BusStart# |ZCUD_CAN1| */
@@ -162,6 +169,11 @@ on sysvar_update sysvar::IL::Klemme30
   //--- end generated part --- Block end #Body_KL30_Klemme30#; do not delete this line! Add application code below this line.
 }
 
+on sysvar_update sysvar::SRS3_E2E::Control::GlobalEnable
+{
+  E2E_BridgePublishControlState();
+}
+
 int E2E_StrEq(char a[], char b[])
 {
   int i;
@@ -186,41 +198,7 @@ int E2E_StrEq(char a[], char b[])
 
 dword applPDUILTxPending(dword busContext, dword shortId, dword longId, char name[], dword& aPDULength, byte data[])
 {
-  dword ret;
-
-  ret = 1;
-
-  // First-stage E2E TX hook verification:
-  // Observe only IPDU37 and do not modify payload.
-  if (E2E_StrEq(name, "ZCUDZCUDCAN1SignalIPDU37"))
-  {
-    if (aPDULength >= 8)
-    {
-      write(
-        "[E2E-TX] PDU=%s Len=%d Data=%02X %02X %02X %02X %02X %02X %02X %02X",
-        name,
-        aPDULength,
-        data[0],
-        data[1],
-        data[2],
-        data[3],
-        data[4],
-        data[5],
-        data[6],
-        data[7]
-      );
-    }
-    else
-    {
-      write(
-        "[E2E-TX] PDU=%s Len=%d (payload shorter than 8 bytes)",
-        name,
-        aPDULength
-      );
-    }
-  }
-
-  return ret;
+  return E2E_TxProcess(name, aPDULength, data);
 }
 
 dword applPDUILStart(dword busContext, dword busActive, dword mode)

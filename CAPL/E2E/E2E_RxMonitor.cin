@@ -1,0 +1,344 @@
+/*@!Encoding:1252*/
+
+/* Generic receive-side PROFILE_G checker.
+ *
+ * Each CAPL node owns one bus. Both nodes publish disjoint group slots into
+ * SRS3_E2E::WpfBridge::RxBridge (Int32[224]). The panel is read-only: it can
+ * only select the group shown at bridge index 1.
+ */
+
+variables
+{
+  const int E2E_RX_STATE_NO_DATA = 0;
+  const int E2E_RX_STATE_INITIAL = 1;
+  const int E2E_RX_STATE_OK = 2;
+  const int E2E_RX_STATE_OK_SOME_LOST = 3;
+  const int E2E_RX_STATE_REPEATED = 4;
+  const int E2E_RX_STATE_WRONG_SEQUENCE = 5;
+  const int E2E_RX_STATE_CRC_ERROR = 6;
+  const int E2E_RX_STATE_UB_INACTIVE = 7;
+  const int E2E_RX_STATE_TIMEOUT = 8;
+  const int E2E_RX_STATE_COUNTER_ILLEGAL = 9;
+  const int E2E_RX_STATE_DLC_ERROR = 10;
+  const int E2E_RX_STATE_RULE_ERROR = 11;
+
+  const int E2E_RX_GROUP_COUNT = 15;
+  const int E2E_RX_MAX_PAYLOAD = 64;
+  const int E2E_RX_BRIDGE_PROTOCOL = 2;
+  const int E2E_RX_B_PROTOCOL = 0;
+  const int E2E_RX_B_SELECTED = 1;
+  const int E2E_RX_B_CAN1_READY = 3;
+  const int E2E_RX_B_CANFD3_READY = 4;
+  const int E2E_RX_B_SELECTED_STATE = 5;
+  const int E2E_RX_B_SELECTED_FRAMES = 6;
+  const int E2E_RX_B_SELECTED_COUNTER = 7;
+  const int E2E_RX_B_SELECTED_DELTA = 8;
+  const int E2E_RX_B_SELECTED_CRC_RX = 9;
+  const int E2E_RX_B_SELECTED_CRC_CALC = 10;
+  const int E2E_RX_B_SELECTED_UB = 11;
+  const int E2E_RX_B_SELECTED_AGE = 12;
+  const int E2E_RX_B_SELECTED_TIMEOUT = 13;
+  const int E2E_RX_B_SELECTED_DATAID = 14;
+  const int E2E_RX_B_SELECTED_DLC = 15;
+  const int E2E_RX_B_SELECTED_VALID = 17;
+  const int E2E_RX_B_SELECTED_ERROR = 18;
+  const int E2E_RX_B_SELECTED_ACK = 19;
+  const int E2E_RX_B_STATUS_BASE = 20;
+  const int E2E_RX_B_FRAME_COUNT_BASE = 35;
+  const int E2E_RX_B_AGE_BASE = 50;
+  const int E2E_RX_B_COUNTER_BASE = 65;
+  const int E2E_RX_B_CRC_RX_BASE = 80;
+  const int E2E_RX_B_CRC_CALC_BASE = 95;
+  const int E2E_RX_B_UB_BASE = 110;
+  const int E2E_RX_B_VALID_BASE = 125;
+  const int E2E_RX_B_ERROR_BASE = 140;
+  const int E2E_RX_B_PAYLOAD_BASE = 155;
+
+  int gE2E_RxState[15];
+  int gE2E_RxSeen[15];
+  int gE2E_RxHasCounter[15];
+  int gE2E_RxLastCounter[15];
+  int gE2E_RxSequenceCounter[15];
+  int gE2E_RxLastDelta[15];
+  int gE2E_RxCrcRx[15];
+  int gE2E_RxCrcCalc[15];
+  int gE2E_RxUb[15];
+  int gE2E_RxAgeMs[15];
+  dword gE2E_RxFrameCount[15];
+  dword gE2E_RxValidCount[15];
+  dword gE2E_RxErrorCount[15];
+  byte gE2E_RxPayload[15][64];
+}
+
+void E2E_RxPublishGroup(int groupIndex)
+{
+  int index;
+
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_STATUS_BASE + groupIndex] = gE2E_RxState[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_FRAME_COUNT_BASE + groupIndex] = gE2E_RxFrameCount[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_AGE_BASE + groupIndex] = gE2E_RxAgeMs[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_COUNTER_BASE + groupIndex] = gE2E_RxLastCounter[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_CRC_RX_BASE + groupIndex] = gE2E_RxCrcRx[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_CRC_CALC_BASE + groupIndex] = gE2E_RxCrcCalc[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_UB_BASE + groupIndex] = gE2E_RxUb[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_VALID_BASE + groupIndex] = gE2E_RxValidCount[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_ERROR_BASE + groupIndex] = gE2E_RxErrorCount[groupIndex];
+
+  if (@sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED] != groupIndex)
+  {
+    return;
+  }
+
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_STATE] = gE2E_RxState[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_FRAMES] = gE2E_RxFrameCount[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_COUNTER] = gE2E_RxLastCounter[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_DELTA] = gE2E_RxLastDelta[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_CRC_RX] = gE2E_RxCrcRx[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_CRC_CALC] = gE2E_RxCrcCalc[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_UB] = gE2E_RxUb[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_AGE] = gE2E_RxAgeMs[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_TIMEOUT] = E2E_GetRxTimeoutMs(groupIndex);
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_DATAID] = E2E_GetRxDataId(groupIndex);
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_DLC] = E2E_GetRxDlc(groupIndex);
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_VALID] = gE2E_RxValidCount[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_ERROR] = gE2E_RxErrorCount[groupIndex];
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_SELECTED_ACK] = groupIndex;
+
+  for (index = 0; index < E2E_RX_MAX_PAYLOAD; index++)
+  {
+    @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_PAYLOAD_BASE + index] = gE2E_RxPayload[groupIndex][index];
+  }
+}
+
+void E2E_RxInitialize(int busIndex)
+{
+  int groupIndex;
+  int byteIndex;
+
+  @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_PROTOCOL] = E2E_RX_BRIDGE_PROTOCOL;
+  if (busIndex == 0)
+  {
+    @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_CAN1_READY] = 1;
+  }
+  else
+  {
+    @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_CANFD3_READY] = 1;
+  }
+
+  for (groupIndex = 0; groupIndex < E2E_RX_GROUP_COUNT; groupIndex++)
+  {
+    if (E2E_GetRxBus(groupIndex) != busIndex)
+    {
+      continue;
+    }
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_NO_DATA;
+    gE2E_RxSeen[groupIndex] = 0;
+    gE2E_RxHasCounter[groupIndex] = 0;
+    gE2E_RxLastCounter[groupIndex] = 0;
+    gE2E_RxSequenceCounter[groupIndex] = 0;
+    gE2E_RxLastDelta[groupIndex] = 0;
+    gE2E_RxCrcRx[groupIndex] = 0;
+    gE2E_RxCrcCalc[groupIndex] = 0;
+    gE2E_RxUb[groupIndex] = 0;
+    gE2E_RxAgeMs[groupIndex] = 0;
+    gE2E_RxFrameCount[groupIndex] = 0;
+    gE2E_RxValidCount[groupIndex] = 0;
+    gE2E_RxErrorCount[groupIndex] = 0;
+    for (byteIndex = 0; byteIndex < E2E_RX_MAX_PAYLOAD; byteIndex++)
+    {
+      gE2E_RxPayload[groupIndex][byteIndex] = 0;
+    }
+    E2E_RxPublishGroup(groupIndex);
+  }
+}
+
+int E2E_RxBuildApplicationData(int groupIndex, byte payload[], int payloadLength, byte applicationData[])
+{
+  int elementIndex;
+  int byteIndex;
+  int byteCount;
+  int outputIndex;
+  int startBit;
+  int bitLength;
+  dword rawValue;
+
+  outputIndex = 0;
+  for (elementIndex = 0; elementIndex < E2E_GetRxElementCount(groupIndex); elementIndex++)
+  {
+    startBit = E2E_GetRxElementStartBit(groupIndex, elementIndex);
+    bitLength = E2E_GetRxElementBitLength(groupIndex, elementIndex);
+    if (!E2E_GetMotorolaRaw(payload, payloadLength, startBit, bitLength, rawValue))
+    {
+      return -1;
+    }
+    byteCount = (bitLength + 7) / 8;
+    for (byteIndex = 0; byteIndex < byteCount; byteIndex++)
+    {
+      applicationData[outputIndex] = (rawValue >> (8 * byteIndex)) & 0xFF;
+      outputIndex++;
+    }
+  }
+  return outputIndex;
+}
+
+void E2E_RxProcessGroup(int groupIndex, int payloadLength, byte payload[])
+{
+  int byteIndex;
+  int applicationLength;
+  int delta;
+  dword rawUb;
+  dword rawCrc;
+  dword rawCounter;
+  byte applicationData[64];
+
+  gE2E_RxFrameCount[groupIndex]++;
+  gE2E_RxSeen[groupIndex] = 1;
+  gE2E_RxAgeMs[groupIndex] = 0;
+  gE2E_RxLastDelta[groupIndex] = 0;
+  for (byteIndex = 0; byteIndex < E2E_RX_MAX_PAYLOAD; byteIndex++)
+  {
+    if (byteIndex < payloadLength)
+    {
+      gE2E_RxPayload[groupIndex][byteIndex] = payload[byteIndex];
+    }
+    else
+    {
+      gE2E_RxPayload[groupIndex][byteIndex] = 0;
+    }
+  }
+
+  if (payloadLength != E2E_GetRxDlc(groupIndex))
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_DLC_ERROR;
+    gE2E_RxErrorCount[groupIndex]++;
+    E2E_RxPublishGroup(groupIndex);
+    return;
+  }
+
+  if (!E2E_GetMotorolaRaw(payload, payloadLength, E2E_GetRxUbStartBit(groupIndex), 1, rawUb) ||
+      !E2E_GetMotorolaRaw(payload, payloadLength, E2E_GetRxCrcStartBit(groupIndex), 8, rawCrc) ||
+      !E2E_GetMotorolaRaw(payload, payloadLength, E2E_GetRxCounterStartBit(groupIndex), 4, rawCounter))
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_RULE_ERROR;
+    gE2E_RxErrorCount[groupIndex]++;
+    E2E_RxPublishGroup(groupIndex);
+    return;
+  }
+
+  gE2E_RxUb[groupIndex] = rawUb;
+  gE2E_RxCrcRx[groupIndex] = rawCrc;
+  gE2E_RxLastCounter[groupIndex] = rawCounter;
+  if (rawUb == 0)
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_UB_INACTIVE;
+    E2E_RxPublishGroup(groupIndex);
+    return;
+  }
+  applicationLength = E2E_RxBuildApplicationData(groupIndex, payload, payloadLength, applicationData);
+  if (applicationLength < 0)
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_RULE_ERROR;
+    gE2E_RxErrorCount[groupIndex]++;
+    E2E_RxPublishGroup(groupIndex);
+    return;
+  }
+  gE2E_RxCrcCalc[groupIndex] = E2E_ProfileGCalculate(E2E_GetRxDataId(groupIndex), rawCounter, applicationData, applicationLength);
+  if (gE2E_RxCrcCalc[groupIndex] != gE2E_RxCrcRx[groupIndex])
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_CRC_ERROR;
+    gE2E_RxErrorCount[groupIndex]++;
+    E2E_RxPublishGroup(groupIndex);
+    return;
+  }
+  if (!E2E_ProfileGCounterIsValid(rawCounter))
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_COUNTER_ILLEGAL;
+    gE2E_RxErrorCount[groupIndex]++;
+    E2E_RxPublishGroup(groupIndex);
+    return;
+  }
+
+  if (!gE2E_RxHasCounter[groupIndex])
+  {
+    gE2E_RxHasCounter[groupIndex] = 1;
+    gE2E_RxLastCounter[groupIndex] = rawCounter;
+    gE2E_RxSequenceCounter[groupIndex] = rawCounter;
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_INITIAL;
+    gE2E_RxValidCount[groupIndex]++;
+    E2E_RxPublishGroup(groupIndex);
+    return;
+  }
+
+  delta = (rawCounter - gE2E_RxSequenceCounter[groupIndex] + 15) % 15;
+  gE2E_RxLastDelta[groupIndex] = delta;
+  if (delta == 0)
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_REPEATED;
+    gE2E_RxErrorCount[groupIndex]++;
+  }
+  else if (delta == 1)
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_OK;
+    gE2E_RxValidCount[groupIndex]++;
+  }
+  else if (delta <= E2E_GetRxMaxDelta(groupIndex))
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_OK_SOME_LOST;
+    gE2E_RxValidCount[groupIndex]++;
+  }
+  else
+  {
+    gE2E_RxState[groupIndex] = E2E_RX_STATE_WRONG_SEQUENCE;
+    gE2E_RxErrorCount[groupIndex]++;
+  }
+  gE2E_RxLastCounter[groupIndex] = rawCounter;
+  gE2E_RxSequenceCounter[groupIndex] = rawCounter;
+  E2E_RxPublishGroup(groupIndex);
+}
+
+void E2E_RxProcessFrame(int busIndex, dword canId, int payloadLength, byte payload[])
+{
+  int groupIndex;
+  for (groupIndex = 0; groupIndex < E2E_RX_GROUP_COUNT; groupIndex++)
+  {
+    if ((E2E_GetRxBus(groupIndex) == busIndex) && (E2E_GetRxCanId(groupIndex) == canId))
+    {
+      E2E_RxProcessGroup(groupIndex, payloadLength, payload);
+    }
+  }
+}
+
+void E2E_RxTick(int busIndex, int elapsedMs)
+{
+  int groupIndex;
+  for (groupIndex = 0; groupIndex < E2E_RX_GROUP_COUNT; groupIndex++)
+  {
+    if (E2E_GetRxBus(groupIndex) != busIndex)
+    {
+      continue;
+    }
+    if (gE2E_RxSeen[groupIndex])
+    {
+      gE2E_RxAgeMs[groupIndex] += elapsedMs;
+      if ((gE2E_RxAgeMs[groupIndex] >= E2E_GetRxTimeoutMs(groupIndex)) &&
+          (gE2E_RxState[groupIndex] != E2E_RX_STATE_TIMEOUT))
+      {
+        gE2E_RxState[groupIndex] = E2E_RX_STATE_TIMEOUT;
+        gE2E_RxErrorCount[groupIndex]++;
+      }
+    }
+    E2E_RxPublishGroup(groupIndex);
+  }
+}
+
+void E2E_RxSetReady(int busIndex, int ready)
+{
+  if (busIndex == 0)
+  {
+    @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_CAN1_READY] = ready;
+  }
+  else
+  {
+    @sysvar::SRS3_E2E::WpfBridge::RxBridge[E2E_RX_B_CANFD3_READY] = ready;
+  }
+}

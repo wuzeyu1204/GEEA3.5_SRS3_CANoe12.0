@@ -3,6 +3,24 @@
 `E2E_Test_Catalog.csv`定义首批自动化测试范围。正式CAPL Test Module在Tx
 Golden Vector和CAN1 Rx Monitor通过后创建。
 
+## Rx Monitor验证
+
+接收侧规则来自ZXDoc生成基线`SRS3_E2E_Rules.json`，工程内冻结为
+`Config/E2E_Rx_Rules.json`。CAN1覆盖10个Group，CANFD3覆盖5个Group；共享报文
+`0x142`和`0x032`按Group分别维护状态，不能只给整帧一个结论。
+
+运行：
+
+```powershell
+python Tools\generate_e2e_rx_artifacts.py
+python Tools\verify_e2e_rx.py
+```
+
+检查器为15个Group分别验证INITIAL、OK、REPEATED、CRC_ERROR、UB_INACTIVE和
+Counter=15，并生成45条可复用帧向量到`Test/RxGoldenVectors.json`。超时策略冻结为
+`max(50 ms, 4 × cycle_ms)`。这些是离线算法/规则验收；`Ready-for-CANoe`仍要求把
+对应Rx节点加入正确网络后，用Trace和Panel完成动态证据闭环。
+
 ## Golden Vector
 
 `GoldenVectors.json`固定了5个Tx PDU、每个PDU 3组向量：DBC默认值/Counter 0、

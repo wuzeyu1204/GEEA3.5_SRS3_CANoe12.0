@@ -15,7 +15,9 @@ FI-CNT-002,Fault,Inject counter 15,All 5 Tx groups,Invalid counter verdict,Plann
 FI-DID-001,Fault,Use wrong DataID for CRC,All 5 Tx groups,CRC error with unchanged application data,Planned
 FI-TMO-001,Fault,Suppress transmission,All 5 Tx PDUs,Timeout within frozen threshold,Planned
 REC-001,Recovery,Clear all faults,All fault types,Return to OK and normal application data,Planned
-RX-001,RxMonitor,Verify CAN1 Rx checking,10 CAN1 E2E groups,Per-group verdict and statistics,Planned
-RX-002,RxMonitor,Verify CANFD3 multi-group checking,5 CANFD3 E2E groups,Independent group verdicts,Planned
+RX-001,RxMonitor,Verify generated Rx rules and valid payloads,15 CAN1/CANFD3 E2E groups,45 independent golden vectors,Static-PASS
+RX-002,RxMonitor,Verify CAN1 live Rx checking,10 CAN1 E2E groups,"INITIAL; OK; CRC_ERROR; UB_INACTIVE; TIMEOUT plus Trace",Ready-for-CANoe
+RX-003,RxMonitor,Verify CANFD3 multi-group checking,5 CANFD3 E2E groups,"Four independent verdicts in 0x032; one in 0x03F",Blocked-channel-config
+RX-004,RxMonitor,Verify receive-only architecture,CAN1 and CANFD3 Rx CAPL nodes,No output call and no Tx command in Rx Panel,Static-PASS
 PWR-001,State,Verify KL15 cycle,All active groups,Frozen reset policy evidence,Planned
 RPT-001,Reporting,Verify report completeness,Complete test run,"XML; HTML; BLF; CSV; baseline hashes",Planned

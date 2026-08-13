@@ -1,0 +1,883 @@
+{
+  "schema": "SRS3_E2E_RxRules_v1",
+  "generated_from": "C:\\00_WDJR_WORK\\05_PlatformBase\\GEEA3.5_SRS3_E2E_ZXDoc\\E2E\\SRS3_E2E_Rules.json",
+  "source_sha256": "9FFB8F5B3DB4DA50ED4537DF4517E53D39191D3E6AA024C2A88AAC42E50E30A6",
+  "profile": {
+    "name": "PROFILE_G",
+    "implementation": "AUTOSAR E2E P01 behavior",
+    "autosar_release": "4.2.2",
+    "crc": {
+      "algorithm": "CRC-8/SAE-J1850-ZERO",
+      "width": 8,
+      "polynomial": "0x1D",
+      "initial": "0x00",
+      "xor_out": "0x00",
+      "reflect_input": false,
+      "reflect_output": false,
+      "data_id_order": "low_byte_then_high_byte",
+      "crc_field_handling": "skip_crc_field"
+    },
+    "counter": {
+      "width": 4,
+      "min": 0,
+      "max": 14,
+      "modulus": 15,
+      "invalid_value": 15,
+      "first_frame": "INITIAL"
+    },
+    "serialization": {
+      "wrapper_order": "CRC -> Counter -> normal data",
+      "data_element_order": "ApplicationRecordElement name, case-insensitive lexical order",
+      "internal_multi_byte_order": "little_endian",
+      "physical_pdu_order": "from Com.arxml PACKING-BYTE-ORDER",
+      "padding": "zero-pad raw signal bits to whole byte; never sign-extend"
+    }
+  },
+  "timeout_policy": "max(50 ms, 4 * cycle_ms)",
+  "groups": [
+    {
+      "index": 0,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 16,
+      "can_id_hex": "0x010",
+      "frame": "SrsZCUDCAN1Fr02",
+      "dlc": 4,
+      "cycle_ms": 200,
+      "timeout_ms": 800,
+      "group": "CrashStsSafe",
+      "data_id": 1035,
+      "data_id_hex": "0x040B",
+      "max_delta": 14,
+      "ub_start_bit": 5,
+      "crc_start_bit": 15,
+      "counter_start_bit": 3,
+      "elements": [
+        {
+          "name": "Sts",
+          "signal": "CrashStsSafeSts",
+          "start_bit": 4,
+          "length": 1,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 18,
+      "can_id_hex": "0x012",
+      "frame": "SrsZCUDCAN1Fr03",
+      "dlc": 8,
+      "cycle_ms": 10,
+      "timeout_ms": 50,
+      "group": "ADataRawSafe",
+      "data_id": 34,
+      "data_id_hex": "0x0022",
+      "max_delta": 3,
+      "ub_start_bit": 56,
+      "crc_start_bit": 7,
+      "counter_start_bit": 15,
+      "elements": [
+        {
+          "name": "ALat",
+          "signal": "ADataRawSafeALat",
+          "start_bit": 23,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALat1Qf",
+          "signal": "ADataRawSafeALat1Qf",
+          "start_bit": 11,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt",
+          "signal": "ADataRawSafeALgt",
+          "start_bit": 38,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt1Qf",
+          "signal": "ADataRawSafeALgt1Qf",
+          "start_bit": 9,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "AVert",
+          "signal": "ADataRawSafeAVert",
+          "start_bit": 55,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "AVertQf",
+          "signal": "ADataRawSafeAVertQf",
+          "start_bit": 24,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 19,
+      "can_id_hex": "0x013",
+      "frame": "SrsZCUDCAN1Fr04",
+      "dlc": 8,
+      "cycle_ms": 10,
+      "timeout_ms": 50,
+      "group": "AsyDataWithCmpSafe",
+      "data_id": 36,
+      "data_id_hex": "0x0024",
+      "max_delta": 14,
+      "ub_start_bit": 56,
+      "crc_start_bit": 23,
+      "counter_start_bit": 47,
+      "elements": [
+        {
+          "name": "ALat1Qf",
+          "signal": "AsyDataWithCmpSafeALat1Qf",
+          "start_bit": 41,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALatWithCmp",
+          "signal": "AsyDataWithCmpSafeALatWithCmp",
+          "start_bit": 55,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt1Qf",
+          "signal": "AsyDataWithCmpSafeALgt1Qf",
+          "start_bit": 43,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "GrdtOfALgt",
+          "signal": "AsyDataWithCmpSafeGrdtOfALgt",
+          "start_bit": 31,
+          "length": 14,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRateQf",
+          "signal": "AsyDataWithCmpSafeYawRateQf",
+          "start_bit": 33,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRateWithCmp",
+          "signal": "AsyDataWithCmpSafeYawRateWithCmp",
+          "start_bit": 7,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 33,
+      "can_id_hex": "0x021",
+      "frame": "SrsZCUDCAN1Fr05",
+      "dlc": 8,
+      "cycle_ms": 10,
+      "timeout_ms": 50,
+      "group": "BltLockStSafeAtDrvr",
+      "data_id": 1036,
+      "data_id_hex": "0x040C",
+      "max_delta": 14,
+      "ub_start_bit": 14,
+      "crc_start_bit": 23,
+      "counter_start_bit": 11,
+      "elements": [
+        {
+          "name": "BltLockSt1",
+          "signal": "BltLockStSafeAtDrvrBltLockSt1",
+          "start_bit": 13,
+          "length": 1,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "BltLockStErrSts",
+          "signal": "BltLockStSafeAtDrvrBltLockStErrSts",
+          "start_bit": 12,
+          "length": 1,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 112,
+      "can_id_hex": "0x070",
+      "frame": "SrsZCUDCAN1Fr10",
+      "dlc": 8,
+      "cycle_ms": 20,
+      "timeout_ms": 80,
+      "group": "RecOfPostImpctBrkgSuspc",
+      "data_id": 25,
+      "data_id_hex": "0x0019",
+      "max_delta": 3,
+      "ub_start_bit": 41,
+      "crc_start_bit": 39,
+      "counter_start_bit": 47,
+      "elements": [
+        {
+          "name": "SuspcPostImpctBrkg",
+          "signal": "RecOfPostImpctBrkgSuspcSuspcPostImpctBrkg",
+          "start_bit": 43,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 137,
+      "can_id_hex": "0x089",
+      "frame": "SrsZCUDCAN1Fr01",
+      "dlc": 8,
+      "cycle_ms": 10,
+      "timeout_ms": 50,
+      "group": "AgDataRawSafe",
+      "data_id": 35,
+      "data_id_hex": "0x0023",
+      "max_delta": 3,
+      "ub_start_bit": 5,
+      "crc_start_bit": 47,
+      "counter_start_bit": 55,
+      "elements": [
+        {
+          "name": "RollRate",
+          "signal": "AgDataRawSafeRollRate",
+          "start_bit": 15,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "RollRateQf",
+          "signal": "AgDataRawSafeRollRateQf",
+          "start_bit": 51,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRate",
+          "signal": "AgDataRawSafeYawRate",
+          "start_bit": 31,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRateQf",
+          "signal": "AgDataRawSafeYawRateQf",
+          "start_bit": 49,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 322,
+      "can_id_hex": "0x142",
+      "frame": "SrsZCUDCAN1Fr07",
+      "dlc": 8,
+      "cycle_ms": 30,
+      "timeout_ms": 120,
+      "group": "AgDataRaw2Safe",
+      "data_id": 1028,
+      "data_id_hex": "0x0404",
+      "max_delta": 13,
+      "ub_start_bit": 6,
+      "crc_start_bit": 15,
+      "counter_start_bit": 3,
+      "elements": [
+        {
+          "name": "PitchRate",
+          "signal": "AgDataRaw2SafePitchRate",
+          "start_bit": 23,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "PitchRateQf",
+          "signal": "AgDataRaw2SafePitchRateQf",
+          "start_bit": 5,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 322,
+      "can_id_hex": "0x142",
+      "frame": "SrsZCUDCAN1Fr07",
+      "dlc": 8,
+      "cycle_ms": 30,
+      "timeout_ms": 120,
+      "group": "PassAirbLampReq",
+      "data_id": 1141,
+      "data_id_hex": "0x0475",
+      "max_delta": 14,
+      "ub_start_bit": 33,
+      "crc_start_bit": 47,
+      "counter_start_bit": 51,
+      "elements": [
+        {
+          "name": "ChgOfPassAirbSts",
+          "signal": "PassAirbLampReqChgOfPassAirbSts",
+          "start_bit": 32,
+          "length": 1,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "PassAirbLampDiReq",
+          "signal": "PassAirbLampReqPassAirbLampDiReq",
+          "start_bit": 55,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "PassAirbLampEnaReq",
+          "signal": "PassAirbLampReqPassAirbLampEnaReq",
+          "start_bit": 53,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 328,
+      "can_id_hex": "0x148",
+      "frame": "SrsZCUDCAN1Fr12",
+      "dlc": 8,
+      "cycle_ms": 30,
+      "timeout_ms": 120,
+      "group": "RecOfPostImpctBrkgCfmd",
+      "data_id": 74,
+      "data_id_hex": "0x004A",
+      "max_delta": 3,
+      "ub_start_bit": 30,
+      "crc_start_bit": 63,
+      "counter_start_bit": 29,
+      "elements": [
+        {
+          "name": "CrashFrnt",
+          "signal": "RecOfPostImpctBrkgCfmdCrashFrnt",
+          "start_bit": 25,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashLargeAnimal",
+          "signal": "RecOfPostImpctBrkgCfmdCrashLargeAnimal",
+          "start_bit": 39,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashOffroadA",
+          "signal": "RecOfPostImpctBrkgCfmdCrashOffroadA",
+          "start_bit": 37,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashOffroadD",
+          "signal": "RecOfPostImpctBrkgCfmdCrashOffroadD",
+          "start_bit": 35,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashOffroadRT",
+          "signal": "RecOfPostImpctBrkgCfmdCrashOffroadRT",
+          "start_bit": 33,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashOffroadRTsevere",
+          "signal": "RecOfPostImpctBrkgCfmdCrashOffroadRTsevere",
+          "start_bit": 47,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashOz",
+          "signal": "RecOfPostImpctBrkgCfmdCrashOz",
+          "start_bit": 45,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashPed",
+          "signal": "RecOfPostImpctBrkgCfmdCrashPed",
+          "start_bit": 43,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashRe",
+          "signal": "RecOfPostImpctBrkgCfmdCrashRe",
+          "start_bit": 41,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashRollovr",
+          "signal": "RecOfPostImpctBrkgCfmdCrashRollovr",
+          "start_bit": 55,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashSideLe",
+          "signal": "RecOfPostImpctBrkgCfmdCrashSideLe",
+          "start_bit": 53,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "CrashSideRi",
+          "signal": "RecOfPostImpctBrkgCfmdCrashSideRi",
+          "start_bit": 51,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "PostImpctBrkgCfmd",
+          "signal": "RecOfPostImpctBrkgCfmdPostImpctBrkgCfmd",
+          "start_bit": 49,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "bus_index": 0,
+      "bus": "CAN1",
+      "can_id": 628,
+      "can_id_hex": "0x274",
+      "frame": "SrsZCUDCAN1Fr14",
+      "dlc": 8,
+      "cycle_ms": 80,
+      "timeout_ms": 320,
+      "group": "SRSResdSig1ToZCUDMSafety",
+      "data_id": 3806,
+      "data_id_hex": "0x0EDE",
+      "max_delta": 14,
+      "ub_start_bit": 43,
+      "crc_start_bit": 39,
+      "counter_start_bit": 47,
+      "elements": [
+        {
+          "name": "UInt32",
+          "signal": "SRSResdSig1ToZCUDMSafetyUInt32",
+          "start_bit": 7,
+          "length": 32,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "bus_index": 1,
+      "bus": "CANFD3",
+      "can_id": 50,
+      "can_id_hex": "0x032",
+      "frame": "SrsZCUDCANFD3Fr01",
+      "dlc": 64,
+      "cycle_ms": 5,
+      "timeout_ms": 50,
+      "group": "ADataRawSafe",
+      "data_id": 34,
+      "data_id_hex": "0x0022",
+      "max_delta": 3,
+      "ub_start_bit": 7,
+      "crc_start_bit": 39,
+      "counter_start_bit": 47,
+      "elements": [
+        {
+          "name": "ALat",
+          "signal": "ADataRawSafeALat",
+          "start_bit": 6,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALat1Qf",
+          "signal": "ADataRawSafeALat1Qf",
+          "start_bit": 43,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt",
+          "signal": "ADataRawSafeALgt",
+          "start_bit": 23,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt1Qf",
+          "signal": "ADataRawSafeALgt1Qf",
+          "start_bit": 41,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "AVert",
+          "signal": "ADataRawSafeAVert",
+          "start_bit": 55,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "AVertQf",
+          "signal": "ADataRawSafeAVertQf",
+          "start_bit": 71,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "bus_index": 1,
+      "bus": "CANFD3",
+      "can_id": 50,
+      "can_id_hex": "0x032",
+      "frame": "SrsZCUDCANFD3Fr01",
+      "dlc": 64,
+      "cycle_ms": 5,
+      "timeout_ms": 50,
+      "group": "AgDataRawSafe",
+      "data_id": 35,
+      "data_id_hex": "0x0023",
+      "max_delta": 3,
+      "ub_start_bit": 69,
+      "crc_start_bit": 111,
+      "counter_start_bit": 119,
+      "elements": [
+        {
+          "name": "RollRate",
+          "signal": "AgDataRawSafeRollRate",
+          "start_bit": 79,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "RollRateQf",
+          "signal": "AgDataRawSafeRollRateQf",
+          "start_bit": 115,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRate",
+          "signal": "AgDataRawSafeYawRate",
+          "start_bit": 95,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRateQf",
+          "signal": "AgDataRawSafeYawRateQf",
+          "start_bit": 113,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "bus_index": 1,
+      "bus": "CANFD3",
+      "can_id": 50,
+      "can_id_hex": "0x032",
+      "frame": "SrsZCUDCANFD3Fr01",
+      "dlc": 64,
+      "cycle_ms": 5,
+      "timeout_ms": 50,
+      "group": "AsyDataWithCmpSafe",
+      "data_id": 36,
+      "data_id_hex": "0x0024",
+      "max_delta": 14,
+      "ub_start_bit": 176,
+      "crc_start_bit": 162,
+      "counter_start_bit": 170,
+      "elements": [
+        {
+          "name": "ALat1Qf",
+          "signal": "AsyDataWithCmpSafeALat1Qf",
+          "start_bit": 182,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALatWithCmp",
+          "signal": "AsyDataWithCmpSafeALatWithCmp",
+          "start_bit": 143,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt1Qf",
+          "signal": "AsyDataWithCmpSafeALgt1Qf",
+          "start_bit": 180,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "GrdtOfALgt",
+          "signal": "AsyDataWithCmpSafeGrdtOfALgt",
+          "start_bit": 144,
+          "length": 14,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRateQf",
+          "signal": "AsyDataWithCmpSafeYawRateQf",
+          "start_bit": 178,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRateWithCmp",
+          "signal": "AsyDataWithCmpSafeYawRateWithCmp",
+          "start_bit": 127,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "bus_index": 1,
+      "bus": "CANFD3",
+      "can_id": 50,
+      "can_id_hex": "0x032",
+      "frame": "SrsZCUDCANFD3Fr01",
+      "dlc": 64,
+      "cycle_ms": 5,
+      "timeout_ms": 50,
+      "group": "IntgtIMUDataRawSafe",
+      "data_id": 6915,
+      "data_id_hex": "0x1B03",
+      "max_delta": 3,
+      "ub_start_bit": 298,
+      "crc_start_bit": 274,
+      "counter_start_bit": 282,
+      "elements": [
+        {
+          "name": "ALat",
+          "signal": "IntgtIMUDataRawSafeALat",
+          "start_bit": 239,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALat1Qf",
+          "signal": "IntgtIMUDataRawSafeALat1Qf",
+          "start_bit": 294,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt",
+          "signal": "IntgtIMUDataRawSafeALgt",
+          "start_bit": 240,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "ALgt1Qf",
+          "signal": "IntgtIMUDataRawSafeALgt1Qf",
+          "start_bit": 292,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "Avert",
+          "signal": "IntgtIMUDataRawSafeAvert",
+          "start_bit": 257,
+          "length": 15,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "AVertQf",
+          "signal": "IntgtIMUDataRawSafeAVertQf",
+          "start_bit": 290,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "PitchRate",
+          "signal": "IntgtIMUDataRawSafePitchRate",
+          "start_bit": 191,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "PitchRateQf",
+          "signal": "IntgtIMUDataRawSafePitchRateQf",
+          "start_bit": 288,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "RollRate",
+          "signal": "IntgtIMUDataRawSafeRollRate",
+          "start_bit": 207,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "RollRateQf",
+          "signal": "IntgtIMUDataRawSafeRollRateQf",
+          "start_bit": 302,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRate",
+          "signal": "IntgtIMUDataRawSafeYawRate",
+          "start_bit": 223,
+          "length": 16,
+          "signed": true,
+          "byte_order": "big_endian"
+        },
+        {
+          "name": "YawRateQf",
+          "signal": "IntgtIMUDataRawSafeYawRateQf",
+          "start_bit": 300,
+          "length": 2,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "bus_index": 1,
+      "bus": "CANFD3",
+      "can_id": 63,
+      "can_id_hex": "0x03F",
+      "frame": "SrsZCUDCANFD3Fr02",
+      "dlc": 2,
+      "cycle_ms": 200,
+      "timeout_ms": 800,
+      "group": "CrashStsSafe",
+      "data_id": 1035,
+      "data_id_hex": "0x040B",
+      "max_delta": 14,
+      "ub_start_bit": 10,
+      "crc_start_bit": 7,
+      "counter_start_bit": 15,
+      "elements": [
+        {
+          "name": "Sts",
+          "signal": "CrashStsSafeSts",
+          "start_bit": 11,
+          "length": 1,
+          "signed": false,
+          "byte_order": "big_endian"
+        }
+      ]
+    }
+  ]
+}

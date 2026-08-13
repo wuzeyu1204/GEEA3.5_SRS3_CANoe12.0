@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE sysvardefinition SYSTEM "systemvariables.dtd">
+<!-- CANoe/PDU-IL infrastructure only. No SRS3 E2E application variables. -->
 <systemvariables version="1">
   <namespace name="">
     <namespace name="IL">

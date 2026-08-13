@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE sysvardefinition SYSTEM "systemvariables.dtd">
-<!-- Import this file into CANoe only in Implementation Guide Step 2. -->
+<!-- SRS3 E2E control, Tx/Rx status, fault and test variables. No WPF mailbox. -->
 <systemvariables version="1">
   <namespace name="SRS3_E2E">
     <namespace name="Control">
-      <variable name="SelectedPdu" type="int" startValue="2" readOnly="false" valueSequence="false" />
+      <variable name="SelectedPdu" type="int" startValue="2" readOnly="false" valueSequence="false">
+        <valuetable definesMinMax="false">
+          <valuetableentry value="0" description="0x040 VehMtnSt" />
+          <valuetableentry value="1" description="0x050 PreCrashFrontData" />
+          <valuetableentry value="2" description="0x076 VehSpdLgt" />
+          <valuetableentry value="3" description="0x0F0 VehModMngtGlbSafe1" />
+          <valuetableentry value="4" description="0x390 PassAirbLampStsRec" />
+        </valuetable>
+      </variable>
       <variable name="GlobalEnable" type="int" startValue="0" readOnly="false" valueSequence="false" />
       <variable name="AutoProtect" type="int" startValue="1" readOnly="false" valueSequence="false" />
-      <variable name="OverrideMode" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="UpdateBitMode" type="int" startValue="0" readOnly="false" valueSequence="false" />
+      <variable name="OverrideMode" type="int" startValue="0" readOnly="false" valueSequence="false">
+        <valuetable definesMinMax="false">
+          <valuetableentry value="0" description="Pass Through" />
+          <valuetableentry value="1" description="One Shot" />
+          <valuetableentry value="2" description="Continuous" />
+        </valuetable>
+      </variable>
+      <variable name="UpdateBitMode" type="int" startValue="0" readOnly="false" valueSequence="false">
+        <valuetable definesMinMax="false">
+          <valuetableentry value="0" description="Auto" />
+          <valuetableentry value="1" description="Force 0" />
+          <valuetableentry value="2" description="Force 1" />
+        </valuetable>
+      </variable>
       <variable name="ApplyOnce" type="int" startValue="0" readOnly="false" valueSequence="false" />
       <variable name="RestoreNormal" type="int" startValue="0" readOnly="false" valueSequence="false" />
     </namespace>
@@ -17,7 +37,18 @@
       <namespace name="VehMtnSt">
         <namespace name="Signals">
           <namespace name="VehMtnStVehMtnSt">
-            <variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" />
+            <variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false">
+              <valuetable definesMinMax="false">
+                <valuetableentry value="0" description="Unknown" />
+                <valuetableentry value="1" description="Standstill 1" />
+                <valuetableentry value="2" description="Standstill 2" />
+                <valuetableentry value="3" description="Standstill 3" />
+                <valuetableentry value="4" description="Rolling Forward 1" />
+                <valuetableentry value="5" description="Rolling Forward 2" />
+                <valuetableentry value="6" description="Rolling Backward 1" />
+                <valuetableentry value="7" description="Rolling Backward 2" />
+              </valuetable>
+            </variable>
             <variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" />
             <variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" />
             <variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" />
@@ -35,7 +66,7 @@
       <namespace name="PreCrashFrontData">
         <namespace name="Signals">
           <namespace name="ClosingVelocity"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="ObjectClass"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="ObjectClass"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Unknown" /><valuetableentry value="1" description="Car" /><valuetableentry value="2" description="Truck" /><valuetableentry value="3" description="Pedestrian" /><valuetableentry value="6" description="Sensor Error" /></valuetable></variable><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
           <namespace name="OverLap"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="100" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
           <namespace name="TimeToImpact"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="250" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
         </namespace>
@@ -45,27 +76,27 @@
       <namespace name="VehSpdLgt">
         <namespace name="Signals">
           <namespace name="VehSpdLgtA"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="VehSpdLgtQf"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="VehSpdLgtQf"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Undefined Accuracy" /><valuetableentry value="1" description="Temporarily Undefined" /><valuetableentry value="2" description="Accuracy Out of Specification" /><valuetableentry value="3" description="Accurate Data" /></valuetable></variable><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
         </namespace>
         <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="55" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
       </namespace>
 
       <namespace name="VehModMngtGlbSafe1">
         <namespace name="Signals">
-          <namespace name="CarModSts1"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="CarModSts1"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Normal" /><valuetableentry value="1" description="Transport" /><valuetableentry value="2" description="Factory" /><valuetableentry value="3" description="Crash" /><valuetableentry value="5" description="Dyno" /></valuetable></variable><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
           <namespace name="CarModSubtypWd"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
           <namespace name="EgyLvlElecMai"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
           <namespace name="EgyLvlElecSubt"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="FltEgyCnsWdSts"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="FltEgyCnsWdSts"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="No Fault" /><valuetableentry value="1" description="Fault" /></valuetable></variable><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
           <namespace name="PwrLvlElecMai"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
           <namespace name="PwrLvlElecSubt"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="UsgModSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
+          <namespace name="UsgModSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Abandoned" /><valuetableentry value="1" description="Inactive" /><valuetableentry value="2" description="Convenience" /><valuetableentry value="11" description="Active" /><valuetableentry value="13" description="Driving" /></valuetable></variable><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
         </namespace>
         <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="116" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
       </namespace>
 
       <namespace name="PassAirbLampStsRec">
-        <namespace name="Signals"><namespace name="PassAirbLampSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace></namespace>
+        <namespace name="Signals"><namespace name="PassAirbLampSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Reserved 1" /><valuetableentry value="1" description="Lamp OK" /><valuetableentry value="2" description="Lamp Not OK" /><valuetableentry value="3" description="Reserved 2" /></valuetable></variable><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace></namespace>
         <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="1140" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
       </namespace>
     </namespace>

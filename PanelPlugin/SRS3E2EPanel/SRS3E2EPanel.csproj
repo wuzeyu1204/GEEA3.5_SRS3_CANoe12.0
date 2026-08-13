@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A8B4FC25-4184-42D6-8B4A-CE2EC34B23B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SRS3.E2E.PanelControl</RootNamespace>
+    <!-- Vector's CANoe 12 loader uses the _1_2_0_0 suffix for custom controls
+         implementing Vector.PanelControlPlugin 1.2.0.0. -->
+    <AssemblyName>SRS3_E2E_PanelControl_1_2_0_0</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <CanoePanelPluginPath Condition=" '$(CanoePanelPluginPath)' == '' ">C:\Program Files\Vector CANoe 12.0\Exec64\Components\Vector.PanelControlPlugin\1.2.0.0\Vector.PanelControlPlugin.dll</CanoePanelPluginPath>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="Vector.PanelControlPlugin">
+      <HintPath>$(CanoePanelPluginPath)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControlLibraryImpl.cs" />
+    <Compile Include="E2ETxControl.xaml.cs">
+      <DependentUpon>E2ETxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="E2ERxControl.xaml.cs">
+      <DependentUpon>E2ERxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BindableBase.cs" />
+    <Compile Include="Models\PanelMetadata.cs" />
+    <Compile Include="Models\PanelModels.cs" />
+    <Compile Include="Models\RxPanelModels.cs" />
+    <Compile Include="Models\RxPanelMetadata.Generated.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="E2ETxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="E2ERxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\E2EControl.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
