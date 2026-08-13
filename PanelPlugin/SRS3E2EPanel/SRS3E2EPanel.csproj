@@ -9,7 +9,7 @@
     <!-- Vector's CANoe 12 loader uses the _1_2_0_0 suffix for custom controls
          implementing Vector.PanelControlPlugin 1.2.0.0. -->
     <AssemblyName>SRS3_E2E_PanelControl_1_2_0_0</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CanoePanelPluginPath Condition=" '$(CanoePanelPluginPath)' == '' ">C:\Program Files\Vector CANoe 12.0\Exec64\Components\Vector.PanelControlPlugin\1.2.0.0\Vector.PanelControlPlugin.dll</CanoePanelPluginPath>
     <TargetFrameworkProfile />
@@ -48,8 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlLibraryImpl.cs" />
-    <Compile Include="E2ETxControl.xaml.cs">
-      <DependentUpon>E2ETxControl.xaml</DependentUpon>
+    <Compile Include="E2EConsoleControl.xaml.cs">
+      <DependentUpon>E2EConsoleControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="E2ERxControl.xaml.cs">
       <DependentUpon>E2ERxControl.xaml</DependentUpon>
@@ -62,7 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="E2ETxControl.xaml">
+    <Page Include="E2EConsoleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

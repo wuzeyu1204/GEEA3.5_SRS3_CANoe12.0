@@ -13,8 +13,9 @@ using Vector.PanelControlPlugin;
 
 namespace SRS3.E2E.PanelControl
 {
-    [System.Drawing.ToolboxBitmap(typeof(E2ERxControl), "SRS3.E2E.PanelControl.Resources.E2EControl.png")]
-    public partial class E2ERxControl : UserControl, IPluginPanelControl, IProvidesSupportedDataTypes, INotifyPropertyChanged
+    // Embedded Rx view for E2EConsoleControl. It is intentionally not exported
+    // as an independent CANoe Panel control.
+    public partial class E2ERxControl : UserControl, INotifyPropertyChanged
     {
         private const int BridgeLength = 224;
         private const int ProtocolVersion = 2;
@@ -33,6 +34,10 @@ namespace SRS3.E2E.PanelControl
         private const int ValidBase = 125;
         private const int ErrorBase = 140;
         private const int PayloadBase = 155;
+        private const int CommandIndex = 219;
+        private const int CommandBusIndex = 220;
+        private const int CommandSequenceIndex = 221;
+        private const int CommandAckIndex = 222;
 
         private IExchangeSymbolValue symbolValue;
         private System.Windows.Forms.Control externalControl;
@@ -45,8 +50,23 @@ namespace SRS3.E2E.PanelControl
         private bool canFd3Ready;
         private bool readingBridge;
         private int selectedDelta;
+        private bool isFrozen;
+        private int commandSequence;
+        private int commandAck;
         private string bindingType = "not assigned";
         private string title = "SRS3 E2E Rx Control";
+        private bool embeddedMode;
+
+        public int BridgeOffset { get; set; }
+        public bool EmbeddedMode
+        {
+            get { return embeddedMode; }
+            set
+            {
+                embeddedMode = value;
+                UpdateEmbeddedVisualState();
+            }
+        }
 
         public E2ERxControl()
         {
@@ -55,6 +75,7 @@ namespace SRS3.E2E.PanelControl
             VisibleGroups = new ObservableCollection<RxGroupRow>();
             ElementRows = new ObservableCollection<RxElementRow>();
             PayloadBytes = new ObservableCollection<RxPayloadByte>();
+            Events = new ObservableCollection<RxEventRow>();
             currentNetwork = "CAN1";
             pollTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
             pollTimer.Tick += delegate { ReadBridgeValue(); };
@@ -65,12 +86,37 @@ namespace SRS3.E2E.PanelControl
             Unloaded += delegate { pollTimer.Stop(); };
         }
 
+        private void UpdateEmbeddedVisualState()
+        {
+            if (HeaderPanel == null || HeaderSpacer == null || FooterPanel == null) return;
+            Visibility visibility = EmbeddedMode ? Visibility.Collapsed : Visibility.Visible;
+            HeaderPanel.Visibility = visibility;
+            HeaderSpacer.Visibility = visibility;
+            FooterPanel.Visibility = visibility;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<RxGroupRow> Groups { get; private set; }
         public ObservableCollection<string> NetworkOptions { get; private set; }
         public ObservableCollection<RxGroupRow> VisibleGroups { get; private set; }
         public ObservableCollection<RxElementRow> ElementRows { get; private set; }
         public ObservableCollection<RxPayloadByte> PayloadBytes { get; private set; }
+        public ObservableCollection<RxEventRow> Events { get; private set; }
+
+        public bool IsFrozen
+        {
+            get { return isFrozen; }
+            set
+            {
+                if (isFrozen == value) return;
+                isFrozen = value;
+                Raise("IsFrozen"); Raise("FreezeButtonText"); Raise("FooterText"); Raise("FooterBrush");
+                if (!isFrozen) ReadBridgeValue();
+            }
+        }
+        public string FreezeButtonText { get { return IsFrozen ? "继续刷新" : "冻结显示"; } }
+        public bool CanSendRxCommand { get { return bridgeConnected && IsCurrentNetworkReady && commandSequence == commandAck; } }
+        public string CommandStatusText { get { return commandSequence == commandAck ? "" : "命令处理中"; } }
 
         public string CurrentNetwork
         {
@@ -144,8 +190,9 @@ namespace SRS3.E2E.PanelControl
         {
             get
             {
-                if (!bridgeConnected) return "只读安全状态：请将控件绑定到 SRS3_E2E::WpfBridge::RxBridge（Int32[224]）。";
+                if (!bridgeConnected) return "只读安全状态：请将控制台绑定到 SRS3_E2E::WpfBridge::PanelBridge（Int32[320]，Rx偏移96）。";
                 if (!IsCurrentNetworkReady) return "只读安全状态：当前通道没有 Ready 的 CAPL 接收节点；本 Panel 不发送任何报文。";
+                if (IsFrozen) return "显示已冻结：CAPL仍在持续接收和判定；点击“继续刷新”恢复当前快照。";
                 return "接收监视中：状态由最后接收帧计算；超时阈值=max(50 ms, 4×周期)；本 Panel 不控制发送。";
             }
         }
@@ -164,10 +211,10 @@ namespace SRS3.E2E.PanelControl
             PayloadBytes.Clear();
             if (currentGroup == null) return;
             byte[] payload = new byte[currentGroup.Dlc];
-            bool acknowledged = values != null && values.Length >= BridgeLength && values[SelectedAckIndex] == currentGroup.Index;
+            bool acknowledged = values != null && values.Length >= BridgeOffset + BridgeLength && values[BridgeOffset + SelectedAckIndex] == currentGroup.Index;
             for (int index = 0; index < payload.Length; index++)
             {
-                payload[index] = acknowledged ? (byte)(values[PayloadBase + index] & 0xFF) : (byte)0;
+                payload[index] = acknowledged ? (byte)(values[BridgeOffset + PayloadBase + index] & 0xFF) : (byte)0;
                 string role = string.Empty;
                 if (index == currentGroup.CrcStartBit / 8) role = "CRC";
                 if (index == currentGroup.CounterStartBit / 8) role += (role.Length == 0 ? string.Empty : "+") + "CNT";
@@ -215,19 +262,33 @@ namespace SRS3.E2E.PanelControl
                     bridgeConnected = false; can1Ready = false; canFd3Ready = false; RaiseStatus(); return;
                 }
                 int[] values = symbolValue.LongArray.ToArray();
-                if (values.Length < BridgeLength) { bridgeConnected = false; RaiseStatus(); return; }
-                bindingType = symbolValue.SymbolDataType.ToString(); bridgeConnected = values[0] == ProtocolVersion;
-                can1Ready = values[Can1ReadyIndex] != 0; canFd3Ready = values[CanFd3ReadyIndex] != 0;
-                readingBridge = true;
-                for (int index = 0; index < Groups.Count; index++)
+                if (values.Length < BridgeOffset + BridgeLength) { bridgeConnected = false; RaiseStatus(); return; }
+                bindingType = symbolValue.SymbolDataType.ToString(); bridgeConnected = values[BridgeOffset] == ProtocolVersion;
+                can1Ready = values[BridgeOffset + Can1ReadyIndex] != 0; canFd3Ready = values[BridgeOffset + CanFd3ReadyIndex] != 0;
+                commandAck = values[BridgeOffset + CommandAckIndex];
+                if (commandSequence == 0 && values[BridgeOffset + CommandIndex] == 0) commandSequence = commandAck;
+                if (!IsFrozen)
                 {
-                    Groups[index].Update(values[StatusBase + index], values[FrameCountBase + index], values[AgeBase + index],
-                        values[CounterBase + index], values[CrcRxBase + index], values[CrcCalcBase + index], values[UbBase + index],
-                        values[ValidBase + index], values[ErrorBase + index]);
+                    readingBridge = true;
+                    for (int index = 0; index < Groups.Count; index++)
+                    {
+                        RxGroupRow row = Groups[index];
+                        int newState = values[BridgeOffset + StatusBase + index];
+                        int newErrors = values[BridgeOffset + ErrorBase + index];
+                        if (row.Frames > 0 && (row.State != newState || row.ErrorCount != newErrors))
+                        {
+                            Events.Insert(0, new RxEventRow(DateTime.Now, row, row.StateText, RxState.Text(newState),
+                                values[BridgeOffset + CounterBase + index], newErrors));
+                            while (Events.Count > 100) Events.RemoveAt(Events.Count - 1);
+                        }
+                        row.Update(newState, values[BridgeOffset + FrameCountBase + index], values[BridgeOffset + AgeBase + index],
+                            values[BridgeOffset + CounterBase + index], values[BridgeOffset + CrcRxBase + index], values[BridgeOffset + CrcCalcBase + index], values[BridgeOffset + UbBase + index],
+                            values[BridgeOffset + ValidBase + index], newErrors);
+                    }
+                    if (currentGroup != null && values[BridgeOffset + SelectedAckIndex] == currentGroup.Index) selectedDelta = values[BridgeOffset + SelectedDeltaIndex];
+                    RebuildDetail(values);
+                    readingBridge = false;
                 }
-                if (currentGroup != null && values[SelectedAckIndex] == currentGroup.Index) selectedDelta = values[SelectedDeltaIndex];
-                RebuildDetail(values);
-                readingBridge = false;
                 RaiseDetail(); RaiseStatus();
             }
             catch { bridgeConnected = false; readingBridge = false; RaiseStatus(); }
@@ -237,9 +298,27 @@ namespace SRS3.E2E.PanelControl
         {
             if (readingBridge || currentGroup == null || symbolValue == null || symbolValue.SymbolDataType != ExchangeSymbolDataType.LongArray) return;
             int[] values = symbolValue.LongArray.ToArray();
-            if (values.Length < BridgeLength || values[SelectedIndex] == currentGroup.Index) return;
-            values[SelectedIndex] = currentGroup.Index;
+            if (values.Length < BridgeOffset + BridgeLength || values[BridgeOffset + SelectedIndex] == currentGroup.Index) return;
+            values[BridgeOffset + SelectedIndex] = currentGroup.Index;
             symbolValue.LongArray = values;
+        }
+
+        private void FreezeButton_Click(object sender, RoutedEventArgs e) { IsFrozen = !IsFrozen; }
+        private void ClearNetworkButton_Click(object sender, RoutedEventArgs e) { if (CanSendRxCommand) SendRxCommand(1); }
+        private void ClearGroupButton_Click(object sender, RoutedEventArgs e) { if (CanSendRxCommand && CurrentGroup != null) SendRxCommand(2); }
+        private void ClearEventsButton_Click(object sender, RoutedEventArgs e) { Events.Clear(); }
+
+        private void SendRxCommand(int command)
+        {
+            if (symbolValue == null || symbolValue.SymbolDataType != ExchangeSymbolDataType.LongArray) return;
+            int[] values = symbolValue.LongArray.ToArray();
+            if (values.Length < BridgeOffset + BridgeLength) return;
+            commandSequence++;
+            values[BridgeOffset + CommandBusIndex] = CurrentNetwork == "CAN1" ? 0 : 1;
+            values[BridgeOffset + CommandSequenceIndex] = commandSequence;
+            values[BridgeOffset + CommandIndex] = command;
+            symbolValue.LongArray = values;
+            RaiseStatus();
         }
 
         private void RaiseDetail()
@@ -248,7 +327,7 @@ namespace SRS3.E2E.PanelControl
         }
         private void RaiseStatus()
         {
-            foreach (string name in new[] { "NetworkReadyText", "NetworkReadyBrush", "BridgeStatus", "BridgeStatusBackground", "BridgeStatusBorder", "BridgeStatusForeground", "FooterText", "FooterBrush", "GroupSummaryText" }) Raise(name);
+            foreach (string name in new[] { "NetworkReadyText", "NetworkReadyBrush", "BridgeStatus", "BridgeStatusBackground", "BridgeStatusBorder", "BridgeStatusForeground", "FooterText", "FooterBrush", "GroupSummaryText", "CanSendRxCommand", "CommandStatusText" }) Raise(name);
         }
         private void Raise(string name) { if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         private static Brush BrushFrom(string color) { Brush brush = (Brush)new BrushConverter().ConvertFromString(color); if (brush.CanFreeze) brush.Freeze(); return brush; }

@@ -16,8 +16,12 @@ variables
 on preStart
 {
   E2E_RxInitialize(1);
-  setTimer(gE2E_RxWatchdog, 10);
   write("[E2E-RX] CANFD3 checker ready: 5 protected groups, monitor only");
+}
+
+on start
+{
+  setTimer(gE2E_RxWatchdog, 10);
 }
 
 on message *

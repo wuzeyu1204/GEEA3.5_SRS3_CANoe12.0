@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE sysvardefinition SYSTEM "systemvariables.dtd">
-<!-- CANoe/PDU-IL infrastructure only. No SRS3 E2E application variables. -->
-<systemvariables version="1">
-  <namespace name="">
-    <namespace name="IL">
-      <variable name="Klemme15" type="int" startValue="1" readOnly="false" valueSequence="false" />
-      <variable name="Klemme30" type="int" startValue="1" readOnly="false" valueSequence="false" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="IL" comment="" interface="">
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Klemme15" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Klemme30" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
     </namespace>
-    <namespace name="IL_CAN1">
-      <namespace name="NODES">
-        <namespace name="N_VectorSimulationNode">
-          <variable name="EnableNode" type="int" startValue="1" readOnly="false" valueSequence="false" />
+    <namespace name="IL_CAN1" comment="" interface="">
+      <namespace name="NODES" comment="" interface="">
+        <namespace name="N_VectorSimulationNode" comment="" interface="">
+          <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="EnableNode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
         </namespace>
       </namespace>
-      <variable name="enable_AllNodes" type="int" startValue="1" readOnly="false" valueSequence="false" />
+      <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="enable_AllNodes" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
     </namespace>
   </namespace>
 </systemvariables>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=12.0.75.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=12.0.75.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="SRS3 E2E Test Console">
+    <Object Type="Vector.CANalyzer.Panels.Design.PluginPanelControl, Vector.CANalyzer.Panels.Common, Version=12.0.75.0, Culture=neutral, PublicKeyToken=null" Name="PluginPanelControl1" Children="Controls" ControlName="SRS3 E2E Test Console">
+      <Property Name="Name">PluginPanelControl1</Property>
+      <Property Name="Size">1040, 680</Property>
+      <Property Name="Location">0, 0</Property>
+      <Property Name="PluginControlLibName">SRS3_E2E_PanelControl_1_2_0_0.dll</Property>
+      <Property Name="PluginControlName">E2EConsoleControl</Property>
+      <Property Name="BackColor">241, 243, 244</Property>
+      <Property Name="ForeColor">37, 41, 45</Property>
+      <Property Name="SpecialProperties">SRS3 E2E Test Console;</Property>
+      <Property Name="SymbolConfiguration">5;16;SRS3_E2E::WpfBridge;;;PanelBridge;16;;;-1;;;</Property>
+      <Property Name="TabIndex">0</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">1040, 680</Property>
+    <Property Name="BackColor">White</Property>
+  </Object>
+</Panel>

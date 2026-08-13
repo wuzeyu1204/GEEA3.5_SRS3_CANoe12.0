@@ -137,13 +137,20 @@ def main():
         )
 
     capl = (ROOT / "CAPL" / "E2E" / "E2E_RxMonitor.cin").read_text(encoding="ascii")
-    for required in ("canGetDataLength", "E2E_ProfileGCalculate", "E2E_RX_STATE_TIMEOUT", "gE2E_RxSequenceCounter", "RxBridge"):
+    for required in ("canGetDataLength", "E2E_ProfileGCalculate", "E2E_RX_STATE_TIMEOUT", "gE2E_RxSequenceCounter",
+                     "PanelBridge", "E2E_RX_UNIFIED_OFFSET = 96", "E2E_RxExportUnifiedBridge",
+                     "E2E_RxPollCommand", "E2E_RX_B_COMMAND_ACK", "gE2E_RxErrorCount[groupIndex]++"):
         assert required in capl or required in (ROOT / "Nodes" / "E2E_RxMonitor.can").read_text(encoding="ascii")
+    assert "RxBridge" not in capl, "legacy Rx bridge must not remain"
     assert "output(" not in capl.lower(), "Rx monitor must not transmit"
     for node in ("E2E_RxMonitor.can", "E2E_RxMonitor_CANFD3.can"):
         text = (ROOT / "Nodes" / node).read_text(encoding="ascii")
         assert "on message *" in text and "canGetDataLength(this)" in text
         assert "output(" not in text.lower(), f"{node} must remain receive-only"
+        pre_start = text.split("on preStart", 1)[1].split("on start", 1)[0]
+        assert "setTimer" not in pre_start, f"{node} must not start a timer before CAPL START"
+        start_block = text.split("on start", 1)[1].split("on message", 1)[0]
+        assert "setTimer(gE2E_RxWatchdog, 10);" in start_block, f"{node} must start watchdog in on start"
 
     VECTORS.write_text(json.dumps({"schema": "SRS3_E2E_RxGoldenVectors_v1", "vectors": vectors}, indent=2) + "\n", encoding="utf-8")
     print(f"PASS: {len(groups)} groups, {len(vectors)} golden vectors, CAN1/CANFD3 receive-only nodes")

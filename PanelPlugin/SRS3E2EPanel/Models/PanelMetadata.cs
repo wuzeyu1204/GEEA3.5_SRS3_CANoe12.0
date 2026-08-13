@@ -4,16 +4,6 @@ namespace SRS3.E2E.PanelControl.Models
 {
     public static class PanelMetadata
     {
-        public static ObservableCollection<OptionItem> CreateOverrideOptions()
-        {
-            return new ObservableCollection<OptionItem>
-            {
-                new OptionItem(0, "原值单帧 Pass Through"),
-                new OptionItem(1, "改值单帧 One Shot"),
-                new OptionItem(2, "改值连续 Continuous")
-            };
-        }
-
         public static ObservableCollection<OptionItem> CreateUbOptions()
         {
             return new ObservableCollection<OptionItem>

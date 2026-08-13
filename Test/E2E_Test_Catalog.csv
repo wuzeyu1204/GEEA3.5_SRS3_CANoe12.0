@@ -1,23 +1,24 @@
 TestId,Area,Objective,Scope,ExpectedEvidence,Status
-GEN-001,Generation,Verify manifest coverage,"5 Tx PDUs; 16 Tx elements; 15 Rx groups",Static verifier output,Implemented
+GEN-001,Generation,Verify manifest coverage,"5 Tx PDUs; 16 Tx elements; 15 Rx groups",Static verifier output,Static-PASS
 ALG-001,Algorithm,Verify CRC golden vectors,All 5 Tx groups,15 vectors plus independent verifier,Static-PASS
-TX-001,Nominal,Verify normal protection,All 5 Tx groups,Counter and CRC trace,Planned
-SIG-001,Signals,Verify min nominal max values,All 16 Tx elements,Decoded signal and payload trace,Planned
-SIG-002,Signals,Verify raw and reserved values,All enum and raw-capable elements,Only target bits change,Planned
-MOD-001,Mode,Verify Pass Through,All 5 Tx PDUs,PDU-IL application data preserved,Planned
-MOD-002,Mode,Verify One Shot,All 5 Tx PDUs,Exactly one PDU cycle overridden,Planned
-MOD-003,Mode,Verify Continuous and Restore,All 5 Tx PDUs,Restore by next PDU cycle,Planned
-CNT-001,Counter,Verify 14 to 0 wrap,All 5 Tx groups,Counter sequence trace,Planned
-UB-001,UpdateBit,Verify UB zero behavior,All 5 Tx groups,Counter and CRC do not advance,Planned
-FI-CRC-001,Fault,Inject corrupt CRC,All 5 Tx groups,CRC error and recovery verdict,Planned
-FI-CNT-001,Fault,Inject repeated counter,All 5 Tx groups,Repeated verdict,Planned
-FI-CNT-002,Fault,Inject counter 15,All 5 Tx groups,Invalid counter verdict,Planned
-FI-DID-001,Fault,Use wrong DataID for CRC,All 5 Tx groups,CRC error with unchanged application data,Planned
-FI-TMO-001,Fault,Suppress transmission,All 5 Tx PDUs,Timeout within frozen threshold,Planned
-REC-001,Recovery,Clear all faults,All fault types,Return to OK and normal application data,Planned
+START-001,Integration,Compile and start without runtime errors,VectorSimulationNode and E2E_RxMonitor_CAN1,"Compile Write log; startup Write log; Panel screenshot",Dynamic-Pending
+OWN-001,Ownership,Verify PDU IG is the only Tx event source,Five target CAN IDs,"5 s zero-local-Tx Trace; one Tx per manual trigger",Dynamic-Pending
+TX-001,Nominal,Verify normal protection,All 5 Tx groups,"ID/DLC/DataID/Counter/CRC/UB/Raw Trace and Panel evidence",Dynamic-Pending
+PASS-001,Mode,Verify protection-off pass through,All 5 Tx PDUs,Input Raw equals final Raw and protected count unchanged,Dynamic-Pending
+UB-001,UpdateBit,Verify Auto Force0 Force1,All 5 Tx groups,UB and CRC evidence for three policies,Dynamic-Pending
+CNT-001,Counter,Verify legal range and 14-to-0 wrap,All 5 Tx groups,"At least 16 frames per PDU; sequence and CRC evidence",Dynamic-Pending
+FI-CRC-001,Fault,Inject corrupt CRC,5 Tx PDUs,CRC Tx differs from Calc by configured XOR,Dynamic-Pending
+FI-CNT-001,Fault,Inject repeated counter,5 Tx PDUs,Repeated counter then recovery,Dynamic-Pending
+FI-CNT-002,Fault,Inject counter 15,5 Tx PDUs,Counter 0xF then legal recovery,Dynamic-Pending
+FI-CNT-003,Fault,Inject counter jump,5 Tx PDUs,Configured modulo-15 jump then continued sequence,Dynamic-Pending
+FI-DID-001,Fault,Use wrong DataID for CRC,5 Tx PDUs,CRC mismatch with unchanged application data then recovery,Dynamic-Pending
+FI-UB-001,Fault,Force UB zero,5 Tx PDUs,UB inactive fault frame then Auto recovery,Dynamic-Pending
+FI-PAY-001,Fault,Corrupt first application element,5 Tx PDUs,Payload bit flip after CRC then recovery,Dynamic-Pending
+FI-TMO-001,Fault,Suppress TxPending event,5 Tx PDUs,"No Tx for faulted trigger; next trigger transmits",Dynamic-Pending
+FI-RNG-001,Fault,Verify next-N-continuous scopes and clear commands,All fault types,"Remaining count; Ack; active mask; clear recovery",Dynamic-Pending
 RX-001,RxMonitor,Verify generated Rx rules and valid payloads,15 CAN1/CANFD3 E2E groups,45 independent golden vectors,Static-PASS
-RX-002,RxMonitor,Verify CAN1 live Rx checking,10 CAN1 E2E groups,"INITIAL; OK; CRC_ERROR; UB_INACTIVE; TIMEOUT plus Trace",Ready-for-CANoe
-RX-003,RxMonitor,Verify CANFD3 multi-group checking,5 CANFD3 E2E groups,"Four independent verdicts in 0x032; one in 0x03F",Blocked-channel-config
+RX-002,RxMonitor,Verify CAN1 live Rx checking,10 CAN1 E2E groups,"State; Frames; Age; Counter; CRC; UB; Raw and Trace",Dynamic-Pending
+RX-003,RxMonitor,Verify CAN1 timeout and recovery,10 CAN1 E2E groups,Timeout threshold and recovery evidence,Dynamic-Pending
 RX-004,RxMonitor,Verify receive-only architecture,CAN1 and CANFD3 Rx CAPL nodes,No output call and no Tx command in Rx Panel,Static-PASS
-PWR-001,State,Verify KL15 cycle,All active groups,Frozen reset policy evidence,Planned
-RPT-001,Reporting,Verify report completeness,Complete test run,"XML; HTML; BLF; CSV; baseline hashes",Planned
+RXFD3-001,RxMonitor,Verify CANFD3 multi-group checking,5 CANFD3 E2E groups,CANFD3 configuration plus Trace and Panel evidence,Blocked-Channel-Config
+RPT-001,Reporting,Verify evidence completeness,Complete dynamic run,"BLF; Write text; screenshots; result catalog; commit hash",Dynamic-Pending

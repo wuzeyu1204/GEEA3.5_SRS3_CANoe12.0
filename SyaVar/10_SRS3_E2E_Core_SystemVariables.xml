@@ -1,130 +1,215 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE sysvardefinition SYSTEM "systemvariables.dtd">
-<!-- SRS3 E2E control, Tx/Rx status, fault and test variables. No WPF mailbox. -->
-<systemvariables version="1">
-  <namespace name="SRS3_E2E">
-    <namespace name="Control">
-      <variable name="SelectedPdu" type="int" startValue="2" readOnly="false" valueSequence="false">
-        <valuetable definesMinMax="false">
-          <valuetableentry value="0" description="0x040 VehMtnSt" />
-          <valuetableentry value="1" description="0x050 PreCrashFrontData" />
-          <valuetableentry value="2" description="0x076 VehSpdLgt" />
-          <valuetableentry value="3" description="0x0F0 VehModMngtGlbSafe1" />
-          <valuetableentry value="4" description="0x390 PassAirbLampStsRec" />
-        </valuetable>
-      </variable>
-      <variable name="GlobalEnable" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="AutoProtect" type="int" startValue="1" readOnly="false" valueSequence="false" />
-      <variable name="OverrideMode" type="int" startValue="0" readOnly="false" valueSequence="false">
-        <valuetable definesMinMax="false">
-          <valuetableentry value="0" description="Pass Through" />
-          <valuetableentry value="1" description="One Shot" />
-          <valuetableentry value="2" description="Continuous" />
-        </valuetable>
-      </variable>
-      <variable name="UpdateBitMode" type="int" startValue="0" readOnly="false" valueSequence="false">
-        <valuetable definesMinMax="false">
-          <valuetableentry value="0" description="Auto" />
-          <valuetableentry value="1" description="Force 0" />
-          <valuetableentry value="2" description="Force 1" />
-        </valuetable>
-      </variable>
-      <variable name="ApplyOnce" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="RestoreNormal" type="int" startValue="0" readOnly="false" valueSequence="false" />
-    </namespace>
-
-    <namespace name="Tx">
-      <namespace name="VehMtnSt">
-        <namespace name="Signals">
-          <namespace name="VehMtnStVehMtnSt">
-            <variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false">
-              <valuetable definesMinMax="false">
-                <valuetableentry value="0" description="Unknown" />
-                <valuetableentry value="1" description="Standstill 1" />
-                <valuetableentry value="2" description="Standstill 2" />
-                <valuetableentry value="3" description="Standstill 3" />
-                <valuetableentry value="4" description="Rolling Forward 1" />
-                <valuetableentry value="5" description="Rolling Forward 2" />
-                <valuetableentry value="6" description="Rolling Backward 1" />
-                <valuetableentry value="7" description="Rolling Backward 2" />
-              </valuetable>
-            </variable>
-            <variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" />
-            <variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" />
-            <variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="SRS3_E2E" comment="" interface="">
+      <namespace name="Control" comment="" interface="">
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="ApplyOnce" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="AutoProtect" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="GlobalEnable" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="OverrideMode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0">
+          <valuetable name="Custom" definesMinMax="false">
+            <valuetableentry value="0" lowerBound="0" upperBound="0" description="Pass Through" displayString="Pass Through" />
+            <valuetableentry value="1" lowerBound="1" upperBound="1" description="One Shot" displayString="One Shot" />
+            <valuetableentry value="2" lowerBound="2" upperBound="2" description="Continuous" displayString="Continuous" />
+          </valuetable>
+        </variable>
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RestoreNormal" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SelectedPdu" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="2">
+          <valuetable name="Custom" definesMinMax="false">
+            <valuetableentry value="0" lowerBound="0" upperBound="0" description="0x040 VehMtnSt" displayString="0x040 VehMtnSt" />
+            <valuetableentry value="1" lowerBound="1" upperBound="1" description="0x050 PreCrashFrontData" displayString="0x050 PreCrashFrontData" />
+            <valuetableentry value="2" lowerBound="2" upperBound="2" description="0x076 VehSpdLgt" displayString="0x076 VehSpdLgt" />
+            <valuetableentry value="3" lowerBound="3" upperBound="3" description="0x0F0 VehModMngtGlbSafe1" displayString="0x0F0 VehModMngtGlbSafe1" />
+            <valuetableentry value="4" lowerBound="4" upperBound="4" description="0x390 PassAirbLampStsRec" displayString="0x390 PassAirbLampStsRec" />
+          </valuetable>
+        </variable>
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UpdateBitMode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0">
+          <valuetable name="Custom" definesMinMax="false">
+            <valuetableentry value="0" lowerBound="0" upperBound="0" description="Auto" displayString="Auto" />
+            <valuetableentry value="1" lowerBound="1" upperBound="1" description="Force 0" displayString="Force 0" />
+            <valuetableentry value="2" lowerBound="2" upperBound="2" description="Force 1" displayString="Force 1" />
+          </valuetable>
+        </variable>
+      </namespace>
+      <namespace name="Fault" comment="" interface="">
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Active" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DurationFrames" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Mode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Parameter" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Request" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Type" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      </namespace>
+      <namespace name="Rx" comment="" interface="">
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="ActualCRC" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Counter" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="CounterDelta" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="ExpectedCRC" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="LastRxTimeMs" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="SelectedObject" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Verdict" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      </namespace>
+      <namespace name="Test" comment="" interface="">
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="CaseId" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Command" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Progress" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+        <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Verdict" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      </namespace>
+      <namespace name="Tx" comment="" interface="">
+        <namespace name="PassAirbLampStsRec" comment="" interface="">
+          <namespace name="Signals" comment="" interface="">
+            <namespace name="PassAirbLampSts" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+          </namespace>
+          <namespace name="Status" comment="" interface="">
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Counter" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="CRC" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DataID" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1140" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="State" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UB" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
           </namespace>
         </namespace>
-        <namespace name="Status">
-          <variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" />
-          <variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" />
-          <variable name="DataID" type="int" startValue="54" readOnly="false" valueSequence="false" />
-          <variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" />
-          <variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" />
+        <namespace name="PreCrashFrontData" comment="" interface="">
+          <namespace name="Signals" comment="" interface="">
+            <namespace name="ClosingVelocity" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="ObjectClass" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="OverLap" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="100" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="TimeToImpact" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="250" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+          </namespace>
+          <namespace name="Status" comment="" interface="">
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Counter" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="CRC" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DataID" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1041" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="State" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UB" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+          </namespace>
+        </namespace>
+        <namespace name="VehModMngtGlbSafe1" comment="" interface="">
+          <namespace name="Signals" comment="" interface="">
+            <namespace name="CarModSts1" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="CarModSubtypWd" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="EgyLvlElecMai" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="EgyLvlElecSubt" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="FltEgyCnsWdSts" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="PwrLvlElecMai" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="PwrLvlElecSubt" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="UsgModSts" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+          </namespace>
+          <namespace name="Status" comment="" interface="">
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Counter" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="CRC" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DataID" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="116" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="State" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UB" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+          </namespace>
+        </namespace>
+        <namespace name="VehMtnSt" comment="" interface="">
+          <namespace name="Signals" comment="" interface="">
+            <namespace name="VehMtnStVehMtnSt" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+          </namespace>
+          <namespace name="Status" comment="" interface="">
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Counter" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="CRC" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DataID" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="54" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="State" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UB" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+          </namespace>
+        </namespace>
+        <namespace name="VehSpdLgt" comment="" interface="">
+          <namespace name="Signals" comment="" interface="">
+            <namespace name="VehSpdLgtA" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+            <namespace name="VehSpdLgtQf" comment="" interface="">
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="InputValid" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="PhysicalValue" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="RawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+              <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UseRawValue" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            </namespace>
+          </namespace>
+          <namespace name="Status" comment="" interface="">
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="Counter" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="CRC" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="DataID" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="55" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="State" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+            <variable anlyzLocal="0" readOnly="false" valueSequence="false" unit="" name="UB" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="1" />
+          </namespace>
         </namespace>
       </namespace>
-
-      <namespace name="PreCrashFrontData">
-        <namespace name="Signals">
-          <namespace name="ClosingVelocity"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="ObjectClass"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Unknown" /><valuetableentry value="1" description="Car" /><valuetableentry value="2" description="Truck" /><valuetableentry value="3" description="Pedestrian" /><valuetableentry value="6" description="Sensor Error" /></valuetable></variable><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="OverLap"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="100" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="TimeToImpact"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="250" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-        </namespace>
-        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="1041" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
+      <namespace name="WpfBridge" comment="" interface="">
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="PanelBridge" comment="Unified SRS3 E2E WPF bridge protocol v2; Tx 0..63, reserved 64..95, Rx 96..319" bitcount="32" isSigned="true" encoding="65001" type="intarray" arrayLength="320" startValue="2;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" />
       </namespace>
-
-      <namespace name="VehSpdLgt">
-        <namespace name="Signals">
-          <namespace name="VehSpdLgtA"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="VehSpdLgtQf"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Undefined Accuracy" /><valuetableentry value="1" description="Temporarily Undefined" /><valuetableentry value="2" description="Accuracy Out of Specification" /><valuetableentry value="3" description="Accurate Data" /></valuetable></variable><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-        </namespace>
-        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="55" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
-      </namespace>
-
-      <namespace name="VehModMngtGlbSafe1">
-        <namespace name="Signals">
-          <namespace name="CarModSts1"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Normal" /><valuetableentry value="1" description="Transport" /><valuetableentry value="2" description="Factory" /><valuetableentry value="3" description="Crash" /><valuetableentry value="5" description="Dyno" /></valuetable></variable><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="CarModSubtypWd"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="EgyLvlElecMai"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="EgyLvlElecSubt"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="FltEgyCnsWdSts"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="No Fault" /><valuetableentry value="1" description="Fault" /></valuetable></variable><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="PwrLvlElecMai"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="PwrLvlElecSubt"><variable name="PhysicalValue" type="float" startValue="0" readOnly="false" valueSequence="false" /><variable name="RawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-          <namespace name="UsgModSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Abandoned" /><valuetableentry value="1" description="Inactive" /><valuetableentry value="2" description="Convenience" /><valuetableentry value="11" description="Active" /><valuetableentry value="13" description="Driving" /></valuetable></variable><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace>
-        </namespace>
-        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="116" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
-      </namespace>
-
-      <namespace name="PassAirbLampStsRec">
-        <namespace name="Signals"><namespace name="PassAirbLampSts"><variable name="PhysicalValue" type="float" startValue="1" readOnly="false" valueSequence="false"><valuetable definesMinMax="false"><valuetableentry value="0" description="Reserved 1" /><valuetableentry value="1" description="Lamp OK" /><valuetableentry value="2" description="Lamp Not OK" /><valuetableentry value="3" description="Reserved 2" /></valuetable></variable><variable name="RawValue" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="UseRawValue" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="InputValid" type="int" startValue="1" readOnly="false" valueSequence="false" /></namespace></namespace>
-        <namespace name="Status"><variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="CRC" type="int" startValue="0" readOnly="false" valueSequence="false" /><variable name="DataID" type="int" startValue="1140" readOnly="false" valueSequence="false" /><variable name="UB" type="int" startValue="1" readOnly="false" valueSequence="false" /><variable name="State" type="int" startValue="0" readOnly="false" valueSequence="false" /></namespace>
-      </namespace>
-    </namespace>
-
-    <namespace name="Fault">
-      <variable name="Type" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Mode" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Parameter" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="DurationFrames" type="int" startValue="1" readOnly="false" valueSequence="false" />
-      <variable name="Request" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Active" type="int" startValue="0" readOnly="false" valueSequence="false" />
-    </namespace>
-
-    <namespace name="Rx">
-      <variable name="SelectedObject" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="ActualCRC" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="ExpectedCRC" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Counter" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="CounterDelta" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="LastRxTimeMs" type="float" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Verdict" type="int" startValue="0" readOnly="false" valueSequence="false" />
-    </namespace>
-
-    <namespace name="Test">
-      <variable name="CaseId" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Command" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Progress" type="int" startValue="0" readOnly="false" valueSequence="false" />
-      <variable name="Verdict" type="int" startValue="0" readOnly="false" valueSequence="false" />
     </namespace>
   </namespace>
 </systemvariables>

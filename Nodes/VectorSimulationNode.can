@@ -169,11 +169,6 @@ on sysvar_update sysvar::IL::Klemme30
   //--- end generated part --- Block end #Body_KL30_Klemme30#; do not delete this line! Add application code below this line.
 }
 
-on sysvar_update sysvar::SRS3_E2E::Control::GlobalEnable
-{
-  E2E_BridgePublishControlState();
-}
-
 int E2E_StrEq(char a[], char b[])
 {
   int i;

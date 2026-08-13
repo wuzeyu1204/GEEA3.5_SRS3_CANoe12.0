@@ -1,5 +1,8 @@
 /*@!Encoding:1252*/
 
+/* Per-PDU fault state for the unified bridge protocol v2. Faults are armed
+ * by Panel but are consumed only by a later matching PDU-IL TxPending event. */
+
 variables
 {
   const int E2E_FAULT_NONE = 0;
@@ -12,9 +15,75 @@ variables
   const int E2E_FAULT_CORRUPT_PAYLOAD = 7;
   const int E2E_FAULT_STOP_TX = 8;
 
+  const int E2E_FAULT_B_SELECTED_PDU = 1;
+  const int E2E_FAULT_B_TYPE = 52;
+  const int E2E_FAULT_B_MODE = 53;
+  const int E2E_FAULT_B_PARAMETER = 54;
+  const int E2E_FAULT_B_DURATION = 55;
+  const int E2E_FAULT_B_COMMAND = 56;
+  const int E2E_FAULT_B_SEQUENCE = 57;
+  const int E2E_FAULT_B_ACTIVE_TYPE = 58;
+  const int E2E_FAULT_B_REMAINING = 59;
+  const int E2E_FAULT_B_APPLIED = 60;
+  const int E2E_FAULT_B_RESULT = 61;
+  const int E2E_FAULT_B_ACTIVE_MASK = 62;
+  const int E2E_FAULT_B_ACK = 63;
+
   int gE2E_FaultType[5] = {0, 0, 0, 0, 0};
   int gE2E_FaultRemainingFrames[5] = {0, 0, 0, 0, 0};
   dword gE2E_FaultParameter[5] = {0, 0, 0, 0, 0};
+  dword gE2E_FaultAppliedCount[5] = {0, 0, 0, 0, 0};
+  int gE2E_FaultAppliedThisFrame[5] = {0, 0, 0, 0, 0};
+  int gE2E_FaultLastSequence = 0;
+  int gE2E_FaultLastCommandResult = 0;
+}
+
+int E2E_FaultSelectedPdu()
+{
+  int pduIndex;
+
+  pduIndex = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_SELECTED_PDU];
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return 0;
+  return pduIndex;
+}
+
+int E2E_FaultActiveMask()
+{
+  int pduIndex;
+  int mask;
+
+  mask = 0;
+  for (pduIndex = 0; pduIndex < E2E_TX_PDU_COUNT; pduIndex++)
+  {
+    if (gE2E_FaultType[pduIndex] != E2E_FAULT_NONE)
+    {
+      mask |= (1 << pduIndex);
+    }
+  }
+  return mask;
+}
+
+void E2E_FaultPublishState()
+{
+  int pduIndex;
+
+  pduIndex = E2E_FaultSelectedPdu();
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_ACTIVE_TYPE] = gE2E_FaultType[pduIndex];
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_REMAINING] = gE2E_FaultRemainingFrames[pduIndex];
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_APPLIED] = gE2E_FaultAppliedCount[pduIndex];
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_RESULT] = gE2E_FaultLastCommandResult;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_ACTIVE_MASK] = E2E_FaultActiveMask();
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_ACK] = gE2E_FaultLastSequence;
+}
+
+void E2E_ClearFault(int pduIndex)
+{
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return;
+  gE2E_FaultType[pduIndex] = E2E_FAULT_NONE;
+  gE2E_FaultRemainingFrames[pduIndex] = 0;
+  gE2E_FaultParameter[pduIndex] = 0;
+  gE2E_FaultAppliedCount[pduIndex] = 0;
+  gE2E_FaultAppliedThisFrame[pduIndex] = 0;
 }
 
 void E2E_ResetFaults()
@@ -23,26 +92,163 @@ void E2E_ResetFaults()
 
   for (pduIndex = 0; pduIndex < E2E_TX_PDU_COUNT; pduIndex++)
   {
-    gE2E_FaultType[pduIndex] = E2E_FAULT_NONE;
-    gE2E_FaultRemainingFrames[pduIndex] = 0;
-    gE2E_FaultParameter[pduIndex] = 0;
+    E2E_ClearFault(pduIndex);
   }
+  gE2E_FaultLastSequence = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_SEQUENCE];
+  gE2E_FaultLastCommandResult = 0;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_COMMAND] = 0;
+  E2E_FaultPublishState();
 }
 
 int E2E_FaultIsActive(int pduIndex)
 {
-  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT))
-  {
-    return 0;
-  }
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return 0;
   return gE2E_FaultType[pduIndex] != E2E_FAULT_NONE;
 }
 
-/* Fault placement is completed together with the per-PDU generated bindings.
- * Keeping this function pass-through prevents an incomplete fault model from
- * altering a valid PDU. */
-int E2E_ApplyPostProtectFault(int pduIndex, byte data[], int payloadLength)
+int E2E_FaultGetType(int pduIndex)
 {
-  return 1;
+  if (!E2E_FaultIsActive(pduIndex)) return E2E_FAULT_NONE;
+  return gE2E_FaultType[pduIndex];
 }
 
+dword E2E_FaultGetParameter(int pduIndex)
+{
+  if (!E2E_FaultIsActive(pduIndex)) return 0;
+  return gE2E_FaultParameter[pduIndex];
+}
+
+int E2E_FaultAppliedThisEvent(int pduIndex)
+{
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return 0;
+  return gE2E_FaultAppliedThisFrame[pduIndex];
+}
+
+void E2E_FaultBeginEvent(int pduIndex)
+{
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return;
+  gE2E_FaultAppliedThisFrame[pduIndex] = 0;
+}
+
+void E2E_FaultPollCommand(int pduIndex)
+{
+  int command;
+  int sequence;
+  int selectedPdu;
+  int faultType;
+  int faultMode;
+  int duration;
+  int index;
+
+  command = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_COMMAND];
+  if (command == 0)
+  {
+    E2E_FaultPublishState();
+    return;
+  }
+
+  sequence = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_SEQUENCE];
+  if (sequence == gE2E_FaultLastSequence)
+  {
+    @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_COMMAND] = 0;
+    E2E_FaultPublishState();
+    return;
+  }
+
+  selectedPdu = E2E_FaultSelectedPdu();
+  if ((command != 3) && (pduIndex != selectedPdu)) return;
+
+  gE2E_FaultLastCommandResult = -1;
+  if (command == 1)
+  {
+    faultType = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_TYPE];
+    faultMode = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_MODE];
+    duration = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_DURATION];
+    if ((faultType >= E2E_FAULT_CORRUPT_CRC) && (faultType <= E2E_FAULT_STOP_TX) &&
+        (faultMode >= 0) && (faultMode <= 2))
+    {
+      gE2E_FaultType[selectedPdu] = faultType;
+      gE2E_FaultParameter[selectedPdu] = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_PARAMETER];
+      if (faultMode == 0) gE2E_FaultRemainingFrames[selectedPdu] = 1;
+      else if (faultMode == 1)
+      {
+        if (duration < 1) duration = 1;
+        gE2E_FaultRemainingFrames[selectedPdu] = duration;
+      }
+      else gE2E_FaultRemainingFrames[selectedPdu] = -1;
+      gE2E_FaultAppliedCount[selectedPdu] = 0;
+      gE2E_FaultAppliedThisFrame[selectedPdu] = 0;
+      gE2E_FaultLastCommandResult = 1;
+    }
+  }
+  else if (command == 2)
+  {
+    E2E_ClearFault(selectedPdu);
+    gE2E_FaultLastCommandResult = 2;
+  }
+  else if (command == 3)
+  {
+    for (index = 0; index < E2E_TX_PDU_COUNT; index++) E2E_ClearFault(index);
+    gE2E_FaultLastCommandResult = 3;
+  }
+
+  gE2E_FaultLastSequence = sequence;
+  @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_FAULT_B_COMMAND] = 0;
+  E2E_FaultPublishState();
+}
+
+void E2E_FaultConsume(int pduIndex)
+{
+  gE2E_FaultAppliedThisFrame[pduIndex] = 1;
+  gE2E_FaultAppliedCount[pduIndex]++;
+  if (gE2E_FaultRemainingFrames[pduIndex] > 0)
+  {
+    gE2E_FaultRemainingFrames[pduIndex]--;
+    if (gE2E_FaultRemainingFrames[pduIndex] == 0)
+    {
+      gE2E_FaultType[pduIndex] = E2E_FAULT_NONE;
+    }
+  }
+}
+
+int E2E_ApplyPostProtectFault(int pduIndex, byte data[], int payloadLength)
+{
+  int faultType;
+  dword parameter;
+  dword rawCrc;
+  dword rawPayload;
+  dword payloadMask;
+  int bitLength;
+
+  if ((pduIndex < 0) || (pduIndex >= E2E_TX_PDU_COUNT)) return 1;
+  gE2E_FaultAppliedThisFrame[pduIndex] = 0;
+  faultType = E2E_FaultGetType(pduIndex);
+  if (faultType == E2E_FAULT_NONE) return 1;
+
+  parameter = E2E_FaultGetParameter(pduIndex);
+  if (parameter == 0) parameter = 1;
+
+  if (faultType == E2E_FAULT_CORRUPT_CRC)
+  {
+    if (E2E_GetMotorolaRaw(data, payloadLength, E2E_GetTxCrcStartBit(pduIndex), 8, rawCrc))
+    {
+      E2E_SetMotorolaRaw(data, payloadLength, E2E_GetTxCrcStartBit(pduIndex), 8, rawCrc ^ (parameter & 0xFF));
+    }
+  }
+  else if (faultType == E2E_FAULT_CORRUPT_PAYLOAD)
+  {
+    bitLength = E2E_GetTxSignalBitLength(pduIndex, 0);
+    if ((bitLength > 0) &&
+        E2E_GetMotorolaRaw(data, payloadLength, E2E_GetTxSignalStartBit(pduIndex, 0), bitLength, rawPayload))
+    {
+      payloadMask = (1 << bitLength) - 1;
+      E2E_SetMotorolaRaw(data, payloadLength, E2E_GetTxSignalStartBit(pduIndex, 0), bitLength,
+        rawPayload ^ (parameter & payloadMask));
+    }
+  }
+
+  E2E_FaultConsume(pduIndex);
+  E2E_FaultPublishState();
+  if (faultType == E2E_FAULT_STOP_TX) return 0;
+  return 1;
+}

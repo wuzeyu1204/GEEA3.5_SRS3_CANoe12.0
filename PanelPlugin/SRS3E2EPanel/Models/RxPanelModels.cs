@@ -6,6 +6,25 @@ using System.Windows.Media;
 
 namespace SRS3.E2E.PanelControl.Models
 {
+    public sealed class RxEventRow
+    {
+        public RxEventRow(DateTime timestamp, RxGroupRow group, string previousState, string currentState, int counter, int errorCount)
+        {
+            TimeText = timestamp.ToString("HH:mm:ss.fff", CultureInfo.InvariantCulture);
+            Bus = group.Bus;
+            CanId = group.CanId;
+            Group = group.Group;
+            Transition = previousState + " → " + currentState;
+            Detail = "Counter " + counter.ToString(CultureInfo.InvariantCulture) + " · 异常累计 " + errorCount.ToString(CultureInfo.InvariantCulture);
+        }
+        public string TimeText { get; private set; }
+        public string Bus { get; private set; }
+        public string CanId { get; private set; }
+        public string Group { get; private set; }
+        public string Transition { get; private set; }
+        public string Detail { get; private set; }
+    }
+
     public sealed class RxElementDefinition
     {
         public RxElementDefinition(string name, string signal, int startBit, int bitLength, bool signed)

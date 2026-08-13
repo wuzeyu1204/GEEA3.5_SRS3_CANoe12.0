@@ -77,7 +77,11 @@ namespace SRS3.E2E.PanelControl.Models
 
     public sealed class PduDefinition : BindableBase
     {
-        private int sendMode;
+        private bool protectionEnabled = true;
+        private int ubMode;
+        private int protectionState;
+        private int protectedFrames;
+        private bool faultActive;
         public PduDefinition(
             int index,
             string canId,
@@ -113,47 +117,102 @@ namespace SRS3.E2E.PanelControl.Models
         public int UbStartBit { get; private set; }
         public ReadOnlyCollection<SignalDefinition> Signals { get; private set; }
         public int RowNumber { get { return Index + 1; } }
-        public string TriggerText { get { return "PDU-IL"; } }
-        public string TimingText { get { return "周期 " + CycleMs.ToString(CultureInfo.InvariantCulture) + " ms"; } }
+        public string SourceText { get { return "PDU IG"; } }
+        public string TimingText { get { return CycleMs.ToString(CultureInfo.InvariantCulture) + " ms"; } }
         public int Length { get { return 8; } }
         public string DataIdHex { get { return "0x" + DataId.ToString("X4", CultureInfo.InvariantCulture); } }
         public int CrcByteIndex { get { return CrcStartBit / 8; } }
         public int CounterByteIndex { get { return CounterStartBit / 8; } }
         public int UbByteIndex { get { return UbStartBit / 8; } }
 
-        public int SendMode
+        public bool ProtectionEnabled
         {
-            get { return sendMode; }
+            get { return protectionEnabled; }
+            set
+            {
+                if (protectionEnabled == value) return;
+                protectionEnabled = value;
+                RaisePropertyChanged("ProtectionEnabled");
+            }
+        }
+
+        public int UbMode
+        {
+            get { return ubMode; }
             set
             {
                 int bounded = Math.Max(0, Math.Min(2, value));
-                if (sendMode == bounded) return;
-                sendMode = bounded;
-                RaisePropertyChanged("SendMode");
-                RaisePropertyChanged("SendStatusText");
-                RaisePropertyChanged("SendStatusForeground");
+                if (ubMode == bounded) return;
+                ubMode = bounded;
+                RaisePropertyChanged("UbMode");
             }
         }
 
-        public string SendStatusText
+        public int ProtectionState
         {
-            get
+            get { return protectionState; }
+            set
             {
-                if (SendMode == 1) return "单帧待发";
-                if (SendMode == 2) return "连续发送";
-                return "已停止";
+                if (protectionState == value) return;
+                protectionState = value;
+                RaisePropertyChanged("ProtectionState");
+                RaisePropertyChanged("ProtectionStateText");
+                RaisePropertyChanged("ProtectionStateForeground");
             }
         }
 
-        public Brush SendStatusForeground
+        public int ProtectedFrames
+        {
+            get { return protectedFrames; }
+            set
+            {
+                if (protectedFrames == value) return;
+                protectedFrames = value;
+                RaisePropertyChanged("ProtectedFrames");
+            }
+        }
+
+        public string ProtectionStateText
         {
             get
             {
-                if (SendMode == 1) return CreateBrush("#8A6814");
-                if (SendMode == 2) return CreateBrush("#28653E");
+                switch (ProtectionState)
+                {
+                    case 1: return "已保护";
+                    case 3: return "DLC/布局错误";
+                    case 6: return "直通";
+                    case 7: return "故障已作用";
+                    case 8: return "已抑制";
+                    default: return "等待PDU IG";
+                }
+            }
+        }
+
+        public Brush ProtectionStateForeground
+        {
+            get
+            {
+                if (ProtectionState == 1) return CreateBrush("#247A45");
+                if (ProtectionState == 3 || ProtectionState == 7 || ProtectionState == 8) return CreateBrush("#C53B32");
                 return CreateBrush("#69727A");
             }
         }
+
+        public bool FaultActive
+        {
+            get { return faultActive; }
+            set
+            {
+                if (faultActive == value) return;
+                faultActive = value;
+                RaisePropertyChanged("FaultActive");
+                RaisePropertyChanged("FaultStatusText");
+                RaisePropertyChanged("FaultStatusForeground");
+            }
+        }
+
+        public string FaultStatusText { get { return FaultActive ? "已注入" : "--"; } }
+        public Brush FaultStatusForeground { get { return FaultActive ? CreateBrush("#C53B32") : CreateBrush("#7A8288"); } }
 
         private static Brush CreateBrush(string color)
         {

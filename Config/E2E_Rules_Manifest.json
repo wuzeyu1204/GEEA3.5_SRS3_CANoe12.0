@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "framework-baseline-not-runtime-enabled",
+  "status": "runtime-source-integrated-dynamic-validation-pending",
   "profile": {
     "name": "PROFILE_G",
     "project_behavior": "P01",

@@ -1,0 +1,209 @@
+<UserControl x:Class="SRS3.E2E.PanelControl.E2EConsoleControl"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:SRS3.E2E.PanelControl"
+ FontFamily="Microsoft YaHei UI" FontSize="10.5" Background="#F2F3F4" Foreground="#25292D"
+ SnapsToDevicePixels="True" UseLayoutRounding="True"
+ TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
+ <UserControl.Resources>
+  <Style TargetType="ComboBox">
+   <Setter Property="Height" Value="25"/><Setter Property="Padding" Value="5,0"/>
+   <Setter Property="Background" Value="White"/><Setter Property="BorderBrush" Value="#A7AFB5"/>
+   <Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+  </Style>
+  <Style TargetType="ComboBoxItem">
+   <Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+  </Style>
+  <Style TargetType="TextBox">
+   <Setter Property="Height" Value="25"/><Setter Property="Padding" Value="4,0"/>
+   <Setter Property="TextAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+  </Style>
+  <Style x:Key="ColumnHeader" TargetType="DataGridColumnHeader">
+   <Setter Property="Height" Value="23"/><Setter Property="Background" Value="#E6E8EA"/>
+   <Setter Property="Foreground" Value="#30353A"/><Setter Property="BorderBrush" Value="#C7CCD0"/>
+   <Setter Property="BorderThickness" Value="0,0,1,1"/><Setter Property="FontWeight" Value="SemiBold"/>
+   <Setter Property="Padding" Value="3,0"/><Setter Property="HorizontalContentAlignment" Value="Center"/>
+   <Setter Property="VerticalContentAlignment" Value="Center"/>
+  </Style>
+  <Style x:Key="TableRow" TargetType="DataGridRow">
+   <Setter Property="Background" Value="White"/><Setter Property="Foreground" Value="#2B3034"/>
+   <Style.Triggers>
+    <Trigger Property="AlternationIndex" Value="1"><Setter Property="Background" Value="#F8F9F9"/></Trigger>
+    <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#DCEAF3"/><Setter Property="Foreground" Value="#193E56"/></Trigger>
+   </Style.Triggers>
+  </Style>
+  <Style x:Key="Table" TargetType="DataGrid">
+   <Setter Property="AutoGenerateColumns" Value="False"/><Setter Property="CanUserAddRows" Value="False"/>
+   <Setter Property="CanUserDeleteRows" Value="False"/><Setter Property="CanUserReorderColumns" Value="False"/>
+   <Setter Property="CanUserResizeRows" Value="False"/><Setter Property="GridLinesVisibility" Value="All"/>
+   <Setter Property="HorizontalGridLinesBrush" Value="#D9DDE0"/><Setter Property="VerticalGridLinesBrush" Value="#E1E4E6"/>
+   <Setter Property="BorderBrush" Value="#B6BDC2"/><Setter Property="BorderThickness" Value="1"/>
+   <Setter Property="ColumnHeaderStyle" Value="{StaticResource ColumnHeader}"/><Setter Property="RowStyle" Value="{StaticResource TableRow}"/>
+   <Setter Property="AlternationCount" Value="2"/><Setter Property="SelectionUnit" Value="FullRow"/><Setter Property="SelectionMode" Value="Single"/>
+   <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+  </Style>
+  <Style x:Key="SectionHeader" TargetType="Border">
+   <Setter Property="Height" Value="24"/><Setter Property="Background" Value="#E9EBED"/>
+   <Setter Property="BorderBrush" Value="#B6BDC2"/><Setter Property="BorderThickness" Value="1"/>
+  </Style>
+  <Style x:Key="MetricLabel" TargetType="TextBlock"><Setter Property="FontSize" Value="8.5"/><Setter Property="Foreground" Value="#697178"/><Setter Property="TextAlignment" Value="Center"/></Style>
+  <Style x:Key="MetricValue" TargetType="TextBlock"><Setter Property="FontSize" Value="11.5"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Margin" Value="0,2,0,0"/><Setter Property="TextAlignment" Value="Center"/></Style>
+  <Style x:Key="CommandButton" TargetType="Button">
+   <Setter Property="Height" Value="27"/><Setter Property="MinWidth" Value="82"/><Setter Property="Padding" Value="9,1"/>
+   <Setter Property="Background" Value="#F8F9FA"/><Setter Property="BorderBrush" Value="#A7AFB5"/>
+   <Setter Property="Foreground" Value="#30363B"/><Setter Property="FontWeight" Value="SemiBold"/>
+   <Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+   <Style.Triggers>
+    <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#EEF2F5"/></Trigger>
+    <Trigger Property="IsEnabled" Value="False"><Setter Property="Foreground" Value="#9AA2A8"/><Setter Property="Background" Value="#ECEFF1"/></Trigger>
+   </Style.Triggers>
+  </Style>
+  <Style x:Key="FaultButton" TargetType="Button" BasedOn="{StaticResource CommandButton}">
+   <Setter Property="BorderBrush" Value="#C65A50"/><Setter Property="Foreground" Value="#A83A31"/>
+  </Style>
+  <Style TargetType="TabItem">
+   <Setter Property="MinWidth" Value="140"/><Setter Property="Height" Value="28"/><Setter Property="Padding" Value="13,2"/>
+   <Setter Property="FontWeight" Value="SemiBold"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+   <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+   <Setter Property="HeaderTemplate"><Setter.Value><DataTemplate><TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/></DataTemplate></Setter.Value></Setter>
+  </Style>
+ </UserControl.Resources>
+
+ <Grid Margin="6">
+  <Grid.RowDefinitions>
+   <RowDefinition Height="46"/><RowDefinition Height="4"/><RowDefinition Height="34"/>
+   <RowDefinition Height="4"/><RowDefinition Height="*"/><RowDefinition Height="20"/>
+  </Grid.RowDefinitions>
+
+  <Border Grid.Row="0" Background="White" BorderBrush="#ADB5BA" BorderThickness="1">
+   <Grid>
+    <Grid.ColumnDefinitions><ColumnDefinition Width="5"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+    <Border Background="#526B7B"/>
+    <StackPanel Grid.Column="1" Margin="12,0" VerticalAlignment="Center">
+     <TextBlock Text="SRS3 E2E 测试控制台" FontSize="15" FontWeight="SemiBold"/>
+     <TextBlock Text="Profile G / P01 · 保护与故障 + 接收监控 · Panel不创建报文" Margin="0,2,0,0" FontSize="8.5" Foreground="#69737A"/>
+    </StackPanel>
+    <Border Grid.Column="2" Background="{Binding BridgeStatusBackground}" BorderBrush="{Binding BridgeStatusBorder}"
+            BorderThickness="1" Padding="10,4" Margin="0,0,9,0" VerticalAlignment="Center" ToolTip="{Binding BridgeDiagnostic}">
+     <TextBlock Text="{Binding BridgeStatus}" FontSize="8.5" FontWeight="SemiBold" Foreground="{Binding BridgeStatusForeground}"/>
+    </Border>
+   </Grid>
+  </Border>
+
+  <Border Grid.Row="2" Background="White" BorderBrush="#B6BDC2" BorderThickness="1" Padding="8,3">
+   <Grid>
+    <Grid.ColumnDefinitions>
+     <ColumnDefinition Width="46"/><ColumnDefinition Width="205"/><ColumnDefinition Width="66"/>
+     <ColumnDefinition Width="*"/><ColumnDefinition Width="150"/>
+    </Grid.ColumnDefinitions>
+    <TextBlock Text="发送源" Foreground="#5D666D" VerticalAlignment="Center" TextAlignment="Center"/>
+    <TextBlock Grid.Column="1" Text="PDU Interactive Generator / CAN1" FontWeight="SemiBold" VerticalAlignment="Center" TextAlignment="Center"/>
+    <TextBlock Grid.Column="2" Text="处理边界" Foreground="#5D666D" VerticalAlignment="Center" TextAlignment="Center"/>
+    <TextBlock Grid.Column="3" Text="仅处理 PDU IG 后续 TxPending 事件，不改变触发方式与周期" FontWeight="SemiBold" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+    <TextBlock Grid.Column="4" Text="PDU IG → E2E/故障 → 总线" Foreground="#526B7B" FontWeight="SemiBold" VerticalAlignment="Center" TextAlignment="Center"/>
+   </Grid>
+  </Border>
+
+  <TabControl x:Name="ConsoleTabs" Grid.Row="4" Background="White" BorderBrush="#ADB5BA">
+   <TabItem Header="保护与故障">
+    <Grid Margin="5">
+     <Grid.RowDefinitions>
+      <RowDefinition Height="24"/><RowDefinition Height="124"/><RowDefinition Height="4"/>
+      <RowDefinition Height="50"/><RowDefinition Height="4"/><RowDefinition Height="*"/>
+     </Grid.RowDefinitions>
+
+     <Border Grid.Row="0" Style="{StaticResource SectionHeader}">
+      <Grid Margin="7,0">
+       <TextBlock Text="PDU保护配置（五个PDU独立生效）" FontWeight="SemiBold" VerticalAlignment="Center"/>
+       <TextBlock Text="仅处理PDU IG后续事件" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="8.5" Foreground="#70787E"/>
+      </Grid>
+     </Border>
+
+     <DataGrid Grid.Row="1" Style="{StaticResource Table}" ItemsSource="{Binding Pdus}" SelectedItem="{Binding CurrentPdu}"
+               IsReadOnly="{Binding IsConfigurationLocked}" RowHeight="20">
+      <DataGrid.Columns>
+       <DataGridTextColumn Header="#" Binding="{Binding RowNumber}" Width="24" IsReadOnly="True"/>
+       <DataGridTextColumn Header="CAN ID" Binding="{Binding CanId}" Width="52" IsReadOnly="True"/>
+       <DataGridTextColumn Header="受保护PDU / Group" Binding="{Binding Group}" Width="132" IsReadOnly="True"/>
+       <DataGridTextColumn Header="PDU IG对象" Binding="{Binding Frame}" Width="142" IsReadOnly="True"/>
+       <DataGridTextColumn Header="周期" Binding="{Binding TimingText}" Width="52" IsReadOnly="True"/>
+       <DataGridTextColumn Header="DataID" Binding="{Binding DataIdHex}" Width="58" IsReadOnly="True"/>
+       <DataGridCheckBoxColumn Header="E2E保护" Binding="{Binding ProtectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="58"/>
+       <DataGridTemplateColumn Header="UB策略" Width="92">
+        <DataGridTemplateColumn.CellTemplate><DataTemplate>
+         <ComboBox Height="20" Padding="3,0" IsEnabled="{Binding DataContext.CanConfigure, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   ItemsSource="{Binding DataContext.UbOptions, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding UbMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate></DataGridTemplateColumn.CellTemplate>
+       </DataGridTemplateColumn>
+       <DataGridTextColumn Header="最近状态" Binding="{Binding ProtectionStateText}" Width="78" IsReadOnly="True">
+        <DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="Foreground" Value="{Binding ProtectionStateForeground}"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="TextAlignment" Value="Center"/></Style></DataGridTextColumn.ElementStyle>
+       </DataGridTextColumn>
+       <DataGridTextColumn Header="帧数" Binding="{Binding ProtectedFrames}" Width="48" IsReadOnly="True"/>
+       <DataGridTextColumn Header="故障" Binding="{Binding FaultStatusText}" Width="52" IsReadOnly="True"/>
+      </DataGrid.Columns>
+     </DataGrid>
+
+     <Border Grid.Row="3" Background="White" BorderBrush="#B6BDC2" BorderThickness="1">
+      <UniformGrid Columns="7">
+       <Border BorderBrush="#D3D7DA" BorderThickness="0,0,1,0" Padding="4,5"><StackPanel><TextBlock Text="状态" Style="{StaticResource MetricLabel}"/><TextBlock Text="{Binding ProtectionState}" Style="{StaticResource MetricValue}" Foreground="{Binding StateBrush}"/></StackPanel></Border>
+       <Border BorderBrush="#D3D7DA" BorderThickness="0,0,1,0" Padding="4,5"><StackPanel><TextBlock Text="Counter" Style="{StaticResource MetricLabel}"/><TextBlock Text="{Binding CounterText}" Style="{StaticResource MetricValue}" Foreground="#2E6690"/></StackPanel></Border>
+       <Border BorderBrush="#D3D7DA" BorderThickness="0,0,1,0" Padding="4,5"><StackPanel><TextBlock Text="CRC Calc / Tx" Style="{StaticResource MetricLabel}"/><TextBlock Text="{Binding CrcText}" Style="{StaticResource MetricValue}" Foreground="#B33A32"/></StackPanel></Border>
+       <Border BorderBrush="#D3D7DA" BorderThickness="0,0,1,0" Padding="4,5"><StackPanel><TextBlock Text="UB" Style="{StaticResource MetricLabel}"/><TextBlock Text="{Binding UbText}" Style="{StaticResource MetricValue}" Foreground="#8A6814"/></StackPanel></Border>
+       <Border BorderBrush="#D3D7DA" BorderThickness="0,0,1,0" Padding="4,5"><StackPanel><TextBlock Text="DataID" Style="{StaticResource MetricLabel}"/><TextBlock Text="{Binding DataIdText}" Style="{StaticResource MetricValue}"/></StackPanel></Border>
+       <Border BorderBrush="#D3D7DA" BorderThickness="0,0,1,0" Padding="4,5"><StackPanel><TextBlock Text="保护帧数" Style="{StaticResource MetricLabel}"/><TextBlock Text="{Binding ProtectedFramesText}" Style="{StaticResource MetricValue}"/></StackPanel></Border>
+       <Border Padding="4,5"><StackPanel><TextBlock Text="字段位置" Style="{StaticResource MetricLabel}"/><TextBlock Text="{Binding E2eLayoutText}" FontSize="8" FontWeight="SemiBold" Margin="0,2,0,0" TextAlignment="Center" TextTrimming="CharacterEllipsis"/></StackPanel></Border>
+      </UniformGrid>
+     </Border>
+
+     <TabControl Grid.Row="5" Background="White" BorderBrush="#B6BDC2">
+      <TabItem Header="Raw 对比">
+       <Grid Margin="4">
+        <Grid.RowDefinitions><RowDefinition Height="20"/><RowDefinition Height="*"/><RowDefinition Height="20"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <Border Style="{StaticResource SectionHeader}" Height="20"><Grid Margin="6,0"><TextBlock Text="PDU IG输入 Raw" FontWeight="SemiBold" VerticalAlignment="Center"/><TextBlock Text="保护前" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#70787E" FontSize="8"/></Grid></Border>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding InputPayloadBytes}">
+         <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1" Columns="8"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+         <ItemsControl.ItemTemplate><DataTemplate><Border Background="#FAFAFA" BorderBrush="#C8CDD1" BorderThickness="1" Padding="2"><StackPanel VerticalAlignment="Center"><TextBlock Text="{Binding Index, StringFormat='B{0}'}" FontSize="7.5" Foreground="#6B747A" HorizontalAlignment="Center"/><TextBlock Text="{Binding HexValue}" FontFamily="Consolas" FontSize="12.5" FontWeight="SemiBold" HorizontalAlignment="Center"/></StackPanel></Border></DataTemplate></ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Grid.Row="2" Style="{StaticResource SectionHeader}" Height="20"><Grid Margin="6,0"><TextBlock Text="最终发送 Raw" FontWeight="SemiBold" VerticalAlignment="Center"/><TextBlock Text="同一PDU IG事件经E2E/故障处理后" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#70787E" FontSize="8"/></Grid></Border>
+        <ItemsControl Grid.Row="3" ItemsSource="{Binding FinalPayloadBytes}">
+         <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1" Columns="8"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+         <ItemsControl.ItemTemplate><DataTemplate><Border Background="{Binding RoleBackground}" BorderBrush="{Binding RoleBorder}" BorderThickness="1" Padding="3,1"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><Grid><TextBlock Text="{Binding Index, StringFormat='B{0}'}" FontSize="7.5" Foreground="{Binding RoleForeground}" HorizontalAlignment="Left"/><TextBlock Text="{Binding RoleText}" FontSize="7.5" FontWeight="SemiBold" Foreground="{Binding RoleForeground}" HorizontalAlignment="Right"/></Grid><TextBlock Grid.Row="1" Text="{Binding HexValue}" FontFamily="Consolas" FontSize="12.5" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Grid></Border></DataTemplate></ItemsControl.ItemTemplate>
+        </ItemsControl>
+       </Grid>
+      </TabItem>
+
+      <TabItem Header="故障注入">
+       <Grid Margin="7">
+        <Grid.RowDefinitions><RowDefinition Height="44"/><RowDefinition Height="5"/><RowDefinition Height="27"/><RowDefinition Height="5"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <Grid>
+         <Grid.ColumnDefinitions><ColumnDefinition Width="1.25*"/><ColumnDefinition Width="7"/><ColumnDefinition Width="1*"/><ColumnDefinition Width="7"/><ColumnDefinition Width="1*"/><ColumnDefinition Width="7"/><ColumnDefinition Width="1*"/></Grid.ColumnDefinitions>
+         <StackPanel><TextBlock Text="故障类型" FontSize="8.5" Foreground="#697178" TextAlignment="Center"/><ComboBox ItemsSource="{Binding FaultOptions}" DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding SelectedFaultType}"/></StackPanel>
+         <StackPanel Grid.Column="2"><TextBlock Text="作用范围" FontSize="8.5" Foreground="#697178" TextAlignment="Center"/><ComboBox ItemsSource="{Binding FaultModeOptions}" DisplayMemberPath="Text" SelectedValuePath="Value" SelectedValue="{Binding FaultMode}"/></StackPanel>
+         <StackPanel Grid.Column="4"><TextBlock Text="参数" FontSize="8.5" Foreground="#697178" TextAlignment="Center"/><TextBox Text="{Binding FaultParameterText}"/></StackPanel>
+         <StackPanel Grid.Column="6"><TextBlock Text="帧数" FontSize="8.5" Foreground="#697178" TextAlignment="Center"/><TextBox Text="{Binding FaultDurationText}" IsEnabled="{Binding FaultDurationEnabled}"/></StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+         <Button Content="应用故障" Style="{StaticResource FaultButton}" IsEnabled="{Binding CanArmFault}" Click="ArmFaultButton_Click"/>
+         <Button Content="清除当前" Margin="7,0,0,0" Style="{StaticResource CommandButton}" IsEnabled="{Binding CanClearFault}" Click="ClearFaultButton_Click"/>
+         <Button Content="清除全部" Margin="7,0,0,0" Style="{StaticResource CommandButton}" IsEnabled="{Binding CanClearAllFaults}" Click="ClearAllFaultsButton_Click"/>
+        </StackPanel>
+        <Border Grid.Row="4" Background="#FFF8F7" BorderBrush="#C65A50" BorderThickness="1" Padding="6,3">
+         <TextBlock Text="{Binding FaultStatusText}" TextWrapping="Wrap" Foreground="#9B3A32" FontSize="8.5" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        </Border>
+       </Grid>
+      </TabItem>
+     </TabControl>
+    </Grid>
+   </TabItem>
+
+   <TabItem Header="接收监控">
+    <local:E2ERxControl x:Name="UnifiedRxControl" BridgeOffset="96" EmbeddedMode="True"/>
+   </TabItem>
+  </TabControl>
+
+  <Border Grid.Row="5" Background="White" BorderBrush="#B6BDC2" BorderThickness="1,0,1,1">
+   <TextBlock Text="{Binding FooterText}" Margin="6,2" FontSize="8.5" Foreground="{Binding FooterBrush}" TextTrimming="CharacterEllipsis"/>
+  </Border>
+ </Grid>
+</UserControl>

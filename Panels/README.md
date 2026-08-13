@@ -1,18 +1,15 @@
-# SRS3 E2E Panels
+# SRS3 E2E Panel
 
-当前工程只保留两张CANoe 12 WPF页面：
+仓库只保留一个可见页面：
 
-| 页面 | 控件 | 绑定变量 | 用途 |
-|---|---|---|---|
-| `SRS3 E2E WPF Control.xvp` | `E2E Tx WPF Control` | `SRS3_E2E::WpfBridge::PanelBridge` | CAN1五个受保护PDU的信号编辑、单帧/连续许可与E2E状态 |
-| `SRS3 E2E Rx WPF Control.xvp` | `E2E Rx WPF Control` | `SRS3_E2E::WpfBridge::RxBridge` | CAN1/CANFD3十五个E2E Group的只读接收监控 |
+```text
+SRS3 E2E Test Console - Manual Import.xvp
+```
 
-旧的原生GroupBox页面及`E2E_PanelController.cin`已经删除。当前WPF控件通过数组邮箱与CAPL通信，不使用`setControlVisibility()`或`enableControl()`操纵Panel控件。
+页面只包含 `SRS3.E2E.PanelControl.E2EConsoleControl`，通过“保护与故障”和“接收监控”页签统一承载 Tx 配置/遥测及 Rx 监控。绑定变量为：
 
-## 运行约束
+```text
+SRS3_E2E::WpfBridge::PanelBridge  Int32[320]
+```
 
-- Tx Panel只提交控制命令；周期仍来自PDU-IL，CAPL在TxPending中决定拦截或放行。
-- Rx Panel只写当前显示Group的索引，不发送报文、不改变Tx许可。
-- 安装或更新控件前必须关闭CANoe和Vector Panel Designer，然后运行`PanelPlugin/Install_SRS3_E2E_PanelPlugin.bat`。
-- 当前CFG内置`PanelBridge`，外部系统变量只引用`01_CANoe_IL`、`10_SRS3_E2E_Core`和`30_SRS3_E2E_RxBridge`。
-
+当前 CFG 已引用该页面。应用信号、触发方式和周期由 PDU Interactive Generator 管理；Panel 不创建或周期发送报文，Rx 页也只清统计状态而不发送报文。

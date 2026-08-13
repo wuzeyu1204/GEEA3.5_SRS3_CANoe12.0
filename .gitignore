@@ -20,4 +20,5 @@ __pycache__/
 # WPF panel plugin build output and local preview
 PanelPlugin/**/bin/
 PanelPlugin/**/obj/
+PanelPlugin/dist/
 work/
