@@ -1,7 +1,12 @@
 {
   "schema": "SRS3_E2E_RxRules_v1",
-  "generated_from": "../GEEA3.5_SRS3_E2E_ZXDoc/E2E/SRS3_E2E_Rules.json",
-  "source_sha256": "9FFB8F5B3DB4DA50ED4537DF4517E53D39191D3E6AA024C2A88AAC42E50E30A6",
+  "snapshot_scope": "15 enabled Rx groups required by this CANoe repository",
+  "provenance": {
+    "repository": "https://github.com/wuzeyu1204/GEEA3.5_SRS3_E2E_ZXDoc",
+    "source_path": "E2E/SRS3_E2E_Rules.json",
+    "source_commit": "ed93367f39cba6ab54becc0b547bc360e1ac86c0",
+    "source_sha256": "9FFB8F5B3DB4DA50ED4537DF4517E53D39191D3E6AA024C2A88AAC42E50E30A6"
+  },
   "profile": {
     "name": "PROFILE_G",
     "implementation": "AUTOSAR E2E P01 behavior",

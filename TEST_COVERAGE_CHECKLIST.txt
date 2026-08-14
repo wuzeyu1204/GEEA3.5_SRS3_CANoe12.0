@@ -107,6 +107,7 @@ C. Panel 0x076快速冒烟（四步、五次触发）
 [C-01] 行内编辑
 步骤：确认0x076行内可取消E2E保护，UB下拉可选Auto/强制0/强制1，存在行内应用按钮。
 预期：编辑值保持稳定，不被200 ms轮询回弹；无表格外重复配置组件。
+Apply/Ack门控：在0x076行点击应用后，先触发另一个受保护PDU；0x076应保持等待且配置不生效。再触发0x076，其下一次匹配TxPending才应用并解除等待。
 结果：□ PASS □ FAIL  备注：____________________________________________
 
 [C-02] 保护关闭直通
@@ -172,7 +173,11 @@ E. 故障注入覆盖
 预期：CRC Tx=Calc XOR 0x01；应用数据不变；下一帧恢复。
 
 [E-02] 冻结Counter
-预期：故障帧Counter重复；下一帧恢复合法递增。
+步骤与预期：
+  1. 正常帧Counter=2；下一帧One-shot Freeze应仍为2；再下一恢复帧应为3。
+  2. 正常帧Counter=14；下一帧One-shot Freeze应仍为14；再下一恢复帧应回绕为0。
+  3. 正常帧Counter=5；Continuous Freeze连续两帧均为5；清除后下一帧应为6。
+三组都必须记录正常帧、故障帧和恢复帧，不能只截取故障单帧。
 
 [E-03] Counter=15
 预期：故障帧Counter=0xF；下一帧回合法0..14。
@@ -220,7 +225,7 @@ F. CAN1 Rx监控
   4. Counter合法；CRC Rx=Calc；UB=1；Valid Count增加。
   5. Raw与Trace逐字节一致。
   6. 停止发送源超过Timeout，状态应为超时且Age>=Timeout。
-  7. 恢复发送，先重新建立初始状态，再回正常。
+  7. 恢复发送，第一张合法帧必须为INITIAL，下一张连续帧必须为OK；完整状态为OK→TIMEOUT→INITIAL→OK，不得出现WRONG_SEQUENCE。
   8. 清当前Group/通道只清统计，不产生任何Tx。
 
 Group结果：

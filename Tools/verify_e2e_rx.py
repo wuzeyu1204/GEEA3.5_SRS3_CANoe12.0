@@ -3,8 +3,8 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
+import re
 from pathlib import Path
 
 
@@ -91,6 +91,10 @@ class Monitor:
             return "OK_SOME_LOST"
         return "WRONG_SEQUENCE"
 
+    def timeout(self):
+        self.previous = None
+        return "TIMEOUT"
+
 
 def main():
     rules = json.loads(RULES.read_text(encoding="utf-8"))
@@ -99,11 +103,13 @@ def main():
     assert sum(group["bus"] == "CAN1" for group in groups) == 10
     assert sum(group["bus"] == "CANFD3" for group in groups) == 5
 
-    source = Path(rules["generated_from"])
-    if not source.is_absolute():
-        source = ROOT / source
-    assert source.exists(), f"missing source baseline: {source}"
-    assert hashlib.sha256(source.read_bytes()).hexdigest().upper() == rules["source_sha256"]
+    provenance = rules["provenance"]
+    source_path = Path(provenance["source_path"])
+    assert not source_path.is_absolute() and ".." not in source_path.parts
+    assert re.fullmatch(r"[0-9a-f]{40}", provenance["source_commit"])
+    assert re.fullmatch(r"[0-9A-F]{64}", provenance["source_sha256"])
+    assert provenance["repository"] == "https://github.com/wuzeyu1204/GEEA3.5_SRS3_E2E_ZXDoc"
+    assert "generated_from" not in rules
 
     vectors = []
     for group in groups:
@@ -118,6 +124,15 @@ def main():
         payload1, _ = valid_payload(group, 1)
         assert monitor.process(payload1) == "OK"
         assert monitor.process(payload1) == "REPEATED"
+
+        recovery = Monitor(group)
+        assert recovery.process(payload0) == "INITIAL"
+        assert recovery.process(payload1) == "OK"
+        assert recovery.timeout() == "TIMEOUT"
+        payload7, _ = valid_payload(group, 7)
+        payload8, _ = valid_payload(group, 8)
+        assert recovery.process(payload7) == "INITIAL"
+        assert recovery.process(payload8) == "OK"
 
         corrupted = bytearray(payload1)
         set_motorola(corrupted, group["crc_start_bit"], 8, get_motorola(corrupted, group["crc_start_bit"], 8) ^ 1)
@@ -135,6 +150,8 @@ def main():
                 {"group_index": group["index"], "bus": group["bus"], "can_id": group["can_id_hex"], "group": group["group"], "case": "INITIAL_VALID", "expected": "INITIAL", "payload_hex": payload0.hex(" ").upper()},
                 {"group_index": group["index"], "bus": group["bus"], "can_id": group["can_id_hex"], "group": group["group"], "case": "CRC_ERROR", "expected": "CRC_ERROR", "payload_hex": corrupted.hex(" ").upper()},
                 {"group_index": group["index"], "bus": group["bus"], "can_id": group["can_id_hex"], "group": group["group"], "case": "UB_INACTIVE", "expected": "UB_INACTIVE", "payload_hex": inactive.hex(" ").upper()},
+                {"group_index": group["index"], "bus": group["bus"], "can_id": group["can_id_hex"], "group": group["group"], "case": "TIMEOUT_RECOVERY_INITIAL", "expected": "INITIAL", "payload_hex": payload7.hex(" ").upper()},
+                {"group_index": group["index"], "bus": group["bus"], "can_id": group["can_id_hex"], "group": group["group"], "case": "TIMEOUT_RECOVERY_OK", "expected": "OK", "payload_hex": payload8.hex(" ").upper()},
             ]
         )
 
@@ -145,6 +162,10 @@ def main():
         assert required in capl or required in (ROOT / "Nodes" / "E2E_RxMonitor.can").read_text(encoding="ascii")
     assert "RxBridge" not in capl, "legacy Rx bridge must not remain"
     assert "output(" not in capl.lower(), "Rx monitor must not transmit"
+    timeout_transition = capl[capl.index("gE2E_RxState[groupIndex] = E2E_RX_STATE_TIMEOUT;"):]
+    timeout_transition = timeout_transition[:400]
+    assert "gE2E_RxHasCounter[groupIndex] = 0;" in timeout_transition
+    assert "gE2E_RxSequenceCounter[groupIndex] = 0;" in timeout_transition
     for node in ("E2E_RxMonitor.can", "E2E_RxMonitor_CANFD3.can"):
         text = (ROOT / "Nodes" / node).read_text(encoding="ascii")
         assert "on message *" in text and "canGetDataLength(this)" in text
@@ -156,6 +177,8 @@ def main():
 
     VECTORS.write_text(json.dumps({"schema": "SRS3_E2E_RxGoldenVectors_v1", "vectors": vectors}, indent=2) + "\n", encoding="utf-8")
     print(f"PASS: {len(groups)} groups, {len(vectors)} golden vectors, CAN1/CANFD3 receive-only nodes")
+    print("  Timeout recovery: OK -> TIMEOUT -> INITIAL -> OK")
+    print("  Rx rule snapshot: repository-local with source path/commit/SHA256 provenance")
 
 
 if __name__ == "__main__":

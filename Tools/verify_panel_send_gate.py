@@ -39,6 +39,26 @@ require("return 1;", TX, "same-event pass")
 require("applPDUILTxPending", NODE, "CANoe PDU-IL callback")
 require("PDU IG is the only producer and scheduler", TX, "source ownership comment")
 
+# A row-local Apply remains pending across unrelated protected PDU events and
+# is acknowledged only by the next TxPending for the selected target PDU.
+require("void E2E_BridgePollConfiguration(int txPduIndex)", TX, "target-aware config consumer")
+require("if (txPduIndex != pduIndex)", TX, "unrelated TxPending guard")
+process_body = TX[TX.index("dword E2E_TxProcess"):]
+assert process_body.index("E2E_FindTxPdu(pduName)") < process_body.index("E2E_BridgePollConfiguration(pduIndex)")
+
+
+def consume_configuration(selected_pdu, tx_events):
+    pending = True
+    history = []
+    for tx_pdu in tx_events:
+        if pending and tx_pdu == selected_pdu:
+            pending = False
+        history.append(pending)
+    return history
+
+
+assert consume_configuration(2, [0, 4, 2]) == [True, True, False]
+
 # Per-PDU configuration and complete telemetry.
 for fragment in (
     "gE2E_PanelProtectMode[5]", "gE2E_PanelUbMode[5]", "gE2E_ProtectedFrames[5]",
@@ -84,4 +104,5 @@ print("  TxPending in-place adapter:  present")
 print("  Per-PDU protect/UB state:    present")
 print("  Input/final Raw telemetry:   present")
 print("  Unified Tx/Rx WPF control:   present")
+print("  Apply/Ack target gating:     unrelated -> pending; matching -> consumed")
 print("PASS (static only): Panel/CAPL cannot create or schedule a protected PDU.")

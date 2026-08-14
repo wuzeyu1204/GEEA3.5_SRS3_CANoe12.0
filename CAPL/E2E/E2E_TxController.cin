@@ -95,7 +95,7 @@ void E2E_BridgeSynchronizeSelection()
   E2E_FaultPublishState();
 }
 
-void E2E_BridgePollConfiguration()
+void E2E_BridgePollConfiguration(int txPduIndex)
 {
   int command;
   int pduIndex;
@@ -110,6 +110,11 @@ void E2E_BridgePollConfiguration()
   }
 
   pduIndex = E2E_BridgeSelectedPdu();
+  if (txPduIndex != pduIndex)
+  {
+    E2E_BridgePublishControlState();
+    return;
+  }
   ubMode = @sysvar::SRS3_E2E::WpfBridge::PanelBridge[E2E_TX_B_UB_COMMAND];
   if ((ubMode >= 0) && (ubMode <= 2))
   {
@@ -253,9 +258,9 @@ dword E2E_TxProcess(char pduName[], dword payloadLength, byte data[])
   byte logicalData[16];
   dword rawValues[8];
 
-  E2E_BridgePollConfiguration();
   pduIndex = E2E_FindTxPdu(pduName);
   if (pduIndex < 0) return 1;
+  E2E_BridgePollConfiguration(pduIndex);
   if (payloadLength < E2E_GetTxDlc(pduIndex))
   {
     gE2E_LastState[pduIndex] = 3;
@@ -298,7 +303,11 @@ dword E2E_TxProcess(char pduName[], dword payloadLength, byte data[])
 
   counter = gE2E_TxCounter[pduIndex];
   parameter = E2E_FaultGetParameter(pduIndex);
-  if (faultType == E2E_FAULT_COUNTER_15) counter = 15;
+  if (faultType == E2E_FAULT_FREEZE_COUNTER)
+  {
+    counter = gE2E_LastCounter[pduIndex];
+  }
+  else if (faultType == E2E_FAULT_COUNTER_15) counter = 15;
   else if (faultType == E2E_FAULT_COUNTER_JUMP)
   {
     if (parameter == 0) parameter = 1;

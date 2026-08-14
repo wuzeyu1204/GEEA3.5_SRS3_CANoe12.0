@@ -6,12 +6,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE = ROOT.parent / "GEEA3.5_SRS3_E2E_ZXDoc" / "E2E" / "SRS3_E2E_Rules.json"
 
 
 def load_groups(source: Path):
@@ -163,14 +161,24 @@ def generate_csharp(groups, source_hash):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
+    parser.add_argument("--source", type=Path, required=True)
+    parser.add_argument("--source-repository", required=True)
+    parser.add_argument("--source-path", required=True)
+    parser.add_argument("--source-commit", required=True)
     args = parser.parse_args()
     document, groups, source_hash = load_groups(args.source)
-    source_reference = Path(os.path.relpath(args.source.resolve(), ROOT)).as_posix()
+    source_reference = Path(args.source_path)
+    if source_reference.is_absolute() or ".." in source_reference.parts:
+        parser.error("--source-path must be a portable path inside the source repository")
     result = {
         "schema": "SRS3_E2E_RxRules_v1",
-        "generated_from": source_reference,
-        "source_sha256": source_hash,
+        "snapshot_scope": f"{len(groups)} enabled Rx groups required by this CANoe repository",
+        "provenance": {
+            "repository": args.source_repository,
+            "source_path": source_reference.as_posix(),
+            "source_commit": args.source_commit,
+            "source_sha256": source_hash,
+        },
         "profile": document["profile"],
         "timeout_policy": "max(50 ms, 4 * cycle_ms)",
         "groups": groups,

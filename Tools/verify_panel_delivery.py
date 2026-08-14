@@ -27,6 +27,22 @@ def require(fragment: str, source: str, label: str) -> None:
         raise AssertionError(f"missing {label}: {fragment}")
 
 
+def collect_sysvar_definitions(path: Path):
+    definitions = []
+
+    def visit(node, namespace):
+        for child in node:
+            tag = child.tag.rsplit("}", 1)[-1]
+            if tag == "namespace":
+                name = child.attrib.get("name", "")
+                visit(child, namespace + ([name] if name else []))
+            elif tag == "variable":
+                definitions.append("::".join(namespace + [child.attrib["name"]]))
+
+    visit(ET.parse(path).getroot(), [])
+    return definitions
+
+
 # Both markup files and the manual-import XVP must be well-formed.
 ET.parse(PLUGIN / "E2EConsoleControl.xaml")
 ET.parse(PLUGIN / "E2ERxControl.xaml")
@@ -125,6 +141,26 @@ variable = next(node for node in sysroot.iter("variable") if node.attrib.get("na
 assert variable.attrib["arrayLength"] == "320"
 assert len(variable.attrib["startValue"].split(";")) == 320
 
+# Compare actual fully-qualified definitions, not CFG text references. Include
+# the two delivery files and any historical SysVarDef.xml that may reappear.
+sysvar_files = sorted((ROOT / "SyaVar").glob("*.xml"))
+sysvar_files += sorted(path for path in ROOT.rglob("SysVarDef.xml") if path not in sysvar_files)
+assert ROOT / "SyaVar" / "01_CANoe_IL_SystemVariables.xml" in sysvar_files
+assert SYSVAR in sysvar_files
+owners = {}
+for path in sysvar_files:
+    for qualified_name in collect_sysvar_definitions(path):
+        owners.setdefault(qualified_name, []).append(path)
+duplicates = {name: paths for name, paths in owners.items() if len(paths) > 1}
+if duplicates:
+    details = "; ".join(
+        f"{name}: {', '.join(str(path.relative_to(ROOT)) for path in paths)}"
+        for name, paths in sorted(duplicates.items())
+    )
+    raise AssertionError(f"duplicate system-variable definitions: {details}")
+panel_bridge_owners = owners.get("SRS3_E2E::WpfBridge::PanelBridge", [])
+assert panel_bridge_owners == [SYSVAR], f"unexpected PanelBridge definitions: {panel_bridge_owners}"
+
 require("<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>", PROJECT, ".NET 4.7.2 target")
 require('Compile Include="E2EConsoleControl.xaml.cs"', PROJECT, "single exported console source")
 require('Page Include="E2EConsoleControl.xaml"', PROJECT, "single exported console XAML")
@@ -186,6 +222,8 @@ print("  row-local staged config:    present")
 print("  send/editor controls:       absent")
 print("  safe command gating:        present")
 print("  canonical core SysVar:      Int32[320]")
+print(f"  SysVar definitions/files:   {len(owners)}/{len(sysvar_files)}; duplicates 0")
+print("  PanelBridge definitions:    1 (canonical core XML)")
 print("  offline package script:     present")
 print("  portable authored paths:    present")
 print("  permanent Markdown files:   2")

@@ -59,7 +59,7 @@ CANFD3 ---------------> E2E_RxMonitor_CANFD3 ----+--> PanelBridge[320]
 | 层级 | 权威文件 | 作用 |
 |---|---|---|
 | 规则源 | `Config/E2E_Rules_Manifest.json` | 五个Tx PDU、E2E位布局和应用元素 |
-| Rx规则 | `Config/E2E_Rx_Rules.json` | 十五个Rx Group和超时策略 |
+| Rx规则 | `Config/E2E_Rx_Rules.json` | 仓库内冻结的十五个Rx Group、超时策略及来源追溯 |
 | 算法 | `CAPL/E2E/E2E_ProfileG_Core.cin` | CRC、Counter和Profile G基础逻辑 |
 | 位操作 | `CAPL/E2E/E2E_BitCodec.cin` | Intel/Motorola原始位读写 |
 | Tx适配 | `CAPL/E2E/E2E_TxController.cin` | TxPending原地后处理与遥测 |
@@ -95,6 +95,8 @@ CANFD3 ---------------> E2E_RxMonitor_CANFD3 ----+--> PanelBridge[320]
 
 任何算法、位布局或元素顺序调整都必须同步更新规则JSON、生成CAPL和Golden Vector。
 
+Rx离线验证只读取当前仓库内的 `Config/E2E_Rx_Rules.json`，不访问相邻ZXDoc仓库。该快照的 `provenance` 保留原始仓库、源内相对路径、commit和源文件SHA256，用于规则追溯但不构成运行依赖。
+
 ## 5. Tx设计
 
 ### 5.1 目标PDU
@@ -110,8 +112,8 @@ CANFD3 ---------------> E2E_RxMonitor_CANFD3 ----+--> PanelBridge[320]
 ### 5.2 TxPending处理顺序
 
 1. 按PDU名称查找规则；非目标PDU直接返回1。
-2. 保存PDU IG输入Byte 0..7到桥接14..21。
-3. 消费该PDU保护开关和UB策略。
+2. 仅当本次TxPending与Panel待应用的目标PDU匹配时，消费保护开关和UB策略；不相关PDU保持命令Pending。
+3. 保存PDU IG输入Byte 0..7到桥接14..21。
 4. 保护关闭时保持E2E字段原样并标记直通。
 5. 保护开启时计算合法Counter、DataID/CRC和UB。
 6. 消费匹配PDU的故障命令并按范围更新剩余次数。
@@ -143,9 +145,13 @@ CANFD3 ---------------> E2E_RxMonitor_CANFD3 ----+--> PanelBridge[320]
 
 范围支持下一帧、指定帧数和持续生效；命令支持应用、清当前和清全部，并使用Sequence/Ack避免重复消费。
 
+Freeze Counter重复“上一实际发送Counter”，不推进已经保存的下一合法Counter。因此单次冻结为 `2 → 2 → 3`，边界为 `14 → 14 → 0`，持续冻结清除后为 `5 → 5 → 5 → 6`。
+
 ## 6. Rx设计
 
 两个Rx节点共享规则与实现，只通过 `E2E_RxInitialize(bus_index)` 选择总线。接收流程为：匹配Group、检查DLC、解析UB/CRC/Counter、重建CRC输入、判断INITIAL/OK/REPEATED/CRC_ERROR/UB_INACTIVE/非法Counter，并由watchdog处理Timeout。共享CAN ID按Group独立维护状态，不能只给整帧一个结论。
+
+进入Timeout时同时失效该Group的历史Counter序列基准；恢复后的第一张合法帧重新进入INITIAL，下一张连续帧进入OK，即 `OK → TIMEOUT → INITIAL → OK`。
 
 ### 6.1 CAN1范围
 

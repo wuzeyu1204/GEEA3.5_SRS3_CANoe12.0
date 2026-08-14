@@ -61,6 +61,25 @@ def protect(pdu, payload, counter, data_id=None, ub=1):
     return result
 
 
+class TxCounterModel:
+    """State model matching the CAPL TxPending counter ownership."""
+
+    def __init__(self, next_counter):
+        self.next_counter = next_counter
+        self.last_counter = (next_counter - 1) % 15
+
+    def emit(self, fault=None, parameter=1):
+        counter = self.next_counter
+        if fault == "freeze":
+            counter = self.last_counter
+        elif fault == "jump":
+            counter = (counter + parameter) % 15
+        if fault != "freeze":
+            self.next_counter = (counter + 1) % 15
+        self.last_counter = counter
+        return counter
+
+
 def main():
     checked = 0
     for pdu in MANIFEST["tx_pdus"]:
@@ -98,7 +117,39 @@ def main():
 
         stop_tx_permit = False
         assert not stop_tx_permit
-        checked += 8
+
+        # Stateful regressions: each fault is surrounded by a normal frame and
+        # a recovery frame. Freeze reuses the last transmitted counter while
+        # preserving the already pending next counter.
+        one_shot = TxCounterModel(2)
+        assert [one_shot.emit(), one_shot.emit("freeze"), one_shot.emit()] == [2, 2, 3]
+
+        wrap = TxCounterModel(14)
+        assert [wrap.emit(), wrap.emit("freeze"), wrap.emit()] == [14, 14, 0]
+
+        continuous = TxCounterModel(5)
+        assert [continuous.emit(), continuous.emit("freeze"), continuous.emit("freeze"), continuous.emit()] == [5, 5, 5, 6]
+
+        jump = TxCounterModel(0)
+        jump_sequence = [jump.emit(), jump.emit("jump", 3), jump.emit()]
+        assert jump_sequence == [0, 4, 5]
+        for counter in jump_sequence:
+            frame = protect(pdu, base, counter)
+            assert get_raw(frame, pdu["crc"]["start_bit"], 8) == calculate(pdu, frame, counter)
+
+        crc_normal = protect(pdu, base, 0)
+        crc_fault = protect(pdu, base, 1)
+        set_raw(crc_fault, pdu["crc"]["start_bit"], 8,
+                get_raw(crc_fault, pdu["crc"]["start_bit"], 8) ^ 1)
+        crc_recovery = protect(pdu, base, 2)
+        assert get_raw(crc_normal, pdu["crc"]["start_bit"], 8) == calculate(pdu, crc_normal, 0)
+        assert get_raw(crc_fault, pdu["crc"]["start_bit"], 8) != calculate(pdu, crc_fault, 1)
+        assert get_raw(crc_recovery, pdu["crc"]["start_bit"], 8) == calculate(pdu, crc_recovery, 2)
+
+        ub_sequence = [protect(pdu, base, 0, ub=1), protect(pdu, base, 1, ub=0), protect(pdu, base, 2, ub=1)]
+        assert [get_raw(frame, pdu["ub"]["start_bit"], 1) for frame in ub_sequence] == [1, 0, 1]
+
+        checked += 15
 
     capl = (ROOT / "CAPL" / "E2E" / "E2E_FaultInjection.cin").read_text(encoding="ascii")
     for token in ("E2E_FAULT_CORRUPT_CRC", "E2E_FAULT_FREEZE_COUNTER", "E2E_FAULT_COUNTER_15",
@@ -106,6 +157,8 @@ def main():
                   "E2E_FAULT_CORRUPT_PAYLOAD", "E2E_FAULT_STOP_TX"):
         assert token in capl
     assert "output(" not in capl.lower()
+    assert "counter = gE2E_LastCounter[pduIndex];" in CONTROLLER
+    assert "if (faultType != E2E_FAULT_FREEZE_COUNTER)" in CONTROLLER
 
     # Verify the complete WPF -> LongArray -> CAPL command protocol, not only
     # the byte-level fault transformations.
@@ -138,9 +191,12 @@ def main():
     assert "E2E_FaultPollCommand(pduIndex);" in CONTROLLER
 
     print(
-        f"PASS (static/offline only): {checked} fault semantics across "
+        f"PASS (static/offline only): {checked} fault/state semantics across "
         f"{len(MANIFEST['tx_pdus'])} Tx PDUs; bridge arm/clear/ack protocol; no second sender"
     )
+    print("  Freeze:            2 -> 2 -> 3")
+    print("  Freeze Wrap:       14 -> 14 -> 0")
+    print("  Continuous Freeze: 5 -> 5 -> 5 -> clear -> 6")
 
 
 if __name__ == "__main__":

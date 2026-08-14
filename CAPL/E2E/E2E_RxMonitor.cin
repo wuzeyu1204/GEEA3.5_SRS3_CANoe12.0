@@ -404,6 +404,9 @@ void E2E_RxTick(int busIndex, int elapsedMs)
           (gE2E_RxState[groupIndex] != E2E_RX_STATE_TIMEOUT))
       {
         gE2E_RxState[groupIndex] = E2E_RX_STATE_TIMEOUT;
+        gE2E_RxHasCounter[groupIndex] = 0;
+        gE2E_RxSequenceCounter[groupIndex] = 0;
+        gE2E_RxLastDelta[groupIndex] = 0;
         gE2E_RxErrorCount[groupIndex]++;
       }
     }
