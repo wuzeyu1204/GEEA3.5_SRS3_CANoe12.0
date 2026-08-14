@@ -74,10 +74,7 @@
    <Grid>
     <Grid.ColumnDefinitions><ColumnDefinition Width="5"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
     <Border Background="#526B7B"/>
-    <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
-     <TextBlock Text="SRS3 E2E Rx" FontSize="15" FontWeight="SemiBold" LineHeight="18"/>
-     <TextBlock Text="UI v1.8.0 · Profile G/P01 · 只监听，不发送报文" Margin="0,2,0,0" FontSize="9" Foreground="#69737A" LineHeight="12"/>
-    </StackPanel>
+     <TextBlock Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center" Text="SRS3 E2E Rx" FontSize="15" FontWeight="SemiBold"/>
     <Border Grid.Column="2" Background="{Binding BridgeStatusBackground}" BorderBrush="{Binding BridgeStatusBorder}"
             BorderThickness="1" Padding="10,4" Margin="0,0,10,0" VerticalAlignment="Center">
      <TextBlock Text="{Binding BridgeStatus}" FontSize="9" FontWeight="SemiBold" Foreground="{Binding BridgeStatusForeground}"/>
@@ -102,11 +99,9 @@
    </Grid>
   </Border>
 
-  <Border Grid.Row="4" Style="{StaticResource SectionHeader}">
-   <Grid Margin="8,0"><TextBlock Text="接收对象" FontWeight="SemiBold" VerticalAlignment="Center"/>
-    <TextBlock Text="每个 E2E Group 独立判定" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="9" Foreground="#70787E"/>
-   </Grid>
-  </Border>
+   <Border Grid.Row="4" Style="{StaticResource SectionHeader}">
+    <TextBlock Margin="8,0" Text="接收对象" FontWeight="SemiBold" VerticalAlignment="Center"/>
+   </Border>
   <DataGrid x:Name="GroupsGrid" Grid.Row="5" Style="{StaticResource Table}" ItemsSource="{Binding VisibleGroups}"
             SelectedItem="{Binding CurrentGroup}" IsReadOnly="True" RowHeight="23">
    <DataGrid.Columns>
@@ -138,12 +133,10 @@
    </UniformGrid>
   </Border>
 
-  <!-- Same interaction model as PDU Interactive Generator: switch the lower workspace by tabs. -->
-  <TabControl x:Name="DetailTabs" Grid.Row="9" Background="White" BorderBrush="#B6BDC2">
-   <TabItem x:Name="ElementsTab" Header="应用数据元素">
-    <Grid Margin="5"><Grid.RowDefinitions><RowDefinition Height="24"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-     <TextBlock Text="最后接收 Raw 解码；CRC 输入元素按名称排序" Margin="5,0" VerticalAlignment="Center" FontSize="9" Foreground="#70787E"/>
-     <DataGrid x:Name="ElementsGrid" Grid.Row="1" Style="{StaticResource Table}" ItemsSource="{Binding ElementRows}" IsReadOnly="True" RowHeight="25">
+   <TabControl x:Name="DetailTabs" Grid.Row="9" Background="White" BorderBrush="#B6BDC2">
+    <TabItem x:Name="ElementsTab" Header="应用数据元素">
+     <Grid Margin="5">
+      <DataGrid x:Name="ElementsGrid" Style="{StaticResource Table}" ItemsSource="{Binding ElementRows}" IsReadOnly="True" RowHeight="25">
       <DataGrid.Columns>
        <DataGridTextColumn Header="元素" Binding="{Binding Name}" Width="125"/>
        <DataGridTextColumn Header="DBC 信号" Binding="{Binding Signal}" Width="205"/>
@@ -152,11 +145,10 @@
       </DataGrid.Columns>
      </DataGrid>
     </Grid>
-   </TabItem>
-   <TabItem x:Name="PayloadTab" Header="Raw Payload">
-    <Grid Margin="5"><Grid.RowDefinitions><RowDefinition Height="24"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-     <TextBlock Text="{Binding PayloadSummaryText}" Margin="5,0" VerticalAlignment="Center" FontSize="9" Foreground="#70787E"/>
-     <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+    </TabItem>
+    <TabItem x:Name="PayloadTab" Header="Raw Payload">
+     <Grid Margin="5">
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                    Background="White" BorderBrush="#B6BDC2" BorderThickness="1" Padding="4">
       <ItemsControl x:Name="PayloadItems" ItemsSource="{Binding PayloadBytes}">
        <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="{Binding DataContext.PayloadColumnCount, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
@@ -173,11 +165,9 @@
      </ScrollViewer>
     </Grid>
    </TabItem>
-   <TabItem Header="状态事件">
-    <Grid Margin="5"><Grid.RowDefinitions><RowDefinition Height="28"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-     <Grid><TextBlock Text="Panel本地事件（最多100条；用于定位，不替代CANoe Trace时间戳）" Margin="5,0" VerticalAlignment="Center" FontSize="9" Foreground="#70787E"/>
+    <TabItem Header="状态事件">
+     <Grid Margin="5"><Grid.RowDefinitions><RowDefinition Height="28"/><RowDefinition Height="*"/></Grid.RowDefinitions>
       <Button Content="清空事件" HorizontalAlignment="Right" Style="{StaticResource CommandButton}" Click="ClearEventsButton_Click"/>
-     </Grid>
      <DataGrid Grid.Row="1" Style="{StaticResource Table}" ItemsSource="{Binding Events}" IsReadOnly="True" RowHeight="23">
       <DataGrid.Columns>
        <DataGridTextColumn Header="Panel时间" Binding="{Binding TimeText}" Width="90"/>
@@ -192,8 +182,6 @@
    </TabItem>
   </TabControl>
 
-   <Border x:Name="FooterPanel" Grid.Row="11" Height="22" Background="White" BorderBrush="#B6BDC2" BorderThickness="1">
-   <TextBlock Text="{Binding FooterText}" Margin="7,3" FontSize="9" Foreground="{Binding FooterBrush}" TextTrimming="CharacterEllipsis"/>
-  </Border>
+   <Border x:Name="FooterPanel" Grid.Row="11" Height="0"/>
  </Grid>
 </UserControl>

@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "PanelPlugin" / "SRS3E2EPanel"
 XAML = (PLUGIN / "E2EConsoleControl.xaml").read_text(encoding="utf-8")
 CS = (PLUGIN / "E2EConsoleControl.xaml.cs").read_text(encoding="utf-8")
+MODELS = (PLUGIN / "Models" / "PanelModels.cs").read_text(encoding="utf-8")
 RX_XAML = (PLUGIN / "E2ERxControl.xaml").read_text(encoding="utf-8")
 RX_CS = (PLUGIN / "E2ERxControl.xaml.cs").read_text(encoding="utf-8")
 PROJECT = (PLUGIN / "SRS3E2EPanel.csproj").read_text(encoding="utf-8")
@@ -36,7 +37,6 @@ for fragment, label in (
     ('x:Name="ConsoleTabs"', "unified tab control"),
     ("保护与故障", "protection/fault tab"),
     ("接收监控", "Rx monitor tab"),
-    ("PDU Interactive Generator / CAN1", "explicit PDU IG source"),
     ("PDU IG输入 Raw", "input Raw comparison"),
     ("最终发送 Raw", "final Raw comparison"),
     ('BridgeOffset="96"', "Rx unified offset"),
@@ -62,12 +62,46 @@ for fragment, label in (
 for fragment in (
     "public bool CanConfigure",
     "public bool IsConfigurationLocked",
+    "ApplyConfigurationButton_Click",
+    "UpdateConfigurationAcknowledgement",
+    "pdu.RequestedProtectionEnabled",
+    "pdu.RequestedUbMode",
+    "pdu.ConfigurationPending = true",
     "if (!bridgeReady",
     "ResetSelectedTelemetry();",
     "values.Length >= UnifiedBridgeLength",
     "UnifiedRxControl.Initialize(value)",
 ):
     require(fragment, CS, "safe bridge behavior")
+
+for fragment in (
+    "public bool RequestedProtectionEnabled",
+    "public int RequestedUbMode",
+    "public bool ConfigurationPending",
+    "public void AcceptReadbackConfiguration()",
+):
+    require(fragment, MODELS, "row-local staged configuration")
+
+require('Header="配置"', XAML, "row-local configuration column")
+require('Content="{Binding ConfigurationActionText}"', XAML, "row-local apply button")
+require('IsChecked="{Binding RequestedProtectionEnabled', XAML, "editable row E2E checkbox")
+require('SelectedValue="{Binding RequestedUbMode', XAML, "editable row UB selector")
+require('IsReadOnly="False"', XAML, "editable configuration table")
+for annotation in (
+    "Profile G / P01 · 保护与故障 + 接收监控 · Panel不创建报文",
+    "仅处理 PDU IG 后续 TxPending 事件",
+    "先选行，再编辑并应用",
+    "同一PDU IG事件经E2E/故障处理后",
+    "UI v1.8.0 · Profile G/P01 · 只监听，不发送报文",
+    "每个 E2E Group 独立判定",
+    "最后接收 Raw 解码；CRC 输入元素按名称排序",
+    "Panel本地事件（最多100条；用于定位，不替代CANoe Trace时间戳）",
+    "FooterText",
+):
+    if annotation in XAML + RX_XAML:
+        raise AssertionError(f"UI annotation remains: {annotation}")
+if "Pdu_PropertyChanged" in CS or "WriteProtectionConfiguration" in CS:
+    raise AssertionError("legacy auto-apply configuration path remains")
 
 require("public bool EmbeddedMode", RX_CS, "embedded Rx mode")
 require("Visibility.Collapsed", RX_CS, "embedded header/footer removal")
@@ -115,6 +149,30 @@ for forbidden in (".cfg", "VectorSimulationNode.can", "E2E_RxMonitor.can"):
     if re.search(rf"(?:copy|del|move|ren)\s+[^\r\n]*{re.escape(forbidden)}", INSTALL_BAT, re.I):
         raise AssertionError(f"one-click script modifies CANoe integration file: {forbidden}")
 
+# Authored source and delivery documents must be portable. Runtime path discovery
+# is allowed, but no drive-qualified path may be checked into scripts or metadata.
+portable_extensions = {
+    ".bat", ".can", ".cin", ".cs", ".csproj", ".json", ".md",
+    ".ps1", ".py", ".sln", ".txt", ".xaml", ".xml", ".xvp",
+}
+generated_parts = {".git", "bin", "obj", "dist", "Log", "work"}
+for path in ROOT.rglob("*"):
+    if not path.is_file() or path.suffix.lower() not in portable_extensions:
+        continue
+    if any(part in generated_parts for part in path.parts):
+        continue
+    source = path.read_text(encoding="utf-8", errors="ignore")
+    if re.search(r"(?i)(?<![%A-Z0-9_])[A-Z]:\\", source):
+        raise AssertionError(f"drive-qualified path remains in authored file: {path.relative_to(ROOT)}")
+
+markdown_files = {
+    path.relative_to(ROOT).as_posix()
+    for path in ROOT.rglob("*.md")
+    if not any(part in generated_parts for part in path.parts)
+}
+if markdown_files != {"README.md", "ARCHITECTURE.md"}:
+    raise AssertionError(f"unexpected Markdown files: {sorted(markdown_files)}")
+
 build_info = ROOT / "PanelPlugin" / "dist" / "SRS3_E2E_Panel" / "BUILD_INFO.txt"
 if build_info.exists():
     info = build_info.read_text(encoding="utf-8")
@@ -124,9 +182,11 @@ if build_info.exists():
 
 print("SRS3 E2E Panel delivery verification")
 print("  unified protection/Rx UI:   present")
-print("  PDU IG ownership text:      present")
+print("  row-local staged config:    present")
 print("  send/editor controls:       absent")
 print("  safe command gating:        present")
 print("  canonical core SysVar:      Int32[320]")
 print("  offline package script:     present")
+print("  portable authored paths:    present")
+print("  permanent Markdown files:   2")
 print("PASS (offline/static only; CANoe integration and bus behavior not tested)")

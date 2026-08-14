@@ -10,4 +10,4 @@ using System.Runtime.InteropServices;
 // AssemblyVersion follows the Vector.PanelControlPlugin API compatibility
 // convention used by the official Demo_1_2_0_0 sample.
 [assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("2.2.0.0")]
+[assembly: AssemblyFileVersion("2.2.2.0")]

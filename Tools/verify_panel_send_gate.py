@@ -52,7 +52,9 @@ for fragment in (
 require("保护与故障", XAML, "protection tab")
 require("接收监控", XAML, "Rx tab")
 require('BridgeOffset="96"', XAML, "unified Rx offset")
-require("PDU Interactive Generator / CAN1", XAML, "explicit source")
+require('Header="配置"', XAML, "row-local configuration")
+require("RequestedProtectionEnabled", XAML, "row-local E2E edit")
+require("RequestedUbMode", XAML, "row-local UB edit")
 for obsolete in ("执行发送", "停止发送", "改值连续", "应用信号"):
     if obsolete in XAML:
         raise AssertionError(f"obsolete Tx ownership control remains: {obsolete}")

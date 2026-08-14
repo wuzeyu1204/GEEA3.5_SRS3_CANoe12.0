@@ -100,6 +100,8 @@ def main():
     assert sum(group["bus"] == "CANFD3" for group in groups) == 5
 
     source = Path(rules["generated_from"])
+    if not source.is_absolute():
+        source = ROOT / source
     assert source.exists(), f"missing source baseline: {source}"
     assert hashlib.sha256(source.read_bytes()).hexdigest().upper() == rules["source_sha256"]
 

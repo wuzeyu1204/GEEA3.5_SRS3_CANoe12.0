@@ -12,6 +12,8 @@ set "PACKAGE_DLL=%DIST_DIR%\SRS3_E2E_PanelControl_1_2_0_0.dll"
 set "PANEL_TEMPLATE=%REPO_ROOT%\Panels\SRS3 E2E Test Console - Manual Import.xvp"
 set "SYSVAR_IL=%REPO_ROOT%\SyaVar\01_CANoe_IL_SystemVariables.xml"
 set "SYSVAR_E2E=%REPO_ROOT%\SyaVar\10_SRS3_E2E_Core_SystemVariables.xml"
+set "DOC_README=%REPO_ROOT%\README.md"
+set "DOC_ARCH=%REPO_ROOT%\ARCHITECTURE.md"
 
 echo.
 echo ============================================================
@@ -106,7 +108,6 @@ for %%D in ("%REPO_ROOT%\work" "%SCRIPT_DIR%SRS3E2EPanel\bin" "%SCRIPT_DIR%SRS3E
         exit /b 1
     )
 )
-if exist "%REPO_ROOT%\Reports" for %%F in ("%REPO_ROOT%\Reports\*") do if /I not "%%~nxF"==".gitkeep" del /F /Q "%%~fF" >nul 2>&1
 exit /b 0
 
 :BuildAndPackage
@@ -125,8 +126,8 @@ if exist "%SCRIPT_DIR%SRS3E2EPanel\bin\Release\SRS3_E2E_PanelControl_1_2_0_0.pdb
 copy /Y "%PANEL_TEMPLATE%" "%DIST_DIR%\SRS3 E2E Test Console - Manual Import.xvp" >nul || exit /b 1
 copy /Y "%SYSVAR_IL%" "%DIST_DIR%\01_CANoe_IL_SystemVariables.xml" >nul || exit /b 1
 copy /Y "%SYSVAR_E2E%" "%DIST_DIR%\10_SRS3_E2E_Core_SystemVariables.xml" >nul || exit /b 1
-copy /Y "%SCRIPT_DIR%README.md" "%DIST_DIR%\README.md" >nul || exit /b 1
-copy /Y "%SCRIPT_DIR%Bridge_Contract.md" "%DIST_DIR%\Bridge_Contract.md" >nul || exit /b 1
+copy /Y "%DOC_README%" "%DIST_DIR%\README.md" >nul || exit /b 1
+copy /Y "%DOC_ARCH%" "%DIST_DIR%\ARCHITECTURE.md" >nul || exit /b 1
 exit /b 0
 
 :StaticAudit

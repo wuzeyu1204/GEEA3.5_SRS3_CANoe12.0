@@ -1,6 +1,7 @@
-# CANoe runtime and report output
-Reports/*
-!Reports/.gitkeep
+# CANoe runtime and evidence output
+Log/
+*.asc
+*.blf
 *.bak
 *.tmp
 *.log

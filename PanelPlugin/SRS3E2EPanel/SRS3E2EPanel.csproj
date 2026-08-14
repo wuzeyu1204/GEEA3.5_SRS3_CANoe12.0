@@ -11,7 +11,7 @@
     <AssemblyName>SRS3_E2E_PanelControl_1_2_0_0</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <CanoePanelPluginPath Condition=" '$(CanoePanelPluginPath)' == '' ">C:\Program Files\Vector CANoe 12.0\Exec64\Components\Vector.PanelControlPlugin\1.2.0.0\Vector.PanelControlPlugin.dll</CanoePanelPluginPath>
+    <CanoePanelPluginPath Condition=" '$(CanoePanelPluginPath)' == '' and '$(CANOE12_ROOT)' != '' ">$(CANOE12_ROOT)\Exec64\Components\Vector.PanelControlPlugin\1.2.0.0\Vector.PanelControlPlugin.dll</CanoePanelPluginPath>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -74,5 +74,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\E2EControl.png" />
   </ItemGroup>
+  <Target Name="ValidateCanoePanelPluginPath" BeforeTargets="ResolveReferences" Condition="!Exists('$(CanoePanelPluginPath)')">
+    <Error Text="Set CanoePanelPluginPath or CANOE12_ROOT before building the Panel project." />
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

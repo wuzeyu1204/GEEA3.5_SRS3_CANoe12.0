@@ -1,6 +1,6 @@
 {
   "schema": "SRS3_E2E_RxRules_v1",
-  "generated_from": "C:\\00_WDJR_WORK\\05_PlatformBase\\GEEA3.5_SRS3_E2E_ZXDoc\\E2E\\SRS3_E2E_Rules.json",
+  "generated_from": "../GEEA3.5_SRS3_E2E_ZXDoc/E2E/SRS3_E2E_Rules.json",
   "source_sha256": "9FFB8F5B3DB4DA50ED4537DF4517E53D39191D3E6AA024C2A88AAC42E50E30A6",
   "profile": {
     "name": "PROFILE_G",

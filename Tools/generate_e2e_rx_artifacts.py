@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 
 
@@ -165,9 +166,10 @@ def main():
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
     args = parser.parse_args()
     document, groups, source_hash = load_groups(args.source)
+    source_reference = Path(os.path.relpath(args.source.resolve(), ROOT)).as_posix()
     result = {
         "schema": "SRS3_E2E_RxRules_v1",
-        "generated_from": str(args.source),
+        "generated_from": source_reference,
         "source_sha256": source_hash,
         "profile": document["profile"],
         "timeout_policy": "max(50 ms, 4 * cycle_ms)",

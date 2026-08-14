@@ -79,6 +79,9 @@ namespace SRS3.E2E.PanelControl.Models
     {
         private bool protectionEnabled = true;
         private int ubMode;
+        private bool requestedProtectionEnabled = true;
+        private int requestedUbMode;
+        private bool configurationPending;
         private int protectionState;
         private int protectedFrames;
         private bool faultActive;
@@ -133,6 +136,7 @@ namespace SRS3.E2E.PanelControl.Models
                 if (protectionEnabled == value) return;
                 protectionEnabled = value;
                 RaisePropertyChanged("ProtectionEnabled");
+                RaisePropertyChanged("IsConfigurationDirty");
             }
         }
 
@@ -145,7 +149,67 @@ namespace SRS3.E2E.PanelControl.Models
                 if (ubMode == bounded) return;
                 ubMode = bounded;
                 RaisePropertyChanged("UbMode");
+                RaisePropertyChanged("UbModeText");
+                RaisePropertyChanged("IsConfigurationDirty");
             }
+        }
+
+        public string UbModeText
+        {
+            get { return UbMode == 1 ? "强制 0" : UbMode == 2 ? "强制 1" : "自动 Auto"; }
+        }
+
+        public bool RequestedProtectionEnabled
+        {
+            get { return requestedProtectionEnabled; }
+            set
+            {
+                if (requestedProtectionEnabled == value) return;
+                requestedProtectionEnabled = value;
+                RaisePropertyChanged("RequestedProtectionEnabled");
+                RaisePropertyChanged("IsConfigurationDirty");
+            }
+        }
+
+        public int RequestedUbMode
+        {
+            get { return requestedUbMode; }
+            set
+            {
+                int bounded = Math.Max(0, Math.Min(2, value));
+                if (requestedUbMode == bounded) return;
+                requestedUbMode = bounded;
+                RaisePropertyChanged("RequestedUbMode");
+                RaisePropertyChanged("IsConfigurationDirty");
+            }
+        }
+
+        public bool ConfigurationPending
+        {
+            get { return configurationPending; }
+            set
+            {
+                if (configurationPending == value) return;
+                configurationPending = value;
+                RaisePropertyChanged("ConfigurationPending");
+                RaisePropertyChanged("ConfigurationActionText");
+            }
+        }
+
+        public bool IsConfigurationDirty
+        {
+            get { return RequestedProtectionEnabled != ProtectionEnabled || RequestedUbMode != UbMode; }
+        }
+
+        public string ConfigurationActionText { get { return ConfigurationPending ? "等待" : "应用"; } }
+
+        public void AcceptReadbackConfiguration()
+        {
+            requestedProtectionEnabled = ProtectionEnabled;
+            requestedUbMode = UbMode;
+            RaisePropertyChanged("RequestedProtectionEnabled");
+            RaisePropertyChanged("RequestedUbMode");
+            RaisePropertyChanged("IsConfigurationDirty");
         }
 
         public int ProtectionState

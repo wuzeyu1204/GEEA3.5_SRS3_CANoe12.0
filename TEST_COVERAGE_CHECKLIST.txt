@@ -1,0 +1,301 @@
+SRS3 E2E CANoe 12 临时测试覆盖清单
+===================================
+
+用途：指导冻结版动态验收。完成测试并归档正式证据后可删除本文件。
+原则：离线脚本通过不等于CANoe动态通过；没有可复核证据不得填写PASS。
+
+结果状态
+--------
+PASS    实际结果满足量化预期，证据完整。
+FAIL    实际结果不满足预期，记录现象和复现条件。
+BLOCKED 缺少硬件、真实报文源、通道配置或控制权限。
+N/A     经评审确认不适用于本变体，并写明理由。
+PENDING 尚未执行。
+
+测试基线记录
+------------
+日期：____________________  操作人：____________________
+Git Commit：____________________________________________________________
+CANoe版本：________________  Vector硬件：_______________________________
+DBC/ARXML版本：_________________________________________________________
+Panel FileVersion：2.2.2.0
+工况：□ CAN1 Classical CAN 500 kbit/s
+      □ CANFD3 ISO CAN FD 500 kbit/s / 2 Mbit/s / BRS
+证据目录：______________________________________________________________
+
+证据最小集合
+------------
+1. Compile All完整Write文本，包含全部warning原文。
+2. Start后的Write文本和Panel Ready截图。
+3. Trace或BLF/ASC，显示Timestamp、Channel、Direction、ID、DLC、Data、Name。
+4. 每个测试项的Panel截图和结果状态。
+5. CAN1与CANFD3分开保存，不混用证据。
+6. 建议命名：YYYYMMDD_TC-ID_ID_Group_Result.ext。
+
+停止条件
+--------
+出现CAPL runtime error、数组越界、意外周期发送、持续错误帧、错误ID/DLC、
+Panel与Trace无法对应时，立即停止当前测试并保存现场。
+
+
+A. 离线冻结检查
+================
+
+[A-01] 七项静态检查
+目标：确认规则、算法、Panel契约、发送所有权和Rx只读边界。
+前置：关闭CANoe不是必需条件；Python可用。
+步骤：在仓库根目录依次执行：
+  python Tools\verify_e2e_framework.py
+  python Tools\verify_e2e_golden_vectors.py
+  python Tools\verify_panel_delivery.py
+  python Tools\verify_tx_scheduler_model.py
+  python Tools\verify_fault_injection.py
+  python Tools\verify_e2e_rx.py
+  python Tools\verify_panel_send_gate.py
+预期：七项均返回0并打印PASS。
+证据：终端完整输出。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[A-02] 交付结构
+目标：确认只有一个Panel、一个桥接和两个永久Markdown。
+步骤：
+  1. 确认唯一XVP为 Panels\SRS3 E2E Test Console - Manual Import.xvp。
+  2. 确认唯一桥接为 SRS3_E2E::WpfBridge::PanelBridge Int32[320]。
+  3. 确认System Variables只加载01和10两份XML。
+  4. 确认仓库永久Markdown只有README.md和ARCHITECTURE.md。
+预期：无重复XVP、旧RxBridge、旧20/30桥接或额外Markdown。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+
+B. CAN1启动和发送所有权
+======================
+
+[B-01] Compile All
+节点：VectorSimulationNode、E2E_RxMonitor_CAN1。
+步骤：停止Measurement，执行Compile All Nodes。
+预期：0 error；warning逐条记录，不以“只有warning”代替分析。
+证据：Write完整文本。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[B-02] Start和Ready
+步骤：Start Measurement，不触发PDU IG。
+预期：
+  - 无invalid array range、CAPL runtime error或节点停止；
+  - Write出现Tx适配器ready；
+  - Write出现“CAN1 checker ready: 10 protected groups, monitor only”；
+  - Panel桥接Ready，五行可显示等待PDU IG。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[B-03] 零自发发送
+前置：五个PDU IG对象设Manual/Event based并关闭自动周期触发。
+步骤：不操作PDU IG，观察5秒。
+过滤：0x040、0x050、0x076、0x0F0、0x390，Direction=Tx。
+预期：本机Tx数量为0。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[B-04] 单次触发所有权
+步骤：五个目标对象分别Manual Trigger一次。
+预期：每次只新增一个对应ID本机Tx；无第二发送器或额外周期事件。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+
+C. Panel 0x076快速冒烟（四步、五次触发）
+========================================
+
+对象：0x076 VehSpdLgt / ZCUDZCUDCAN1SignalIPDU37。
+
+[C-01] 行内编辑
+步骤：确认0x076行内可取消E2E保护，UB下拉可选Auto/强制0/强制1，存在行内应用按钮。
+预期：编辑值保持稳定，不被200 ms轮询回弹；无表格外重复配置组件。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[C-02] 保护关闭直通
+步骤：取消E2E保护，点击该行应用，Manual Trigger一次。
+预期：按钮先显示等待，触发后恢复应用；状态=直通；输入Raw=最终Raw；保护帧数不增加。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[C-03] 正常保护Auto
+步骤：开启E2E保护，UB=Auto，应用并触发一次。
+预期：状态=已保护；UB=1；CRC Calc=CRC Tx；保护帧数+1。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[C-04] 强制UB=0
+步骤：UB=强制0，应用并触发一次。
+预期：UB=0；CRC按最终应用数据匹配；事件正常发送。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+[C-05] CRC故障和恢复
+步骤：UB恢复Auto；故障=破坏CRC、仅下一帧、参数0x01；应用故障并触发一次，再触发一次。
+预期：第一帧CRC Tx=正常CRC XOR 0x01且CRC Tx≠Calc；第二帧自动恢复CRC Tx=Calc。
+清理：点击清除全部。
+结果：□ PASS □ FAIL  备注：____________________________________________
+
+
+D. 五个Tx PDU完整覆盖
+=====================
+
+逐项重复D-01至D-04：
+
+  #0 0x040 VehMtnSt             IPDU01  DataID 0x0036
+  #1 0x050 PreCrashFrontData    IPDU47  DataID 0x0411
+  #2 0x076 VehSpdLgt            IPDU37  DataID 0x0037
+  #3 0x0F0 VehModMngtGlbSafe1   IPDU04  DataID 0x0074
+  #4 0x390 PassAirbLampStsRec   IPDU10  DataID 0x0474
+
+[D-01] 正常保护
+预期：ID正确、DLC=8、状态已保护、CRC Calc=Tx、UB=1、保护帧数+1。
+
+[D-02] 保护关闭
+预期：输入Raw=最终Raw，状态直通，保护帧数不增加。
+
+[D-03] UB三策略
+预期：Auto/Force1时UB=1；Force0时UB=0；三种情况下CRC均匹配最终数据。
+
+[D-04] Counter边界
+步骤：连续触发至少16帧。
+预期：Counter仅0..14，不出现15；14后回0；每帧CRC正确。
+
+结果记录：
+0x040  D-01 □P □F  D-02 □P □F  D-03 □P □F  D-04 □P □F
+0x050  D-01 □P □F  D-02 □P □F  D-03 □P □F  D-04 □P □F
+0x076  D-01 □P □F  D-02 □P □F  D-03 □P □F  D-04 □P □F
+0x0F0  D-01 □P □F  D-02 □P □F  D-03 □P □F  D-04 □P □F
+0x390  D-01 □P □F  D-02 □P □F  D-03 □P □F  D-04 □P □F
+
+
+E. 故障注入覆盖
+================
+
+每种故障先在0x076冒烟，再对其余四个PDU重复。完整组合为5×8=40。
+
+[E-01] 破坏CRC，参数0x01
+预期：CRC Tx=Calc XOR 0x01；应用数据不变；下一帧恢复。
+
+[E-02] 冻结Counter
+预期：故障帧Counter重复；下一帧恢复合法递增。
+
+[E-03] Counter=15
+预期：故障帧Counter=0xF；下一帧回合法0..14。
+
+[E-04] Counter跳变，参数2
+预期：相对内部期望值模15跳2；后续从跳变后的序列继续。
+
+[E-05] 错误DataID，参数0x01
+预期：应用数据不变；CRC Tx与面板按正确DataID计算值不一致；下一帧恢复。
+
+[E-06] UB=0
+预期：故障帧UB=0；下一帧恢复Auto。
+
+[E-07] 破坏Payload，参数0x0001
+预期：首个应用元素对应bit在CRC计算后翻转；CRC Tx≠对最终Raw重算值；下一帧恢复。
+
+[E-08] 抑制发送事件
+预期：Panel显示事件已抑制；对应Manual Trigger没有本机Tx；下一次触发正常发送。
+
+[E-09] 指定帧数
+步骤：任选故障，范围=指定帧数，帧数=3，触发4次。
+预期：只作用前3个匹配事件；剩余3→2→1→0；第4次正常。
+
+[E-10] 持续与清除
+步骤：范围=持续，触发至少3次；清除当前后再触发。
+预期：清除前持续故障；清除后下一帧恢复。
+
+[E-11] PDU独立性和清全部
+步骤：在两个PDU分别设置故障；观察活动Mask；执行清除全部。
+预期：两个PDU状态独立；清全部后五行故障均清空。
+
+40组合结果：完成____ / 40；PASS____；FAIL____；BLOCKED____。
+证据索引：______________________________________________________________
+
+
+F. CAN1 Rx监控
+===============
+
+过滤ID：0x010、0x012、0x013、0x021、0x070、0x089、0x142、0x148、0x274。
+
+对每个有真实报文源的Group执行：
+  1. 选择CAN1和目标Group。
+  2. 首帧允许INITIAL，后续应为正常或合法允许丢帧。
+  3. Frames增加，Age周期性回到接近0。
+  4. Counter合法；CRC Rx=Calc；UB=1；Valid Count增加。
+  5. Raw与Trace逐字节一致。
+  6. 停止发送源超过Timeout，状态应为超时且Age>=Timeout。
+  7. 恢复发送，先重新建立初始状态，再回正常。
+  8. 清当前Group/通道只清统计，不产生任何Tx。
+
+Group结果：
+0x010 CrashStsSafe                 Timeout 800 ms  □P □F □B
+0x012 ADataRawSafe                 Timeout  50 ms  □P □F □B
+0x013 AsyDataWithCmpSafe           Timeout  50 ms  □P □F □B
+0x021 BltLockStSafeAtDrvr          Timeout  50 ms  □P □F □B
+0x070 RecOfPostImpctBrkgSuspc      Timeout  80 ms  □P □F □B
+0x089 AgDataRawSafe                Timeout  50 ms  □P □F □B
+0x142 AgDataRaw2Safe               Timeout 120 ms  □P □F □B
+0x142 PassAirbLampReq              Timeout 120 ms  □P □F □B
+0x148 RecOfPostImpctBrkgCfmd       Timeout 120 ms  □P □F □B
+0x274 SRSResdSig1ToZCUDMSafety     Timeout 320 ms  □P □F □B
+
+如果无法控制真实Rx源，故障、Timeout和恢复项必须写BLOCKED，不能推定PASS。
+
+
+G. CANFD3独立工况
+=================
+
+注意：CAN1与CANFD3不能同时测试。先停止Measurement并保存CAN1证据。
+
+[G-01] 硬件与数据库
+设置：ISO CAN FD；仲裁500 kbit/s；数据2 Mbit/s；BRS开启。
+数据库：Databases\CANFD3\EEA35_SDB325300_KO11_ADCU11_ZCUD_CANFD3_251215.dbc
+节点：E2E_RxMonitor_CANFD3
+预期：Compile All 0 error；Start后Write出现CANFD3 checker ready: 5 protected groups, monitor only。
+结果：□ PASS □ FAIL □ BLOCKED  备注：__________________________________
+
+[G-02] 总线基本帧
+过滤：0x032、0x03F。
+预期：
+  - 0x032为CAN FD/BRS，payload长度64字节；
+  - 0x03F payload长度2字节；
+  - Channel、Direction、ID和数据与真实网络一致。
+结果：□ PASS □ FAIL □ BLOCKED  备注：__________________________________
+
+[G-03] 五Group
+0x032 ADataRawSafe        □P □F □B
+0x032 AgDataRawSafe       □P □F □B
+0x032 AsyDataWithCmpSafe  □P □F □B
+0x032 IntgtIMUDataRawSafe □P □F □B
+0x03F CrashStsSafe        □P □F □B
+
+每个Group预期：合法帧CRC Rx=Calc、UB有效、Counter合法、Frames增加、Raw匹配；
+停止源超过Timeout后进入超时，恢复后重新初始化。
+
+没有真实CANFD3报文源时，最多只能确认节点Ready，五Group必须写BLOCKED。
+
+
+H. 测试后清理与交付结论
+======================
+
+清理：
+□ 清除全部故障。
+□ 五个PDU恢复E2E保护开启、UB Auto。
+□ PDU IG恢复项目原始触发模式和周期。
+□ 停止Logging和Measurement。
+□ 保存BLF/ASC、Write文本、Panel截图、Trace截图和本清单副本。
+□ CAN1/CANFD3证据分目录归档。
+
+最终汇总：
+静态检查       □ PASS □ FAIL
+CAN1启动       □ PASS □ FAIL
+发送所有权     □ PASS □ FAIL
+Panel快速冒烟  □ PASS □ FAIL
+五PDU正常功能  □ PASS □ FAIL □ PARTIAL
+40故障组合     □ PASS □ FAIL □ PARTIAL
+CAN1 Rx        □ PASS □ FAIL □ BLOCKED □ PARTIAL
+CANFD3 Rx      □ PASS □ FAIL □ BLOCKED □ PARTIAL
+
+遗留问题：
+1. ______________________________________________________________________
+2. ______________________________________________________________________
+3. ______________________________________________________________________
+
+结论：□ 可交付  □ 有条件交付  □ 不可交付
+批准人：____________________  日期：____________________

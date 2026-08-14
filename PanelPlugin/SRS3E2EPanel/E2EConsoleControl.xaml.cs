@@ -60,6 +60,9 @@ namespace SRS3.E2E.PanelControl
         private bool bridgeConnected;
         private bool bridgeReady;
         private bool readingBridge;
+        private int pendingConfigurationPdu = -1;
+        private bool pendingProtectionEnabled;
+        private int pendingUbMode;
         private string bindingType = "not assigned";
         private int bindingLength;
         private string bridgeError = string.Empty;
@@ -99,8 +102,6 @@ namespace SRS3.E2E.PanelControl
             };
             InputPayloadBytes = new ObservableCollection<PayloadByte>(Enumerable.Range(0, 8).Select(i => new PayloadByte(i)));
             FinalPayloadBytes = new ObservableCollection<PayloadByte>(Enumerable.Range(0, 8).Select(i => new PayloadByte(i)));
-            foreach (PduDefinition pdu in Pdus) pdu.PropertyChanged += Pdu_PropertyChanged;
-
             pollTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
             pollTimer.Tick += delegate { ReadBridgeValue(); };
             InitializeComponent();
@@ -129,7 +130,7 @@ namespace SRS3.E2E.PanelControl
                 ResetSelectedTelemetry();
                 WriteSelectedPdu();
                 UpdatePayloadRoles();
-                Raise("CurrentPdu"); RaiseMetrics(); RaiseFaultState();
+                Raise("CurrentPdu"); RaiseMetrics(); RaiseFaultState(); RaiseConfigurationState();
             }
         }
 
@@ -158,7 +159,7 @@ namespace SRS3.E2E.PanelControl
         }
         public bool CanClearFault { get { return bridgeReady && activeFaultType != 0 && faultSequence == faultAck; } }
         public bool CanClearAllFaults { get { return bridgeReady && Pdus.Any(item => item.FaultActive) && faultSequence == faultAck; } }
-        public bool CanConfigure { get { return bridgeReady; } }
+        public bool CanConfigure { get { return bridgeReady && pendingConfigurationPdu < 0; } }
         public bool IsConfigurationLocked { get { return !CanConfigure; } }
 
         public string ProtectionState { get { return StateToText(state); } }
@@ -222,13 +223,6 @@ namespace SRS3.E2E.PanelControl
         }
         public Brush FooterBrush { get { return bridgeReady ? BrushFrom("#365F45") : BrushFrom("#8A6512"); } }
 
-        private void Pdu_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (readingBridge || (e.PropertyName != "ProtectionEnabled" && e.PropertyName != "UbMode")) return;
-            PduDefinition pdu = sender as PduDefinition;
-            if (pdu != null) WriteProtectionConfiguration(pdu);
-        }
-
         private void ReadBridgeValue()
         {
             try
@@ -252,11 +246,14 @@ namespace SRS3.E2E.PanelControl
                 readingBridge = true;
                 for (int index = 0; index < Pdus.Count; index++)
                 {
-                    Pdus[index].ProtectionEnabled = values[ProtectBase + index] != 0;
-                    Pdus[index].UbMode = values[UbBase + index];
-                    Pdus[index].ProtectionState = values[PduStateBase + index];
-                    Pdus[index].ProtectedFrames = values[PduCountBase + index];
-                    Pdus[index].FaultActive = (values[FaultActiveMaskIndex] & (1 << index)) != 0;
+                    PduDefinition pdu = Pdus[index];
+                    bool keepEditedValue = pdu.IsConfigurationDirty || pdu.ConfigurationPending;
+                    pdu.ProtectionEnabled = values[ProtectBase + index] != 0;
+                    pdu.UbMode = values[UbBase + index];
+                    if (!keepEditedValue) pdu.AcceptReadbackConfiguration();
+                    pdu.ProtectionState = values[PduStateBase + index];
+                    pdu.ProtectedFrames = values[PduCountBase + index];
+                    pdu.FaultActive = (values[FaultActiveMaskIndex] & (1 << index)) != 0;
                 }
                 if (CurrentPdu != null && values[DataIdIndex] == CurrentPdu.DataId)
                 {
@@ -273,7 +270,8 @@ namespace SRS3.E2E.PanelControl
                 faultApplied = values[FaultAppliedIndex]; faultResult = values[FaultResultIndex]; faultAck = values[FaultAckIndex];
                 if (faultSequence == 0 && values[FaultCommandIndex] == 0) faultSequence = faultAck;
                 readingBridge = false;
-                RaiseMetrics(); RaiseFaultState(); RaiseStatus();
+                UpdateConfigurationAcknowledgement(values);
+                RaiseMetrics(); RaiseFaultState(); RaiseStatus(); RaiseConfigurationState();
             }
             catch (Exception exception) { readingBridge = false; bridgeConnected = false; bridgeReady = false; bridgeError = exception.GetType().Name + ": " + exception.Message; ResetDisconnectedData(); RaiseMetrics(); RaiseStatus(); }
         }
@@ -287,16 +285,36 @@ namespace SRS3.E2E.PanelControl
             symbolValue.LongArray = values;
         }
 
-        private void WriteProtectionConfiguration(PduDefinition pdu)
+        private void ApplyConfigurationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!bridgeReady || symbolValue == null || symbolValue.SymbolDataType != ExchangeSymbolDataType.LongArray) return;
+            Button button = sender as Button;
+            PduDefinition pdu = button == null ? null : button.DataContext as PduDefinition;
+            if (!CanConfigure || pdu == null || symbolValue == null || symbolValue.SymbolDataType != ExchangeSymbolDataType.LongArray) return;
+            CurrentPdu = pdu;
             int[] values = symbolValue.LongArray.ToArray();
             if (values.Length < TxBridgeLength) return;
-            values[SelectedPduIndex] = pdu.Index;
-            values[ProtectCommandIndex] = pdu.ProtectionEnabled ? 1 : 0;
-            values[UbCommandIndex] = pdu.UbMode;
+            pendingConfigurationPdu = pdu.Index;
+            pendingProtectionEnabled = pdu.RequestedProtectionEnabled;
+            pendingUbMode = pdu.RequestedUbMode;
+            pdu.ConfigurationPending = true;
+            values[SelectedPduIndex] = pendingConfigurationPdu;
+            values[ProtectCommandIndex] = pendingProtectionEnabled ? 1 : 0;
+            values[UbCommandIndex] = pendingUbMode;
             values[ConfigCommandIndex] = 1;
             symbolValue.LongArray = values;
+            RaiseStatus();
+        }
+
+        private void UpdateConfigurationAcknowledgement(int[] values)
+        {
+            if (pendingConfigurationPdu < 0 || values[ConfigCommandIndex] != 0) return;
+            int appliedPdu = pendingConfigurationPdu;
+            bool matched = (values[ProtectBase + appliedPdu] != 0) == pendingProtectionEnabled
+                && values[UbBase + appliedPdu] == pendingUbMode;
+            Pdus[appliedPdu].ConfigurationPending = false;
+            pendingConfigurationPdu = -1;
+            if (matched) Pdus[appliedPdu].AcceptReadbackConfiguration();
+            RaiseStatus();
         }
 
         private void SendFaultCommand(int command)
@@ -348,6 +366,8 @@ namespace SRS3.E2E.PanelControl
             {
                 pdu.ProtectionEnabled = false;
                 pdu.UbMode = 0;
+                pdu.ConfigurationPending = false;
+                pdu.AcceptReadbackConfiguration();
                 pdu.ProtectionState = 0;
                 pdu.ProtectedFrames = 0;
                 pdu.FaultActive = false;
@@ -377,7 +397,8 @@ namespace SRS3.E2E.PanelControl
         private void Raise(string name) { if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(name)); }
         private void RaiseMetrics() { foreach (string name in new[] { "ProtectionState", "StateBrush", "CounterText", "CrcText", "UbText", "DataIdText", "ProtectedFramesText", "E2eLayoutText" }) Raise(name); }
         private void RaiseFaultState() { foreach (string name in new[] { "CanArmFault", "CanClearFault", "CanClearAllFaults", "FaultStatusText" }) Raise(name); }
-        private void RaiseStatus() { foreach (string name in new[] { "BridgeStatus", "BridgeStatusBackground", "BridgeStatusBorder", "BridgeStatusForeground", "BridgeDiagnostic", "FooterText", "FooterBrush", "CanConfigure", "IsConfigurationLocked" }) Raise(name); RaiseFaultState(); }
+        private void RaiseConfigurationState() { Raise("CanConfigure"); Raise("IsConfigurationLocked"); }
+        private void RaiseStatus() { foreach (string name in new[] { "BridgeStatus", "BridgeStatusBackground", "BridgeStatusBorder", "BridgeStatusForeground", "BridgeDiagnostic", "FooterText", "FooterBrush", "CanConfigure", "IsConfigurationLocked" }) Raise(name); RaiseFaultState(); RaiseConfigurationState(); }
 
         public ExchangeSymbolDataType SupportedDataTypes { get { return ExchangeSymbolDataType.LongArray; } }
         public string ControlName { get { return "SRS3 E2E Test Console"; } }
