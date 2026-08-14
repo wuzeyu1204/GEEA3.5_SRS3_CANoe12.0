@@ -28,7 +28,8 @@ Tx/Rx CAPL <-> PanelBridge Int32[320] <-> SRS3 E2E 测试控制台
 
 | 内容 | 路径 |
 |---|---|
-| CANoe配置 | `GEEA3.5_SRS3_CAN1_12.0.cfg` |
+| CAN1配置 | `GEEA3.5_SRS3_CAN1_12.0.cfg` |
+| CANFD3配置 | `GEEA3.5_SRS3_CANFD3_12.0.cfg` |
 | Tx节点 | `Nodes/VectorSimulationNode.can` |
 | CAN1 Rx节点 | `Nodes/E2E_RxMonitor.can` |
 | CANFD3 Rx节点 | `Nodes/E2E_RxMonitor_CANFD3.can` |
@@ -62,8 +63,8 @@ Tx/Rx CAPL <-> PanelBridge Int32[320] <-> SRS3 E2E 测试控制台
 2. 确认唯一桥接变量为 `SRS3_E2E::WpfBridge::PanelBridge Int32[320]`。
 3. 导入 `Panels\SRS3 E2E Test Console - Manual Import.xvp`。
 4. 将Panel控件绑定到上述 `PanelBridge`。
-5. CAN1工况使用 `VectorSimulationNode` 和 `E2E_RxMonitor_CAN1`。
-6. CANFD3工况使用 `E2E_RxMonitor_CANFD3`；该节点只接收，不提供CANFD3发送源。
+5. CAN1工况打开 `GEEA3.5_SRS3_CAN1_12.0.cfg`，使用 `VectorSimulationNode` 和 `E2E_RxMonitor_CAN1`，五个PDU IG对象仅存在于该配置。
+6. CANFD3工况打开 `GEEA3.5_SRS3_CANFD3_12.0.cfg`，只使用 `E2E_RxMonitor_CANFD3`；该配置不加载 `VectorSimulationNode`、PDU IG或任何CANFD3发送源。
 
 ## Panel使用
 
@@ -85,13 +86,14 @@ Tx/Rx CAPL <-> PanelBridge Int32[320] <-> SRS3 E2E 测试控制台
 
 ## CANFD3切换
 
-CANFD3是逻辑网络名，不等于必须使用Vector硬件Channel 3。应映射到实际接线通道：
+CANFD3是逻辑网络名，不等于必须使用Vector硬件Channel 3。专用配置已选择ARXML中的 `ZCUD_CANFD3` Cluster，应映射到实际接线通道：
 
 1. 停止Measurement。
-2. 将实际接线通道设置为ISO CAN FD、500 kbit/s / 2 Mbit/s、BRS开启。
-3. 加载 `Databases/CANFD3/EEA35_SDB325300_KO11_ADCU11_ZCUD_CANFD3_251215.dbc`。
-4. 启用 `E2E_RxMonitor_CANFD3`，按 `0x032` 和 `0x03F` 过滤Trace。
-5. CAN1与CANFD3分别保存Write、Trace和测试结论，不合并为一次测试。
+2. 打开 `GEEA3.5_SRS3_CANFD3_12.0.cfg`。
+3. 将实际接线通道设置为ISO CAN FD、500 kbit/s仲裁、2 Mbit/s数据相位、BRS开启。
+4. 确认Simulation Setup中只有 `E2E_RxMonitor_CANFD3`，按 `0x032` 和 `0x03F` 过滤Trace。
+5. `Databases/CANFD3/EEA35_SDB325300_KO11_ADCU11_ZCUD_CANFD3_251215.dbc` 作为独立解析/交叉检查基线，不与配置中的同源ARXML Cluster重复加载。
+6. CAN1与CANFD3分别保存Write、Trace和测试结论，不合并为一次测试。
 
 ## 验证边界
 

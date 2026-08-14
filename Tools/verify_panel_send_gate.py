@@ -13,7 +13,8 @@ CS = (ROOT / "PanelPlugin/SRS3E2EPanel/E2EConsoleControl.xaml.cs").read_text(enc
 XAML = (ROOT / "PanelPlugin/SRS3E2EPanel/E2EConsoleControl.xaml").read_text(encoding="utf-8")
 RXCS = (ROOT / "PanelPlugin/SRS3E2EPanel/E2ERxControl.xaml.cs").read_text(encoding="utf-8")
 SYSVAR = (ROOT / "SyaVar/10_SRS3_E2E_Core_SystemVariables.xml").read_text(encoding="utf-8")
-CFG = (ROOT / "GEEA3.5_SRS3_CAN1_12.0.cfg").read_text(encoding="utf-8")
+CFG_CAN1 = (ROOT / "GEEA3.5_SRS3_CAN1_12.0.cfg").read_text(encoding="utf-8")
+CFG_CANFD3 = (ROOT / "GEEA3.5_SRS3_CANFD3_12.0.cfg").read_text(encoding="utf-8")
 
 
 def require(text, source, label):
@@ -90,12 +91,28 @@ targets = (
     "ZCUDZCUDCAN1SignalIPDU37", "ZCUDZCUDCAN1SignalIPDU04",
     "ZCUDZCUDCAN1SignalIPDU10",
 )
-missing_targets = [name for name in targets if name not in CFG]
+missing_targets = [name for name in targets if name not in CFG_CAN1]
 if missing_targets:
     raise AssertionError(
         f"saved PDU IG registrations missing ({len(missing_targets)}/{len(targets)}): "
         + ", ".join(missing_targets)
     )
+
+# Dedicated CANFD3 configuration is receive-only. It uses the CANFD3 ARXML
+# cluster and must not retain the CAN1 Tx node, PDU IG rows or desktop link.
+require("ZCUD_CANFD3", CFG_CANFD3, "CANFD3 logical cluster")
+require(r"Nodes\E2E_RxMonitor_CANFD3.can", CFG_CANFD3, "CANFD3 Rx node")
+require(r"Panels\SRS3 E2E Test Console - Manual Import.xvp", CFG_CANFD3, "CANFD3 Panel")
+for forbidden in (
+    r"Nodes\VectorSimulationNode.can",
+    r"Nodes\E2E_RxMonitor.can",
+    "GEEA3.5_SRS3_CAN1_12.0.cpd",
+    *targets,
+):
+    if forbidden in CFG_CANFD3:
+        raise AssertionError(f"CANFD3 receive-only config retains CAN1 content: {forbidden}")
+if re.search(r"(?m)^ZCUD_CAN1\r?$", CFG_CANFD3):
+    raise AssertionError("CANFD3 receive-only config retains the CAN1 database")
 
 print("SRS3 E2E PDU-IG ownership static verification")
 print("  PDU IG registrations:       5")
@@ -105,4 +122,5 @@ print("  Per-PDU protect/UB state:    present")
 print("  Input/final Raw telemetry:   present")
 print("  Unified Tx/Rx WPF control:   present")
 print("  Apply/Ack target gating:     unrelated -> pending; matching -> consumed")
+print("  Dual-CFG role isolation:     CAN1 Tx/Rx; CANFD3 Rx-only")
 print("PASS (static only): Panel/CAPL cannot create or schedule a protected PDU.")

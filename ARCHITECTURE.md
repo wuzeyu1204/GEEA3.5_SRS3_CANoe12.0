@@ -69,6 +69,8 @@ CANFD3 ---------------> E2E_RxMonitor_CANFD3 ----+--> PanelBridge[320]
 | 节点 | `Nodes/*.can` | CANoe节点入口 |
 | Panel | `PanelPlugin/SRS3E2EPanel/*` | WPF控件源码 |
 | 系统变量 | `SyaVar/01_*.xml`、`SyaVar/10_*.xml` | IL变量和唯一统一桥接 |
+| CAN1配置 | `GEEA3.5_SRS3_CAN1_12.0.cfg` | Tx/PDU IG与CAN1 Rx工况 |
+| CANFD3配置 | `GEEA3.5_SRS3_CANFD3_12.0.cfg` | 纯接收CANFD3工况 |
 | 算法证据 | `Test/GoldenVectors.json`、`Test/RxGoldenVectors.json` | 独立Golden Vector |
 
 `.cbf` 是当前CFG引用的CANoe编译产物，冻结版保留：
@@ -268,7 +270,7 @@ Panel只显示功能名称、状态和值，不保留说明性副标题、操作
 1. `01_CANoe_IL_SystemVariables.xml`：CANoe PDU-IL基础变量；
 2. `10_SRS3_E2E_Core_SystemVariables.xml`：E2E控制、状态、故障、测试变量及唯一PanelBridge。
 
-两份XML合计变量全名必须唯一；不得恢复旧Tx/Rx分离桥接、独立20/30模板或内嵌同名PanelBridge。当前CFG保存了五个PDU IG对象，并引用Tx、CAN1 Rx和CANFD3 Rx节点及对应CBF。CFG由CANoe维护，修改前必须关闭CANoe和Panel Designer。
+两份XML合计变量全名必须唯一；不得恢复旧Tx/Rx分离桥接、独立20/30模板或内嵌同名PanelBridge。CAN1 CFG保存五个PDU IG对象并加载 `VectorSimulationNode`、`E2E_RxMonitor_CAN1`；CANFD3 CFG只加载 `E2E_RxMonitor_CANFD3`，不得残留CAN1 PDU IG、`VectorSimulationNode`或CAN1桌面引用。两份CFG均由CANoe维护，修改前必须关闭CANoe和Panel Designer。
 
 ## 10. CAN1/CANFD3互斥工况
 
@@ -279,13 +281,14 @@ CANFD3固定逻辑参数：
 - 仲裁500 kbit/s
 - 数据2 Mbit/s
 - BRS开启
-- DBC：`Databases/CANFD3/EEA35_SDB325300_KO11_ADCU11_ZCUD_CANFD3_251215.dbc`
+- 配置数据库：`Databases/SDB325300_SRS3_AR-4.2.2_251215_UnFlattened.arxml` 中的 `ZCUD_CANFD3` Cluster
+- 交叉检查DBC：`Databases/CANFD3/EEA35_SDB325300_KO11_ADCU11_ZCUD_CANFD3_251215.dbc`，不与同源ARXML重复加载
 - 目标ID：0x032、0x03F
 
 `CANFD3` 是逻辑名称，不代表物理Channel 3。现场只能选择CAN1或CANFD3连接时，测试分两轮：
 
-- CAN1轮：物理通道设Classical CAN 500 kbit/s，采集CAN1证据；
-- CANFD3轮：停Measurement，将实际接线通道切换为ISO CAN FD 500k/2M/BRS，采集CANFD3证据。
+- CAN1轮：打开 `GEEA3.5_SRS3_CAN1_12.0.cfg`，物理通道设Classical CAN 500 kbit/s，采集CAN1证据；
+- CANFD3轮：停Measurement，打开 `GEEA3.5_SRS3_CANFD3_12.0.cfg`，将实际接线通道切换为ISO CAN FD 500k/2M/BRS，采集CANFD3证据。
 
 Panel网络下拉框只切换数据显示，不能代替硬件配置。两轮证据必须分别存档，不能合并成“同时通过”。
 
@@ -305,7 +308,7 @@ Panel网络下拉框只切换数据显示，不能代替硬件配置。两轮证
 6. `verify_e2e_rx.py`
 7. `verify_panel_send_gate.py`
 
-静态通过范围：5个Tx PDU、16个Tx应用元素、15个Rx Group、15条Tx Golden Vector、45条Rx Golden Vector、40种PDU×故障静态语义、零CAPL主动发送器和统一PanelBridge契约。
+静态通过范围：5个Tx PDU、16个Tx应用元素、15个Rx Group、15条Tx Golden Vector、75条Rx Golden Vector、75项故障/状态语义、双CFG角色隔离、零CAPL主动发送器和统一PanelBridge契约。
 
 ## 12. 冻结状态与完成定义
 
